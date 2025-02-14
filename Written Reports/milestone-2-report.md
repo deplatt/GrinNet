@@ -27,4 +27,4 @@ In developing the app, one of the key decisions we had to make was selecting the
 
 Ultimately, we decided to go with Flutter for our frontend development. One of the driving factors behind this choice was the simplicity of its syntax, which made it easier to learn on our tight schedule. The syntax is also pretty similar to Java, which we already know how to code in. 
 
-We will be installing the Flutter extension on vscode.
+We will be installing the Flutter extension on vscode and coding/debugging in it. Towards the end of the project we will also use our personal devices or VMs to make sure the app's frontend works correctly.
