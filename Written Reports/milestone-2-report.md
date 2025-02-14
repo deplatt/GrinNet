@@ -18,14 +18,14 @@ I took a look into what cloud services we could integrated to our app. From the 
 
 For Firebase: 
 Pros: 
--It is relatively to use, specially having into account that we are using flutter which already integrates firebase within. In addition, there is a lot of documentation and it has pre-built Software Development Kits.
--It supports several authentication methods such as email or Facebook.
--Provides analytics 
--It has a free tier for small apps which includes: Firestore: 50k reads, 20k writes, 1GB storage per month. Authentication: 10k monthly active users. Storage: 1GB download, 5GB upload per month.
+- It is relatively to use, specially having into account that we are using flutter which already integrates firebase within. In addition, there is a lot of documentation and it has pre-built Software Development Kits.
+- It supports several authentication methods such as email or Facebook.
+- Provides analytics 
+- It has a free tier for small apps which includes: Firestore: 50k reads, 20k writes, 1GB storage per month. Authentication: 10k monthly active users. Storage: 1GB download, 5GB upload per month.
 Cons: 
--has limited querying capabilities compared to SQL databases
--Can become expensive as our app grows 
--Tied with Google, they get to see the data
+- has limited querying capabilities compared to SQL databases
+- Can become expensive as our app grows 
+- Tied with Google, they get to see the data
 
 For AWS Amplify: 
 Pros: 
@@ -42,14 +42,14 @@ Cons:
 
 For SuperBase: 
 Pros: 
--It’s open source, and gives us control over the data
--Uses a powerful SQL database, offering advanced querying capabilities.
--Built-in real-time functionality.
--Overall cheaper option in the long run
+- It’s open source, and gives us control over the data
+- Uses a powerful SQL database, offering advanced querying capabilities.
+- Built-in real-time functionality.
+- Overall cheaper option in the long run
 Cons: 
--Its a newer platform, so not as much material to prepare 
--Fewer built-in features compared to Firebase and AWS
--Requires more technical expertise 
+- Its a newer platform, so not as much material to prepare 
+- Fewer built-in features compared to Firebase and AWS
+- Requires more technical expertise 
 
 
 So given time and money constraints and the listed analysis, we are going to use firebase.
