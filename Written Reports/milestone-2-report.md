@@ -18,7 +18,7 @@ I took a look into what cloud services we could integrated to our app. From the 
 
 For Firebase: 
 Pros: 
-- It is relatively to use, specially having into account that we are using flutter which already integrates firebase within. In addition, there is a lot of documentation and it has pre-built Software Development Kits.
+- It is relatively easy to use, specially having into account that we are using flutter which already integrates firebase within. In addition, there is a lot of documentation and it has pre-built Software Development Kits.
 - It supports several authentication methods such as email or Facebook.
 - Provides analytics 
 - It has a free tier for small apps which includes: Firestore: 50k reads, 20k writes, 1GB storage per month. Authentication: 10k monthly active users. Storage: 1GB download, 5GB upload per month.
@@ -63,8 +63,8 @@ Other alternatives include Amazon Cognito, WorkOS, and Parse. While any of these
 In the process of deciding on this, I looked at some online tutorials on integrating Firebase and asked some basic questions about it with a friend who has used it before in full-stack app development.
 
 ### Anthony
-In developing the app, one of the key decisions we had to make was selecting the frontend. We needed a framework that would not only deliver a user-friendly interface but also support cross-platform functionality. After looking at our options, we narrowed it down to two main contenders: React Native and Flutter.
+In developing the app, one of the key decisions we had to make was selecting the frontend. We needed a framework that would not only deliver a user-friendly interface but also support cross-platform functionality. After looking at our options, I narrowed it down to two main contenders: React Native and Flutter.
 
-Ultimately, we decided to go with Flutter for our frontend development. One of the driving factors behind this choice was the simplicity of its syntax, which made it easier to learn on our tight schedule. The syntax is also pretty similar to Java, which we already know how to code in. 
+Ultimately, I decided that we should go with Flutter for our frontend development. One of the driving factors behind this choice was the simplicity of its syntax, which made it easier to learn on our tight schedule. The syntax is also somewhat similar to Java, which we all already know how to code in. Second driving factor is that app updates with Flutter are significantly easier to do. With React Native, updates are a very involved process which we really don't have time to dedicate our time to.
 
 We will be installing the Flutter extension on vscode and coding/debugging in it. Towards the end of the project we will also use our personal devices or VMs to make sure the app's frontend works correctly.
