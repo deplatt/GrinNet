@@ -1,6 +1,7 @@
 # Milestone 2
 
 ## Tools
+- PostgreSQL Database
 - Firebase Authenticator
 
 ## Contributions
@@ -8,7 +9,10 @@
 
 
 ### Shibam
-Backend Databases: PostgreSQL vs MySQL
+Backend Databases: Options reviewed: PostgreSQL, MySQL, Firestore
+Firestore is a NoSQL database while PostgreSQL and MySQL are SQL databases. Firestore has really fast querying for data but it has no SQL capabilities so the data that can be used with Firestore can be semi-structured at most. 
+MySQL is free and open-source and supports many platforms. It however only stores structured data which can be not very helpful if we want to work with JSON. 
+PostgreSQL is object-oriented database with both SQL and NoSQL capabilities. It is also free and open-source and is compatible with various operating systems. Additionally there are many third party service providers and works with extra-large databases and can run complicated queries. This seems like the most helpful database that we should use since it works with a mix of structured data and unstructured data and is the most dynamic.
 
 
 ### Jeronimo
