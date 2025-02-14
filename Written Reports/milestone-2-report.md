@@ -4,6 +4,7 @@
 - PostgreSQL Database
 - Firebase Authenticator
 - Flutter
+- Dart
 
 ## Contributions
 ### Pranav
