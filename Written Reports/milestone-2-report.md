@@ -2,6 +2,7 @@
 
 ## Tools
 - Firebase Authenticator
+- Flutter
 
 ## Contributions
 ### Pranav
@@ -21,3 +22,8 @@ Other alternatives include Amazon Cognito, WorkOS, and Parse. While any of these
 In the process of deciding on this, I looked at some online tutorials on integrating Firebase and asked some basic questions about it with a friend who has used it before in full-stack app development.
 
 ### Anthony
+In developing the app, one of the key decisions we had to make was selecting the frontend. We needed a framework that would not only deliver a user-friendly interface but also support cross-platform functionality. After looking at our options, we narrowed it down to two main contenders: React Native and Flutter.
+
+Ultimately, we decided to go with Flutter for our frontend development. One of the driving factors behind this choice was the simplicity of its syntax, which made it easier to learn on our tight schedule. The syntax is also pretty similar to Java, which we already know how to code in. 
+
+We will be installing the Flutter extension on vscode.
