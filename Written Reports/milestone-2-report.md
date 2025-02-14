@@ -28,7 +28,7 @@ Pros:
 - Provides analytics 
 - It has a free tier for small apps which includes: Firestore: 50k reads, 20k writes, 1GB storage per month. Authentication: 10k monthly active users. Storage: 1GB download, 5GB upload per month.
 
-- Cons: 
+  Cons: 
 - has limited querying capabilities compared to SQL databases
 - Can become expensive as our app grows 
 - Tied with Google, they get to see the data
@@ -41,7 +41,8 @@ Pros:
 - Built-in support for GraphQL APIs. Which can be useful 
 - Tied with Amazon, they get to see the data
 - Includes a Free Tier: 1 million monthly active users for authentication, 5GB storage, 1GB data transfer per month.
-- Cons:
+
+  Cons:
 - Much more complex than firebase, which means its more time demanding 
 - Can become expensive if not managed properly.
 - Extra configuration and set up
@@ -52,7 +53,8 @@ Pros:
 - Uses a powerful SQL database, offering advanced querying capabilities.
 - Built-in real-time functionality.
 - Overall cheaper option in the long run
-- Cons: 
+
+  Cons: 
 - Its a newer platform, so not as much material to prepare 
 - Fewer built-in features compared to Firebase and AWS
 - Requires more technical expertise 
