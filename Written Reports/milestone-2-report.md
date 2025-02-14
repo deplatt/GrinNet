@@ -14,6 +14,46 @@ Backend Databases: PostgreSQL vs MySQL
 
 ### Jeronimo
 
+I took a look into what cloud services we could integrated to our app. From the research I conducted I found the following options: Firebase, AWS amplify and Superbase. I also found out other options such as Microsoft Azure and Google Cloud Platform, however this options are more costume based and in order to maximize their utility, we would have to build our own costume back end. And although we would have full control and customizability, it requires extensive knowledge to maintain as well as time to develop, two things we do not have right now.  So that’s why I focused my pros and cons analysis on this options: Firebase, AWS amplify and Superbase. 
+
+For Firebase: 
+Pros: 
+-It is relatively to use, specially having into account that we are using flutter which already integrates firebase within. In addition, there is a lot of documentation and it has pre-built Software Development Kits.
+-It supports several authentication methods such as email or Facebook.
+-Provides analytics 
+-It has a free tier for small apps which includes: Firestore: 50k reads, 20k writes, 1GB storage per month. Authentication: 10k monthly active users. Storage: 1GB download, 5GB upload per month.
+Cons: 
+-has limited querying capabilities compared to SQL databases
+-Can become expensive as our app grows 
+-Tied with Google, they get to see the data
+
+For AWS Amplify: 
+Pros: 
+- Flexible: Supports multiple AWS services (e.g., S3, Lambda, DynamoDB).
+- Highly scalable and reliable 
+- More control over the backend compared to firebase 
+- Built-in support for GraphQL APIs. Which can be useful 
+- Tied with Amazon, they get to see the data
+- Includes a Free Tier: 1 million monthly active users for authentication, 5GB storage, 1GB data transfer per month.
+Cons:
+- Much more complex than firebase, which means its more time demanding 
+- Can become expensive if not managed properly.
+- Extra configuration and set up
+
+For SuperBase: 
+Pros: 
+-It’s open source, and gives us control over the data
+-Uses a powerful SQL database, offering advanced querying capabilities.
+-Built-in real-time functionality.
+-Overall cheaper option in the long run
+Cons: 
+-Its a newer platform, so not as much material to prepare 
+-Fewer built-in features compared to Firebase and AWS
+-Requires more technical expertise 
+
+
+So given time and money constraints and the listed analysis, we are going to use firebase.
+
 
 ### Deven
 I looked at options for an email authenticator to use for our app. As part of the app, we require that users have a valid grinnell.edu email address, so verifying their email is a very important aspect of the project. After reviewing the options, I decided that we will use Firebase for email authentication.
