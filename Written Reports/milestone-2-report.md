@@ -30,10 +30,18 @@ Elasticsearch also has autocomplete features and a “fuzzy” search feature th
 
 
 ### Shibam
-Backend Databases: Options reviewed: PostgreSQL, MySQL, Firestore
+I looked at both databases and our backend language for this software. First I explored the following three options: **Node.js, Python, and Java**. Each has distinct strengths and trade-offs in terms of scalability, performance, and ease of use. 
+#### Node.js
+Node.js is a JavaScript runtime that is event-driven, making it highly efficient for handling multiple requests. It is good for handling real-time interactions with the user such as notifications and chat. It has a lot of libraries which reduces our development time while implementing certain features that already exist. Node.js is cross-platform so we can use any database and cloud service for storage with it. While it is efficient, it can struggle with CPU-intensive tasks. Since it is asynchronous, it's operations will be difficult to struct without proper management.
+#### Python
+Python has multiple backend frameworks like Django which is full-stack and Flask which is lightweight. While it is easy to learn and has readable code, it is slower than Node.js and not as optimized as Node.js for handlying many concurrent requests. There is also extensive documentation for both Django and Flask. However it is also more memory intensive and needs more optimization to work for a large-scale application.
+#### Java 
+Java is robust and highly scalable for backend. It has multi-threaded processing making it efficient for high traffic. It is also compatible with many different operation systems. However it is more complex and requires more setup compared to both Python and Node.js. It also requires more effort to implement simple features and consumes more memory when compared to Node.js.
+
+With these points in mind, I decided that we will work in **Node.js** for backend development since it seems like the best out of the ones explroed. Next I looked at backed databases: **PostgreSQL, MySQL, Firestore**.
 Firestore is a NoSQL database while PostgreSQL and MySQL are SQL databases. Firestore has really fast querying for data but it has no SQL capabilities so the data that can be used with Firestore can be semi-structured at most. 
 MySQL is free and open-source and supports many platforms. It however only stores structured data which can be not very helpful if we want to work with JSON. 
-PostgreSQL is object-oriented database with both SQL and NoSQL capabilities. It is also free and open-source and is compatible with various operating systems. Additionally there are many third party service providers and works with extra-large databases and can run complicated queries. This seems like the most helpful database that we should use since it works with a mix of structured data and unstructured data and is the most dynamic.
+PostgreSQL is object-oriented database with both SQL and NoSQL capabilities. It is also free and open-source and is compatible with various operating systems. Additionally there are many third party service providers and works with extra-large databases and can run complicated queries. This seems like the most helpful database that we should use since it works with a mix of structured data and unstructured data and is the most dynamic. So I have decided that we will use **PostgreSQL**.
 
 
 ### Jeronimo
@@ -92,6 +100,6 @@ In the process of deciding on this, I looked at some online tutorials on integra
 ### Anthony
 In developing the app, one of the key decisions we had to make was selecting the frontend. We needed a framework that would not only deliver a user-friendly interface but also support cross-platform functionality. After looking at our options, I narrowed it down to two main contenders: React Native and Flutter.
 
-Ultimately, I decided that we should go with Flutter for our frontend development. One of the driving factors behind this choice was the simplicity of its syntax, which made it easier to learn on our tight schedule. The syntax is also somewhat similar to Java, which we all already know how to code in. Second driving factor is that app updates with Flutter are significantly easier to do. With React Native, updates are a very involved process which we really don't have time to dedicate.
+Ultimately, I decided that we should go with Flutter for our frontend development. One of the driving factors behind this choice was the simplicity of its syntax, which made it easier to learn on our tight schedule. The syntax is also somewhat similar to Java, which we all already know how to code in. Second driving factor is that app updates with Flutter are significantly easier to do. With React Native, updates are a very involved process which we really don't have time to dedicate our time to.
 
 We will be installing the Flutter extension on vscode and coding/debugging in it. Towards the end of the project we will also use our personal devices or VMs to make sure the app's frontend works correctly.
