@@ -7,6 +7,7 @@
 - Dart
 - Firebase Cloud Messaging (FCM)
 - Elasticsearch
+- Node.js
 
 ## Contributions
 ### Pranav
