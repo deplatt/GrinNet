@@ -5,9 +5,27 @@
 - Firebase Authenticator
 - Flutter
 - Dart
+- Firebase Cloud Messaging (FCM)
+- Elasticsearch
 
 ## Contributions
 ### Pranav
+
+**APIs and Libraries :** 
+
+**Firebase Cloud Messaging (FCM)** - cloud-based messaging service that allows us to send notifications to users across IOS and Android. As per my research and our project features, we plan to incorporate FCM for the following purposes : 
+- Push notifications for users for new posts in their categories of interest.
+- Push notifications for users about likes on their post(s).
+
+FCM is ideal for our project as compared to its alternative - Amazon Simple Notification Service (SNS) - as FCM is free, while SNS is pay-per-use. Even though the cost of SNS is $0.50 per million notifications (which would not affect our project at its current stage), we would like to stick with FCM for scalability purposes. FCM is also known for its ease of use and its integration with the rest of the Firebase Ecosystem. FCM does not support platforms such as SMS and Email (while SNS does), but this is not pertinent to our project as it is a mobile-application only. 
+
+**Elasticsearch** - search and analytics engine. As per my research and our project features, we plan to incorporate Elasticsearch for the following purposes :
+- Searching for other users on the app
+- Searching for posts by keywords
+(Potentially) Advanced filtering for posts within a specific date range or category 
+(Potentially) Use Elasticsearch’s data aggregations to gain insights into the usage of our app
+Elasticsearch also has autocomplete features and a “fuzzy” search feature that would help display despite misspellings in the search. Elasticsearch is ideal for our project as compared to an alternative option - Algolia - as Elasticsearch is free if self-hosted, while Algolia is paid. We plan to use Firebase for hosting purposes. One downside of using Elasticsearch is that it requires manual scaling, so this is something we should keep in mind during the development process to ensure efficient scaling in the future, if need be. It is also less easy to setup and maintain than its alternative, but once again, it is ideal for our project at its current stage as it is a free service.
+
 
 
 ### Shibam
