@@ -8,11 +8,16 @@ GrinNet will segment posts into broad categories such as gaming, sports, educati
 ## Repository Structure:
 ```
 GrinNet/
-│   README.md                   # Top-Level ReadMe file
-├── Written Reports/            # Folder containing our Written Reports
-    ├── milestone-2-report.md   # Report for Milestone 2
+│   README.md                       # Top-Level ReadMe file
+├── Written Reports/                # Folder containing our Written Reports
+    ├── milestone-2-report.md       # Report for Milestone 2
+    ├── Sprint 1                    # Folder containing write-ups for sprint 1
+        ├── s1-planning-report.md   # Planning report for sprint 1
 
 ```
+
+## Living Document Link
+https://docs.google.com/document/d/1CTr36a_xVtXY6tOySVvDR9Y9vrs7qS_BvlUNhrXX-tU/edit?usp=sharing
 
 ## Issue Tracking Tool Link
 https://trello.com/b/oLoye0oC/grinnet
