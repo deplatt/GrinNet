@@ -25,8 +25,9 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
 - As a group: 
     - Updating requirements in the living document
     - Discussed sprint planning report.
+    - CIDER lab as a group.
 - Pranav: 
-    - 1 Use Case
+    - 1 Use Case.
 - Shibam: 
     - 1 Use Case. 
     - Work on paper prototype with Anthony and Jeronimo.
@@ -35,11 +36,13 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
     - 1 Use Case. 
     - Work on paper prototype with Shibam and Anthony. 
     - Work on Trello issues.
+    - Note Taker for Cider Lab with Deven.
 - Deven:
     - 1 Use Case.
     - Review Storyboard.
     - Work on Trello issues.
     - Wrote Sprint Planning report. 
+    - Note Taker for Cider Lab with Jeronimo.
 - Anthony: 
     - 1 Use Case. 
     - Work on paper prototype with Shibam and Jeronimo.
