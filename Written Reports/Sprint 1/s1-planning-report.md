@@ -28,15 +28,18 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
     - CIDER lab as a group.
 - Pranav: 
     - 1 Use Case.
+    - Reach out to stakeholder.
 - Shibam: 
     - 1 Use Case. 
     - Work on paper prototype with Anthony and Jeronimo.
     - Work on the storyboard.
+    - Reach out to naive stakeholder.
 - Jeronimo: 
     - 1 Use Case. 
     - Work on paper prototype with Shibam and Anthony. 
     - Work on Trello issues.
     - Note Taker for Cider Lab with Deven.
+    - Reach out to a naive stakeholder.
 - Deven:
     - 1 Use Case.
     - Review Storyboard.
