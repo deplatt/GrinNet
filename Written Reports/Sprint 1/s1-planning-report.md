@@ -22,8 +22,9 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
 - See issue tracker: https://trello.com/b/oLoye0oC/grinnet
 
 ## Assignment
-- Pranav: 
-- Shibam: 
-- Jeronimo: 
-- Deven: 
-- Anthony: 
+- As a group: Updatings requirements in the living document
+- Pranav: 1 Use Cae
+- Shibam: 1 Use Case
+- Jeronimo: 1 Use Case
+- Deven: 1 Use Case
+- Anthony: 1 Use Case
