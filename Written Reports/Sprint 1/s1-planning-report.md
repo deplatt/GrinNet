@@ -27,7 +27,7 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
     - Discussed sprint planning report.
     - Meet to write sprint review and retrospective at the end of the sprint
     - Complete the CIDER Lab in class
-    - Sprint Journal.
+    - Complete sprint journal as we go
 - Pranav: 
     - 1 Use Case.
     - Reach out to stakeholder.
@@ -45,11 +45,6 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
     - Work on Trello issues.
     - Note Taker for Cider Lab with Deven.
     - Reach out to a naive stakeholder.
-    - Complete individual pulse check at the end of the sprint
-- Jeronimo: 
-    - 1 Use Case. 
-    - Work on paper prototype with Shibam and Anthony. 
-    - Write Trello issues.
     - Complete individual pulse check at the end of the sprint
 - Deven:
     - 1 Use Case.
