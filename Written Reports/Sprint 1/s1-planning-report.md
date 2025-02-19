@@ -23,8 +23,19 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
 
 ## Assignment
 - As a group: Updating requirements in the living document
-- Pranav: 1 Use Case
-- Shibam: 1 Use Case
-- Jeronimo: 1 Use Case
-- Deven: 1 Use Case
-- Anthony: 1 Use Case
+- Pranav: 
+    - 1 Use Case
+- Shibam: 
+    - 1 Use Case. 
+    - Work on paper prototype with Anthony and Jeronimo.
+    - Work on the storyboard.
+- Jeronimo: 
+    - 1 Use Case. 
+    - Work on paper prototype with Shibam and Anthony. 
+    - Work Trello issues.
+- Deven:
+    - 1 Use Case.
+    - Review Storyboard.
+- Anthony: 
+    - 1 Use Case. 
+    - Work on paper prototype with Shibam and Jeronimo.
