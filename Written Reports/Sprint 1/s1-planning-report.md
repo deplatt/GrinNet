@@ -22,7 +22,9 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
 - See issue tracker: https://trello.com/b/oLoye0oC/grinnet
 
 ## Assignment
-- As a group: Updating requirements in the living document
+- As a group: 
+    - Updating requirements in the living document
+    - Discussed sprint planning report.
 - Pranav: 
     - 1 Use Case
 - Shibam: 
@@ -32,10 +34,13 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
 - Jeronimo: 
     - 1 Use Case. 
     - Work on paper prototype with Shibam and Anthony. 
-    - Work Trello issues.
+    - Work on Trello issues.
 - Deven:
     - 1 Use Case.
     - Review Storyboard.
+    - Work on Trello issues.
+    - Wrote Sprint Planning report. 
 - Anthony: 
     - 1 Use Case. 
     - Work on paper prototype with Shibam and Jeronimo.
+    - Work on Trello issues.
