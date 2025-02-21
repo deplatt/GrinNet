@@ -13,6 +13,7 @@ GrinNet/
     ├── milestone-2-report.md       # Report for Milestone 2
     ├── Sprint 1/                   # Folder containing write-ups for sprint 1
         ├── s1-planning-report.md   # Planning report for sprint 1
+        ├── s1-journal.md           # Journal documenting progress for sprint 1
 
 ```
 
