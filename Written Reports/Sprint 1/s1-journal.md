@@ -1,12 +1,12 @@
 
-Part 1: (Revise requirements)
+### Part 1: (Revise requirements)
 
 Add a section to your Sprint Journal with the following:
 - Summarize the feedback from your reviews.
 - Describe the changes, if any, that you are making to your requirements, user personas, user stories, use cases, and prototype based on these reviews.
 - Describe your rationale in deciding what changes to make (or not make) based on the reviews.
 
-Part 3: (Paper Prototype)
+### Part 3: (Paper Prototype)
 
 Add a section to your Sprint Journal with:
 - One or more photos of your prototype
@@ -14,7 +14,7 @@ Add a section to your Sprint Journal with:
 - Enumerate three use cases that the prototype models
 
 
-Part 4: (Test with classmate)
+### Part 4: (Test with classmate)
 
 Add a section to your Sprint Journal describing the test session.
 - Who you tested it with.
@@ -31,7 +31,7 @@ Add a section to your Sprint Journal describing the test session.
     - other things you added to your prototype, not necessarily based on the testing session
     - Include one or more photos of your revised prototype where the difference between the original and revised version can be plainly seen
 
-Part 5: (Test with shareholders)
+### Part 5: (Test with shareholders)
 
 Add a section to your Sprint Journal for each test user describing:
 - Who you tested it with.
@@ -56,14 +56,13 @@ Add a section to your Sprint Journal for each set of revisions describing:
 - Take a photo of the relevant parts of your prototype before and after the changes
     - Include 5 PAIRS of before/after photos (10 photos in total), clearly labeled
 
-Part 6: (Storyboard)
+### Part 6: (Storyboard)
 
 Add the storyboard
 
-Part 7: (CIDER Lab)
+### Part 7: (CIDER Lab)
 
 Add a section to your Sprint Journal describing:
-
 - Critique
     - What assumptions about users were identified during the critique stage?
 - Imagine
