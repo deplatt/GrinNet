@@ -33,6 +33,28 @@ Add a section to your Sprint Journal describing the test session.
 
 ### Part 5: (Test with shareholders)
 
+## Shareholder 1: Becca, Regular User
+
+We had Becca test our prototyope at 4:30 PM, Sunday Februrary 23. She was a naive user, and we chose her because [reason].
+
+For this test, Anthony played the computer, Shibam was the facilitor, and Deven and Pranav were note-takers. This test activated user stories that relate to posting, searching, and viewing posts.
+
+The test session started off a little rocky. Anthony gave her the first screen (login), and Shibam told her to go ahead. Becca was very confused because she didn't understand that we were doing a paper prototype for our app, so Shibam explained a little bit of context. Becca clicked login, and scrolled through the posts and tabs. She clicked on one post, and Anthony gave her another screen showing the details of that post. She then clicked back to homepage and tried to look at another post, but we only had one screen detailing a post. She refreshed, which did not do anything, and then accidentally clicked on ther first post again. She was unable to scroll on this page because it did not have enough information to warrant a scroll bar. She then clicks on her own profile at the bottom, and taps create post. Anthony brings up the create post screen. She adds a picture, clicks review, and is brought to the review post screen. She clicks post and is brought back to homescreen. She tries to find her post but doesn't see it. She messes with the tags and then clicks the search bar, and Anthony brings up the search UI. She searches SASO and then goes back to the homescreen. After the test, we asked Becca several questions about the experience.
+
+(Answers paraphrased)
+Q: How intuitive was the interface to use?
+A: Fairly intuitive. Like button and posts make sense, but the tags thing doesnt really make sense.
+
+Q: Did you like the layout of the create post page/how would you improve it?
+A: I liked it. I wish that I could draft posts, and save posts I have liked. I want one page where I can see all of my liked posts. I also think that the rules for posts doesn't need to be on the screen every time I create a post.
+
+Q: What kinds of actions would you like to perform on a user profile?
+A: I would expect there to be options like liking the page, liking the user, and commenting.
+
+## Shareholder 2: [NAME], Regular User
+
+## Shareholder 3: [NAME], Regular User
+
 Add a section to your Sprint Journal for each test user describing:
 - Who you tested it with.
     - Name, occupation, other relevant information about the test user
