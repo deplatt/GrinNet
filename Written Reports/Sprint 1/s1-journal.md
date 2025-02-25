@@ -35,13 +35,13 @@ Add a section to your Sprint Journal describing the test session.
 
 #### Shareholder 1: Becca, Regular User
 
-We had Becca test our prototyope at 4:30 PM, Sunday Februrary 23. She was a naive user, and we chose her because [reason].
+We had Becca test our prototyope at 4:30 PM, Sunday Februrary 23. She was a naive user, and we chose her because [REASON].
 
 For this test, Anthony played the computer, Shibam was the facilitor, and Deven and Pranav were note-takers. This test activated user stories that relate to posting, searching, and viewing posts.
 
-The test session started off a little rocky. Anthony gave her the first screen (login), and Shibam told her to go ahead. Becca was very confused because she didn't understand that we were doing a paper prototype for our app, so Shibam explained a little bit of context. Becca clicked login, and scrolled through the posts and tabs. She clicked on one post, and Anthony gave her another screen showing the details of that post. She then clicked back to homepage and tried to look at another post, but we only had one screen detailing a post. She refreshed, which did not do anything, and then accidentally clicked on ther first post again. She was unable to scroll on this page because it did not have enough information to warrant a scroll bar. She then clicks on her own profile at the bottom, and taps create post. Anthony brings up the create post screen. She adds a picture, clicks review, and is brought to the review post screen. She clicks post and is brought back to homescreen. She tries to find her post but doesn't see it. She messes with the tags and then clicks the search bar, and Anthony brings up the search UI. She searches SASO and then goes back to the homescreen. After the test, we asked Becca several questions about the experience.
+The test session started off a little rocky. Anthony gave her the first screen (login), and Shibam told her to go ahead. Becca was very confused because she didn't understand that we were doing a paper prototype for an app, so Shibam explained a little bit of context. Becca clicked login, and scrolled through the posts and tabs. She clicked on one post, and Anthony gave her another screen showing the details of that post. She then clicked back to homepage and tried to look at another post, but we only had one screen detailing a post. She refreshed, which did not do anything, and then accidentally clicked on ther first post again. She was unable to scroll on this page because it did not have enough information to warrant a scroll bar. She then clicks on her own profile at the bottom, and taps create post. Anthony brings up the create post screen. She adds a picture, clicks review, and is brought to the review post screen. She clicks post and is brought back to homescreen. She tries to find her post but doesn't see it. She messes with the tags and then clicks the search bar, and Anthony brings up the search UI. She searches SASO and then goes back to the homescreen. After the test, we asked Becca several questions about the experience.
 
-(Answers paraphrased)
+(Answers paraphrased) \
 Q: How intuitive was the interface to use? \
 A: Fairly intuitive. Like button and posts make sense, but the tags thing doesnt really make sense.
 
@@ -51,9 +51,25 @@ A: I liked it. I wish that I could draft posts, and save posts I have liked. I w
 Q: What kinds of actions would you like to perform on a user profile? \
 A: I would expect there to be options like liking the page, liking the user, and commenting.
 
-#### Shareholder 2: [NAME], Regular User
+#### Shareholder 2: John Robinson, Regular User
 
-#### Shareholder 3: [NAME], Regular User
+We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because [REASON].
+
+For this test, Anthony played the computer, Jeronimo was the facilitator, and Deven was the note-taker. This test also activated uses stories that relate to posting, searching, and viewing posts.
+
+This time, Jeronimo gave a very small amount of information about what we wanted our tester to do. We told John to be as transparent as possible, and to think out loud as he explored the app. John started on the login page, and tried to create an account. Anthony told him that for this, we would assume that he already had an account created, so John clicked login instead. Anthony brought up the homescreen, and John immediately remarked that he was reminded of Reddit. He clicked on a post, and Anthony brought him to the page for that post. At this point, John started to figure out what the app was, but was confused about the "N" placeholder for the number of likes. He went back to the homepage and pressed refresh, but nothing happened. He goes to the profile page, and says that he knew that would be what that button did. Anthony reccomended to hit the cog wheel for settings, and John liked the save and revert buttons at the bottom of the settings page. Then John clicked create post, and was brought to the post creation screen. After creating his post, he was brought back to the homescreen, and didn't really know what to do. We gave him some reccomendations for where to click, and he messed around with the tags. He specifically wondered how pressing multiple tags at once would work. Finally, he used the search bar, succesfullly searched for SASO, and then searched for "water bottle", but was met with no results. After the live test, Jeronimo read him a short description of the project so that he has all of the context, and then asked him some follow-up questions.
+
+(Answers paraphrased) \
+Q: Which buttons did what you expected them to do and which did not? \
+A: The interface was pretty intuitive and it reminded me of apps like reddit and instagram. Most buttons were intuitive except for the refresh button, and the + at the bottom was not 100 % intuitive. I liked the post creation interface, and like that you can upload files, but it reminded me of navigating on a PC environment rather than on a phone. I liked the organization of posts, but I was wondering how the tags are sorted. I think that editing your own profile, is easier on instagram, but I likes that you can revert changes.
+
+Q: Do you think you would use this app personally? \
+A: I would use it, but only if it didn't feel demanding like email does. I would not come for personal posts, but rather to see events that are less known to the public. Even for a party scene it could be really helpful. 
+
+Q: Do you think shitposting should be allowed on the app, or should it be restricted to posts about events? \
+A: I think that not allowing shitpost would be best. Social media can be overwhelming, and trying not to overload the brain would be appreciated.
+
+#### Shareholder 3: [NAME], Regular User/Administrator
 
 Add a section to your Sprint Journal for each test user describing:
 - Who you tested it with.
