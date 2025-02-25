@@ -35,7 +35,7 @@ Add a section to your Sprint Journal describing the test session.
 
 #### Shareholder 1: Becca, Regular User
 
-We had Becca test our prototyope at 4:30 PM, Sunday Februrary 23. She was a naive user, and we chose her because [REASON].
+We had Becca test our prototyope at 4:30 PM, Sunday Februrary 23. She was a naive user, and we chose her because she is not a Computer Science student and had no prior knowledge of our application / final project. She was also available at the most convenient times for our team (out of 2-3 other options for naive stakeholders).
 
 For this test, Anthony played the computer, Shibam was the facilitor, and Deven and Pranav were note-takers. This test activated user stories that relate to posting, searching, and viewing posts.
 
