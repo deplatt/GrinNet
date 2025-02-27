@@ -1,35 +1,30 @@
 
-### Part 1: (Revise requirements)
+## Part 1: (Revise requirements)
 
-Add a section to your Sprint Journal with the following:
+<!-- Add a section to your Sprint Journal with the following:
 - Summarize the feedback from your reviews.
 - Describe the changes, if any, that you are making to your requirements, user personas, user stories, use cases, and prototype based on these reviews.
-- Describe your rationale in deciding what changes to make (or not make) based on the reviews.
+- Describe your rationale in deciding what changes to make (or not make) based on the reviews. -->
 
-### Part 3: (Paper Prototype)
+## Part 3: (Paper Prototype)
 
-Add a section to your Sprint Journal with:
+<!-- Add a section to your Sprint Journal with:
 - One or more photos of your prototype
 - You might also want to include photos of your team working on the prototype! (optional)
-- Enumerate three use cases that the prototype models
+- Enumerate three use cases that the prototype models -->
 
+## Part 4: (Test with classmate)
 
-### Part 4: (Test with classmate)
-
-We tested our prototype with Muhammad, who played a regular user. 
-
-For this test, Shibam played the computer, Jeronimo and Pranav were the facilitors, and Deven was the note-taker. This test activated the following user stories:
+We tested our prototype with Muhammad, who played a regular user. For this test, Shibam played the computer, Jeronimo and Pranav were the facilitors, and Deven was the note-taker. This test activated the following user stories:
 [still need to add user stories]
 
 Muhammad already had some background knowledge of our app from the project proposals and Q&A ealier this semester, so we just started him off at the login page. He logged in and was brought to the homepage. He scrolled around, and started talking about what he thought each element on his screen was. He quickly figured out that we was looking at posts, and that the settings on the top were the categories. He used the search bar and searched for SASO. Once brought to SASO's user page, Muhammad scrolled through the page and clicked on a post. He observed that he knew what home button would do, but didn't know what the other two buttons on the bottom would do. Still on the SASO page, he clicked the plus to create a post, and was briefly confused about if he was making a post from the SASO account. He created his post and Shibam took him back home. After he clicked refresh, he saw his new post and tapped on it to confirm the details. Then he clicken on the bottom right to go to his own profile. He tied to change his profile picture by clicking on it, but when that didn't work he clicked the settings button. He made some changes to his profile, but then decided to revert them. Finally, Muhammad navigated back to the homescreen and experiemented with selecting tags.
 
 Muhammad did very well at navigating the interface without help. Overall, he liked the interface, but got a little confused by the tags. He also mentioned that the Create Post page was a little cluttered. Since he was a classmate who heard the instructions for how to run a test session, he did a great job of talking through his thought process without even being asked. For future tests with shareholders who don't have as much context, we plan to be very explicit when telling the user to think out loud and explain every action they take.
 
-Changes to Prototype:
+### Changes to Prototype
 
-
-
-Add a section to your Sprint Journal describing the test session.
+<!-- Add a section to your Sprint Journal describing the test session.
 - Who you tested it with.
 - A narrative describing the test.
     - What roles did each team member play during the test?
@@ -42,11 +37,11 @@ Add a section to your Sprint Journal describing the test session.
     - how your prototype changed based on user feedback
     - other changes your team decided to make from your own thoughts and ideas from the testing session
     - other things you added to your prototype, not necessarily based on the testing session
-    - Include one or more photos of your revised prototype where the difference between the original and revised version can be plainly seen
+    - Include one or more photos of your revised prototype where the difference between the original and revised version can be plainly seen -->
 
-### Part 5: (Test with shareholders)
+## Part 5: (Test with shareholders)
 
-#### Shareholder 1: Becca, Regular User
+### Shareholder 1: Becca, Regular User
 
 We had Becca test our prototyope at 4:30 PM, Sunday Februrary 23. She was a naive user, and we chose her because she is not a Computer Science student and had no prior knowledge of our application / final project. She was also available at the most convenient times for our team (out of 2-3 other options for naive stakeholders).
 
@@ -64,7 +59,7 @@ A: I liked it. I wish that I could draft posts, and save posts I have liked. I w
 Q: What kinds of actions would you like to perform on a user profile? \
 A: I would expect there to be options like liking the page, liking the user, and commenting.
 
-#### Shareholder 2: John Robinson, Regular User
+### Shareholder 2: John Robinson, Regular User
 
 We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because [REASON].
 
@@ -82,9 +77,16 @@ A: I would use it, but only if it didn't feel demanding like email does. I would
 Q: Do you think shitposting should be allowed on the app, or should it be restricted to posts about events? \
 A: I think that not allowing shitpost would be best. Social media can be overwhelming, and trying not to overload the brain would be appreciated.
 
-#### Shareholder 3: [NAME], Regular User/Administrator
 
-Add a section to your Sprint Journal for each test user describing:
+### Revision:
+
+
+### Shareholder 3: [NAME], Regular User/Administrator
+
+
+### Revision:
+
+<!-- Add a section to your Sprint Journal for each test user describing:
 - Who you tested it with.
     - Name, occupation, other relevant information about the test user
     - Why you chose that user to test your product?
@@ -105,19 +107,19 @@ Add a section to your Sprint Journal for each set of revisions describing:
 - Summarize the changes to your requirements after each test and describe why you made each change
 - Summarize the changes to your prototype after each test and describe why you made each change
 - Take a photo of the relevant parts of your prototype before and after the changes
-    - Include 5 PAIRS of before/after photos (10 photos in total), clearly labeled
+    - Include 5 PAIRS of before/after photos (10 photos in total), clearly labeled -->
 
-### Part 6: (Storyboard)
+## Part 6: (Storyboard)
 
-Add the storyboard
+<!-- Add the storyboard -->
 
-### Part 7: (CIDER Lab)
+## Part 7: (CIDER Lab)
 
-Add a section to your Sprint Journal describing:
+<!-- Add a section to your Sprint Journal describing:
 - Critique
     - What assumptions about users were identified during the critique stage?
 - Imagine
     - Which assumption(s) did you choose to expand on for this phase?
     - How might that assumption exclude users?
 - Design
-    - What are your ideas for redesigning your product based on critique?
+    - What are your ideas for redesigning your product based on critique? -->
