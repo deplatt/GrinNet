@@ -16,6 +16,19 @@ Add a section to your Sprint Journal with:
 
 ### Part 4: (Test with classmate)
 
+We tested our prototype with Muhammad, who played a regular user. 
+
+For this test, Shibam played the computer, Jeronimo and Pranav were the facilitors, and Deven was the note-taker. This test activated the following user stories:
+[still need to add user stories]
+
+Muhammad already had some background knowledge of our app from the project proposals and Q&A ealier this semester, so we just started him off at the login page. He logged in and was brought to the homepage. He scrolled around, and started talking about what he thought each element on his screen was. He quickly figured out that we was looking at posts, and that the settings on the top were the categories. He used the search bar and searched for SASO. Once brought to SASO's user page, Muhammad scrolled through the page and clicked on a post. He observed that he knew what home button would do, but didn't know what the other two buttons on the bottom would do. Still on the SASO page, he clicked the plus to create a post, and was briefly confused about if he was making a post from the SASO account. He created his post and Shibam took him back home. After he clicked refresh, he saw his new post and tapped on it to confirm the details. Then he clicken on the bottom right to go to his own profile. He tied to change his profile picture by clicking on it, but when that didn't work he clicked the settings button. He made some changes to his profile, but then decided to revert them. Finally, Muhammad navigated back to the homescreen and experiemented with selecting tags.
+
+Muhammad did very well at navigating the interface without help. Overall, he liked the interface, but got a little confused by the tags. He also mentioned that the Create Post page was a little cluttered. Since he was a classmate who heard the instructions for how to run a test session, he did a great job of talking through his thought process without even being asked. For future tests with shareholders who don't have as much context, we plan to be very explicit when telling the user to think out loud and explain every action they take.
+
+Changes to Prototype:
+
+
+
 Add a section to your Sprint Journal describing the test session.
 - Who you tested it with.
 - A narrative describing the test.
