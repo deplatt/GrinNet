@@ -111,7 +111,7 @@ Add a section to your Sprint Journal for each set of revisions describing:
 
 ## Part 6: (Storyboard)
 
-<!-- Add the storyboard -->
+![Image](/Users/shibammukhopadhyay/Downloads/storyboard_csc324_final.png)
 
 ## Part 7: (CIDER Lab)
 
