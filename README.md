@@ -9,9 +9,10 @@ GrinNet will segment posts into broad categories such as gaming, sports, educati
 ```
 GrinNet/
 ├── README.md                       # Top-Level ReadMe file
-├── Written Reports/                # Folder containing our Written Reports
+├── Written_Reports/                # Folder containing our Written Reports
     ├── milestone-2-report.md       # Report for Milestone 2
-    ├── Sprint 1/                   # Folder containing write-ups for sprint 1
+    ├── Sprint_1/                   # Folder containing write-ups for sprint 1
+        ├── Sprint_1_Images/        # Folder containing Images for sprint 1
         ├── s1-planning-report.md   # Planning report for sprint 1
         ├── s1-journal.md           # Journal documenting progress for sprint 1
 

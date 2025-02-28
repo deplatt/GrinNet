@@ -110,7 +110,7 @@ Add a section to your Sprint Journal for each set of revisions describing:
     - Include 5 PAIRS of before/after photos (10 photos in total), clearly labeled -->
 
 ## Part 6: (Storyboard)
-![Image](Images/storyboard_csc324_final.png)
+![Image](/Sprint_1_Images/storyboard_csc324_final.png)
 
 ## Part 7: (CIDER Lab)
 
