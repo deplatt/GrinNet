@@ -81,28 +81,39 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 ### Revision:
 
 
-### Shareholder 3: [NAME], Regular User/Administrator
+### Shareholder 3:Jessica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
+
+This time, Jeronimo started by giving Jessica the prototype and instructing her to use it as if it were a phone. Since Jessica was already familiar with the project, she understood the purpose of the app and had a general idea of its features. We were aware of some of her general thoughts because we had previously discussed the app with her. Therefore, we asked her to be highly critical in her feedback.
+
+We began by giving her the regular user prototype and asked her to explore all the functionalities she could think of within the app. Shibam told her to assume she had already used the app, so there was no need for her to create an account. The first thing Jessica did was scroll through the home page. She then clicked on the tags, explored them, and commented on the order of both the tags and the posts.
+
+Next, she proceeded to create a post. She mentioned that she liked the inclusion of post guidelines but suggested that they could be displayed in a more space-efficient way, perhaps as a pop-up instead of a text box. She also pointed out that, since this was a mobile app, it would make more sense to have the photo gallery embedded in the post creation process rather than requiring users to upload a file manually.
+
+Afterward, she used the search bar and then noted that she believed she had explored all possible functionalities in the prototype. At this point, Shibam asked her to try to "break" the app, and she was able to trigger the lost connection flow.
+
+Jeronimo then introduced the initial administrator prototype, which was still in an early development phase. After pretending she already had an admin account, she proceeded to log in. She encountered the home admin page, which displayed three main functions available to the user: Rules, Issues, and Regular View. However, Shibam informed her that only the "Issues" option was functional at this stage.
+
+Jessica selected the "Issues" option and was able to see a single account that had received multiple reports. She questioned why only one account was displayed and inquired about what would happen if multiple accounts appeared on the issues page—specifically, how admins would be able to select and search for different cases.
+
+She then reviewed the three available actions: Warn, Ban, and Dismiss. She commented that these three actions seemed appropriate and sufficient.
+
+That concluded the stakeholder meeting.
+
+(Answers paraphrased) 
+Q: Did you like the layout of the create post page/how would you improve it?
+A:  Yes this layout. User would like to be able to see the picture instead of the name of the file (feels to PCish for a mobile app)  
+Q: What kind of actions would you want to do on other user accounts?
+A: Want a report, a follow button visible on the page without any further clicks, a block button
+Q: Do you have any other suggestions for changes to the interface?
+A: Want a tab for only the profiles you follow. Doesn’t want to have to scroll the whole feed to look for posts of accounts they are interested in. Want to be able to refresh the page by scrolling up at the top. Home button can just stay home button and even refresh the feed. 
+I Want to be able to see their profile picture on the page and have a “logout” button in the settings section. Users would like to see the delete post option on each post instead of the profile settings.  
+
+
 
 
 ### Revision:
 
-<!-- Add a section to your Sprint Journal for each test user describing:
-- Who you tested it with.
-    - Name, occupation, other relevant information about the test user
-    - Why you chose that user to test your product?
-    - Date and time of the test session
-    - Label the test user with their user role.
-    - Label the test user with any of the following that apply:
-        - naive user
-        - real stakeholder
-- A narrative describing the test.
-    - What roles did each team member play during the test?
-    - Which user stories were activated?
-    - Additional notes describing the session, e.g. observations of the test user's behavior.
-- The feedback you got from the test user.
-    - 3 major questions that you asked the test user for feedback on, and the test user's responses.
-    - Spontaneous feedback from the test user, and questions you came up with on the spot
-
+<!-- 
 Add a section to your Sprint Journal for each set of revisions describing:
 - Summarize the changes to your requirements after each test and describe why you made each change
 - Summarize the changes to your prototype after each test and describe why you made each change
