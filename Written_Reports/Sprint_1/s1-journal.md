@@ -115,6 +115,8 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 
 ### Shareholder 3: Jessica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
 
+We had Jessica test our prototype at 7:15 PM, Thursday February 27. She was a non-naive stakeholder who we chose both because she matched our availability as well as she was someone who had already heard about our idea. 
+
 This time, Jeronimo started by giving Jessica the prototype and instructing her to use it as if it were a phone. Since Jessica was already familiar with the project, she understood the purpose of the app and had a general idea of its features. We were aware of some of her general thoughts because we had previously discussed the app with her. Therefore, we asked her to be highly critical in her feedback.
 
 We began by giving her the regular user prototype and asked her to explore all the functionalities she could think of within the app. Shibam told her to assume she had already used the app, so there was no need for her to create an account. The first thing Jessica did was scroll through the home page. She then clicked on the tags, explored them, and commented on the order of both the tags and the posts.
