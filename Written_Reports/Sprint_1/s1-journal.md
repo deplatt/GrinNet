@@ -104,7 +104,7 @@ Q: What kinds of actions would you like to perform on a user profile? \
 A: I would expect there to be options like liking the page, liking the user, and commenting.
 
 ### Revision (1):
-In this version, based on Becca's feedback we decided on creating a separate rules pop-up for the create post page, instead of having the rules show up everytime a user creates a post. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page. We also added an additional sort by setting for liked posts, so users can switch to their own liked posts as needed.
+In this revision, based on Becca's feedback we decided on creating a separate rules pop-up for the create post page, instead of having the rules show up everytime a user creates a post. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page. We also added an additional sort by setting for liked posts, so users can switch to their own liked posts as needed.
 In in this revision, we also added an forgot password action to our login page.
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
@@ -120,10 +120,10 @@ In in this revision, we also added an forgot password action to our login page.
     *Image 5.1.4: New Sortby*
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
-    *Image 5.1.5: Login*
+    *Image 5.1.5: Original Login*
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/login.png)
-    *Image 5.1.5: Login*
+    *Image 5.1.5: New Login*
 
 ### Shareholder 2: John Robinson, Regular User
 
@@ -135,7 +135,7 @@ This time, Jeronimo gave a very small amount of information about what we wanted
 
 (Answers paraphrased) \
 Q: Which buttons did what you expected them to do and which did not? \
-A: The interface was pretty intuitive and it reminded me of apps like reddit and instagram. Most buttons were intuitive except for the refresh button, and the + at the bottom was not 100 % intuitive. I liked the post creation interface, and like that you can upload files, but it reminded me of navigating on a PC environment rather than on a phone. I liked the organization of posts, but I was wondering how the tags are sorted. I think that editing your own profile, is easier on instagram, but I likes that you can revert changes.
+A: The interface was pretty intuitive and it reminded me of apps like reddit and instagram. Most buttons were intuitive except for the refresh button, and the + at the bottom was not 100 % intuitive. I liked the post creation interface, and like that you can upload files, but it reminded me of navigating on a PC environment rather than on a phone. I liked the organization of posts, but I was wondering how the tags are sorted. I think that editing your own profile, is easier on instagram, but I like that you can revert changes.
 
 Q: Do you think you would use this app personally? \
 A: I would use it, but only if it didn't feel demanding like email does. I would not come for personal posts, but rather to see events that are less known to the public. Even for a party scene it could be really helpful. 
@@ -145,7 +145,13 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 
 
 ### Revision:
+After this interview, we decided to add functionality to our prototype for our other user role, the administrator. 
 
+![Image](../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png)
+    *Image 5.2.1: New Admin Home*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png)
+    *Image 5.2.2: New Admin Reports*
 
 ### Shareholder 3: Jessica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
 
