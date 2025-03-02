@@ -27,11 +27,14 @@ Below are some other pictures that helped with the overall functionality of our 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
     *Image 3.4: Login*
 
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/homepage.png)
+    *Image 3.5: Homepage*
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
-    *Image 3.5: Settings*
+    *Image 3.6: Settings*
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
-    *Image 3.6: Sortby*
+    *Image 3.7: Sortby*
 
 <!-- Add a section to your Sprint Journal with:
 - One or more photos of your prototype
