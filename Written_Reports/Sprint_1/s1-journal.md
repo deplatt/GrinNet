@@ -149,7 +149,7 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 
 
 ### Revision:
-After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. 
+After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. We also decided to add more alternate flows, for example connection lost page and searching by tag.
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png)
     *Image 5.2.1: New Admin Home*
@@ -162,6 +162,12 @@ After this interview, we decided to add functionality to our prototype for our o
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/search.png)
     *Image 5.2.4: New Search*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_John/connectionlost.png)
+    *Image 5.2.5: New Connection Lost page*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_John/searchbytag.png)
+    *Image 5.2.6: New Search By Tag page*
 
 ### Shareholder 3: Jesica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
 
