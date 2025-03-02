@@ -93,6 +93,7 @@ A: I would expect there to be options like liking the page, liking the user, and
 
 ### Revision (1):
 In this version, based on Becca's feedback we decided on creating a separate rules pop-up for the create post page, instead of having the rules show up everytime a user creates a post. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page. We also added an additional sort by setting for liked posts, so users can switch to their own liked posts as needed.
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
     *Image 5.1: Previous Create Post*
 
