@@ -14,24 +14,24 @@ Below our pictures of our initial prototype. Our use cases in our first paper pr
  - Viewing and Showing Interest in Posts.
 ### 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
-    *Image 1: Search*
+    *Image 3.1: Search*
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
-    *Image 2: Create Post*
+    *Image 3.2: Create Post*
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/viewpost.png)
-    *Image 3: View Post*
+    *Image 3.3: View Post*
 
 Below are some other pictures that helped with the overall functionality of our program.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
-    *Image 4: Login*
+    *Image 3.4: Login*
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
-    *Image 5: Settings*
+    *Image 3.5: Settings*
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
-    *Image 6: Sortby*
+    *Image 3.6: Sortby*
 
 <!-- Add a section to your Sprint Journal with:
 - One or more photos of your prototype
@@ -63,6 +63,13 @@ Muhammad did very well at navigating the interface without help. Overall, he lik
     - other changes your team decided to make from your own thoughts and ideas from the testing session
     - other things you added to your prototype, not necessarily based on the testing session
     - Include one or more photos of your revised prototype where the difference between the original and revised version can be plainly seen -->
+
+In this version, based on Muhammad's feedback we decided on creating one save button for all of the create post page, instead of multiple save buttons. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page.
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
+    *Image 3.1: Original Create Post*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
+    *Image 3.2: New Create Post*
 
 ## Part 5: (Test with shareholders)
 
