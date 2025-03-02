@@ -107,7 +107,7 @@ In this version, based on Becca's feedback we decided on creating a separate rul
 
 ### Shareholder 2: John Robinson, Regular User
 
-We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because [REASON].
+We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because he is someone involved in different groups across campus, that was available to be interviewed and did not had heard anything about the project.
 
 For this test, Anthony played the computer, Jeronimo was the facilitator, and Deven was the note-taker. This test also activated uses stories that relate to posting, searching, and viewing posts.
 
@@ -128,6 +128,8 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 
 
 ### Shareholder 3: Jessica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
+
+We had Jessica test our prototype at 7:15 PM, Thursday February 27. She was a non-naive stakeholder who we chose both because she matched our availability as well as she was someone who had already heard about our idea. 
 
 This time, Jeronimo started by giving Jessica the prototype and instructing her to use it as if it were a phone. Since Jessica was already familiar with the project, she understood the purpose of the app and had a general idea of its features. We were aware of some of her general thoughts because we had previously discussed the app with her. Therefore, we asked her to be highly critical in her feedback.
 
