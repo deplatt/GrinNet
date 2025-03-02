@@ -93,7 +93,7 @@ A: I would expect there to be options like liking the page, liking the user, and
 
 ### Shareholder 2: John Robinson, Regular User
 
-We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because [REASON].
+We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because he is someone involved in different groups across campus, that was available to be interviewed and did not had heard anything about the project.
 
 For this test, Anthony played the computer, Jeronimo was the facilitator, and Deven was the note-taker. This test also activated uses stories that relate to posting, searching, and viewing posts.
 
