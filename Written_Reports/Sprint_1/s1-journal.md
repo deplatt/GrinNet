@@ -6,6 +6,10 @@
 - Describe the changes, if any, that you are making to your requirements, user personas, user stories, use cases, and prototype based on these reviews.
 - Describe your rationale in deciding what changes to make (or not make) based on the reviews. -->
 
+From the feedback from all people, we have decided that being able to edit posts isn't really necessary. The users can just delete their old post and make a new post if they want to edit it. This changed our MVP since we considered this part of the MVP. 
+
+We also decided to add a stretch goal for our project: expiration dates. We realize that server space will be a definite problem for us, and users probably don't want to see posts about events that ended a few days ago. Thus, a stretch goal for our project should be for users to be able to set an expiration date for their posts.
+
 ## Part 3: (Paper Prototype)
 
 Below our pictures of our initial prototype. Our use cases in our first paper prototype include: 
