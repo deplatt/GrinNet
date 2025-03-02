@@ -41,7 +41,15 @@ Below are some other pictures that helped with the overall functionality of our 
 ## Part 4: (Test with classmate)
 
 We tested our prototype with Muhammad, who played a regular user. For this test, Shibam played the computer, Jeronimo and Pranav were the facilitors, and Deven was the note-taker. This test activated the following user stories:
-[still need to add user stories]
+- As Eo, I need to be able to view the profile of a poster so that I can obtain their contact details for further coordination.
+- As Curtis, I need to be able to see the information of people interested so I can reach out to them. 
+- As Bob, I need to be able to easily send messages and make posts from any of the three accounts I have access to, so that I can both represent my clubs and myself using this app.
+- As Bob, I need a way to broadcast my club events to the rest of campus, so that I can make sure my events are properly advertised.
+- As Demitra, I want to be able to post SEPC and MLC events so that it is accessible for everyone to come.
+- As Eo, I need to be able to search for my interests so that I can connect with people with the same interests as me.
+- As Eo, I need to be able to show interest in a post so that I can indicate to the poster that I am interested in it.
+- As Anne, I want to meet people based on my own interests because I am new to this college and have not really been able to talk to many people.
+- As Anne, I want to be able to know what is happening around campus since I do not really know where I can get this information.
 
 Muhammad already had some background knowledge of our app from the project proposals and Q&A ealier this semester, so we just started him off at the login page. He logged in and was brought to the homepage. He scrolled around, and started talking about what he thought each element on his screen was. He quickly figured out that we was looking at posts, and that the settings on the top were the categories. He used the search bar and searched for SASO. Once brought to SASO's user page, Muhammad scrolled through the page and clicked on a post. He observed that he knew what home button would do, but didn't know what the other two buttons on the bottom would do. Still on the SASO page, he clicked the plus to create a post, and was briefly confused about if he was making a post from the SASO account. He created his post and Shibam took him back home. After he clicked refresh, he saw his new post and tapped on it to confirm the details. Then he clicken on the bottom right to go to his own profile. He tied to change his profile picture by clicking on it, but when that didn't work he clicked the settings button. He made some changes to his profile, but then decided to revert them. Finally, Muhammad navigated back to the homescreen and experiemented with selecting tags.
 
@@ -77,7 +85,7 @@ In this version, based on Muhammad's feedback we decided on creating one save bu
 
 We had Becca test our prototyope at 4:30 PM, Sunday Februrary 23. She was a naive user, and we chose her because she is not a Computer Science student and had no prior knowledge of our application / final project. She was also available at the most convenient times for our team (out of 2-3 other options for naive stakeholders).
 
-For this test, Anthony played the computer, Shibam was the facilitor, and Deven and Pranav were note-takers. This test activated user stories that relate to posting, searching, and viewing posts.
+For this test, Anthony played the computer, Shibam was the facilitor, and Deven and Pranav were note-takers. This test activated user stories that relate to posting, searching, and viewing posts (the same Muhammad's test above).
 
 The test session started off a little rocky. Anthony gave her the first screen (login), and Shibam told her to go ahead. Becca was very confused because she didn't understand that we were doing a paper prototype for an app, so Shibam explained a little bit of context. Becca clicked login, and scrolled through the posts and tabs. She clicked on one post, and Anthony gave her another screen showing the details of that post. She then clicked back to homepage and tried to look at another post, but we only had one screen detailing a post. She refreshed, which did not do anything, and then accidentally clicked on ther first post again. She was unable to scroll on this page because it did not have enough information to warrant a scroll bar. She then clicks on her own profile at the bottom, and taps create post. Anthony brings up the create post screen. She adds a picture, clicks review, and is brought to the review post screen. She clicks post and is brought back to homescreen. She tries to find her post but doesn't see it. She messes with the tags and then clicks the search bar, and Anthony brings up the search UI. She searches SASO and then goes back to the homescreen. After the test, we asked Becca several questions about the experience.
 
@@ -110,7 +118,7 @@ In this version, based on Becca's feedback we decided on creating a separate rul
 
 We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because he is someone involved in different groups across campus, that was available to be interviewed and did not had heard anything about the project.
 
-For this test, Anthony played the computer, Jeronimo was the facilitator, and Deven was the note-taker. This test also activated uses stories that relate to posting, searching, and viewing posts.
+For this test, Anthony played the computer, Jeronimo was the facilitator, and Deven was the note-taker. This test also activated uses stories that relate to posting, searching, and viewing posts (the same Muhammad's test above).
 
 This time, Jeronimo gave a very small amount of information about what we wanted our tester to do. We told John to be as transparent as possible, and to think out loud as he explored the app. John started on the login page, and tried to create an account. Anthony told him that for this, we would assume that he already had an account created, so John clicked login instead. Anthony brought up the homescreen, and John immediately remarked that he was reminded of Reddit. He clicked on a post, and Anthony brought him to the page for that post. At this point, John started to figure out what the app was, but was confused about the "N" placeholder for the number of likes. He went back to the homepage and pressed refresh, but nothing happened. He goes to the profile page, and says that he knew that would be what that button did. Anthony reccomended to hit the cog wheel for settings, and John liked the save and revert buttons at the bottom of the settings page. Then John clicked create post, and was brought to the post creation screen. After creating his post, he was brought back to the homescreen, and didn't really know what to do. We gave him some reccomendations for where to click, and he messed around with the tags. He specifically wondered how pressing multiple tags at once would work. Finally, he used the search bar, succesfullly searched for SASO, and then searched for "water bottle", but was met with no results. After the live test, Jeronimo read him a short description of the project so that he has all of the context, and then asked him some follow-up questions.
 
@@ -148,12 +156,14 @@ She then reviewed the three available actions: Warn, Ban, and Dismiss. She comme
 
 That concluded the stakeholder meeting.
 
-(Answers paraphrased) 
-Q: Did you like the layout of the create post page/how would you improve it?
+(Answers paraphrased) \
+Q: Did you like the layout of the create post page/how would you improve it?\
 A:  Yes this layout. User would like to be able to see the picture instead of the name of the file (feels to PCish for a mobile app)  
-Q: What kind of actions would you want to do on other user accounts?
+
+Q: What kind of actions would you want to do on other user accounts? \
 A: Want a report, a follow button visible on the page without any further clicks, a block button
-Q: Do you have any other suggestions for changes to the interface?
+
+Q: Do you have any other suggestions for changes to the interface? \
 A: Want a tab for only the profiles you follow. Doesn’t want to have to scroll the whole feed to look for posts of accounts they are interested in. Want to be able to refresh the page by scrolling up at the top. Home button can just stay home button and even refresh the feed. 
 I Want to be able to see their profile picture on the page and have a “logout” button in the settings section. Users would like to see the delete post option on each post instead of the profile settings.  
 
