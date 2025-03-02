@@ -81,7 +81,7 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 ### Revision:
 
 
-### Shareholder 3:Jessica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
+### Shareholder 3: Jessica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
 
 This time, Jeronimo started by giving Jessica the prototype and instructing her to use it as if it were a phone. Since Jessica was already familiar with the project, she understood the purpose of the app and had a general idea of its features. We were aware of some of her general thoughts because we had previously discussed the app with her. Therefore, we asked her to be highly critical in her feedback.
 
@@ -124,6 +124,15 @@ Add a section to your Sprint Journal for each set of revisions describing:
 ![Image](../Sprint_1/Sprint_1_Images/storyboard_csc324_final.png)
 
 ## Part 7: (CIDER Lab)
+
+During the crique stage, we identified the following assumptions:
+- Our app requires users to be able to see
+- Our app requires users to have enough physical dexterity to tap on icons on the screens
+- Our app requires users to be Grinnell college students/staff/faculty.
+
+We picked the assuptions that users must be able to see to users must be able to see. This would exclude blind users, and it could also exclude users that can't see small text. Our app has many text boxes for writing and reading text, and no way to engage with posts without being able to see them.
+
+There are several ways we could redesign our product to help with this. Elliot brought up the idea that many apps do not have built-in screen readers, but instead are designed carefully to be compatible with pre-existing tools. We could research the tools required and make appropriate changed to integrate with them. Additionally, we could add a text scale feature so that people who have trouble reading small text can enlarge it. This could also be a similar instance, where we could hopefully integrate our app with any text-scaling innate to the operating systems. 
 
 <!-- Add a section to your Sprint Journal describing:
 - Critique
