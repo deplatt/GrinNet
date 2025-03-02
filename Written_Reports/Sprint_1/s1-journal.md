@@ -6,9 +6,21 @@
 - Describe the changes, if any, that you are making to your requirements, user personas, user stories, use cases, and prototype based on these reviews.
 - Describe your rationale in deciding what changes to make (or not make) based on the reviews. -->
 
-From the feedback from all people, we have decided that being able to edit posts isn't really necessary. The users can just delete their old post and make a new post if they want to edit it. This changed our MVP since we considered this part of the MVP. 
+MVP achievability : 4.3 avg. High score. 
+Big enough : 4.3 avg. High score. 
+Mixed feedback on the MVP achievability and the “big enough” aspect of our app, from finding making a social media app to be a task much bigger than it sounds, to considering it to not be a big task / have many complicated features that can be added given that social media apps have been well explored. We, however, share concern with the feedback that a social media app is a complicated task, especially if we would like to make it well. So we will try and minimize our MVP as much as possible without losing the essence of the app, as we prefer to have a fully functioning final product that is smaller, instead of a larger final product with more features but that is still very buggy. 
 
-We also decided to add a stretch goal for our project: expiration dates. We realize that server space will be a definite problem for us, and users probably don't want to see posts about events that ended a few days ago. Thus, a stretch goal for our project should be for users to be able to set an expiration date for their posts.
+Addresses real demand : 4 avg. Above avg score
+Adoption potential : 4 avg. Above avg score. 
+Mixed feedback once again, ranging from the reviewer finding a high possibility of adoption of a new social media by grinnell to the reviewer not being able to see themselves using the app. What we derive from the feedback here is that a reviewer does think that our app has the potential to better connect our college campus. As for the concern about the app being too similar to YikYak, we already considered the same during the planning phase of our app. That is why we chose to have a user’s name and email address be on display. The anonymous vs public nature of user profile’s on a social media app completely changes its nature and usage, so we are not going to try and add any additional features to further differentiate our app from YikYak or other social media apps in Grinnell. 
+
+Ethicalness of the app : 4 avg. Above avg score.
+Ethical concerns for our app consist of post moderation / bullying, privacy / collection of user data, and privacy / encryption of user chatting. Since we have listed messaging among users as “out of scope”, that concern has been resolved. As for post moderation, we do not expect there to be any derogatory-comments or bullying-related posts since a user’s name and grinnell email is publicly visible. However, the moderators (our team) will still keep an eye out for posts that violate our app’s community guidelines. Lastly, we recognize the importance of protecting user data, which includes their names and emails, and we will take the necessary steps to ensure that this user data is stored safely.\
+
+Revisions and Rationale : 
+1) Remove a feature from MVP. We decided to select the feature during shareholder testing to ensure we remove the most appropriate thing.
+2) Be able to report a user for violating community guidelines
+
 
 ## Part 3: (Paper Prototype)
 
@@ -148,8 +160,9 @@ Q: Do you think shitposting should be allowed on the app, or should it be restri
 A: I think that not allowing shitpost would be best. Social media can be overwhelming, and trying not to overload the brain would be appreciated.
 
 
-### Revision:
-After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. We also decided to add more alternate flows, for example connection lost page and searching by tag.
+### Revision 2:
+After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. We also decided to add more alternate flows, for example connection lost page and searching by tag. We have decided that being able to edit posts isn't really necessary. The users can just delete their old post and make a new post if they want to edit it. This changed our MVP since we considered this part of the MVP. 
+
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png)
     *Image 5.2.1: New Admin Home*
@@ -203,9 +216,9 @@ I Want to be able to see their profile picture on the page and have a “logout�
 
 
 
-### Revision:
+### Revision 3:
 
-In this revision, based on Jesica's feedback we decided to add the log out button which we had previously forgotten. We also added an alternative flow for search which showcases if something random was searched up. Next we removed the deletion of posts in the user settings and instead added an option to delete posts from viewing them. This was more intuitive according to Jesica. 
+In this revision, based on Jesica's feedback we decided to add the log out button which we had previously forgotten. We also added an alternative flow for search which showcases if something random was searched up. Next we removed the deletion of posts in the user settings and instead added an option to delete posts from viewing them. This was more intuitive according to Jesica. We also decided to add a stretch goal for our project: expiration dates. We realize that server space will be a definite problem for us, and users probably don't want to see posts about events that ended a few days ago. Thus, a stretch goal for our project should be for users to be able to set an expiration date for their posts.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
     *Image 5.3.1: Previous User Settings*
