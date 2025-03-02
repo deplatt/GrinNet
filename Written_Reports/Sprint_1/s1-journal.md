@@ -82,10 +82,10 @@ Muhammad did very well at navigating the interface without help. Overall, he lik
 In this version, based on Muhammad's feedback we decided on creating one save button for all of the create post page, instead of multiple save buttons. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
-    *Image 3.1: Original Create Post*
+    *Image 4.1: Original Create Post*
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
-    *Image 3.2: New Create Post*
+    *Image 4.2: New Create Post*
 
 ## Part 5: (Test with shareholders)
 
@@ -212,6 +212,9 @@ In this revision, based on Jesica's feedback we decided to add the log out butto
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/viewpost.png)
     *Image 5.3.4: New View Post*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/searchempty.png)
+    *Image 5.3.5: Empty Search*
 
 
 <!-- 
