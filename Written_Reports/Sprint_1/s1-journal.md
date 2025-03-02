@@ -76,6 +76,7 @@ Muhammad did very well at navigating the interface without help. Overall, he lik
     - Include one or more photos of your revised prototype where the difference between the original and revised version can be plainly seen -->
 
 In this version, based on Muhammad's feedback we decided on creating one save button for all of the create post page, instead of multiple save buttons. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page.
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
     *Image 3.1: Original Create Post*
 
@@ -104,18 +105,25 @@ A: I would expect there to be options like liking the page, liking the user, and
 
 ### Revision (1):
 In this version, based on Becca's feedback we decided on creating a separate rules pop-up for the create post page, instead of having the rules show up everytime a user creates a post. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page. We also added an additional sort by setting for liked posts, so users can switch to their own liked posts as needed.
+In in this revision, we also added an forgot password action to our login page.
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
-    *Image 5.1: Previous Create Post*
+    *Image 5.1.1: Previous Create Post*
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/createpost.png)
-    *Image 5.2: New Create Post*
+    *Image 5.1.2: New Create Post*
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
-    *Image 5.3: Original Sortby*
+    *Image 5.1.3: Original Sortby*
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/sortby.png)
-    *Image 5.4: New Sortby*
+    *Image 5.1.4: New Sortby*
+
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
+    *Image 5.1.5: Login*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/login.png)
+    *Image 5.1.5: Login*
 
 ### Shareholder 2: John Robinson, Regular User
 
