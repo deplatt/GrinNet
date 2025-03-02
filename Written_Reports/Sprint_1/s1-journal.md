@@ -8,6 +8,27 @@
 
 ## Part 3: (Paper Prototype)
 
+Below our pictures of our initial prototype. Our use cases in our first paper prototype include: 
+ - Search
+ - Create Post
+ - Viewing and Showing Interest in Posts.
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
+    *Image 1: Search*
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
+    *Image 2: Create Post*
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/viewpost.png)
+    *Image 3: View Post*
+Below are some other pictures that helped with the overall functionality of our program.
+
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
+    *Image 4: Login*
+
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
+    *Image 5: Settings*
+    
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
+    *Image 6: Sortby*
+
 <!-- Add a section to your Sprint Journal with:
 - One or more photos of your prototype
 - You might also want to include photos of your team working on the prototype! (optional)
