@@ -91,6 +91,20 @@ A: I liked it. I wish that I could draft posts, and save posts I have liked. I w
 Q: What kinds of actions would you like to perform on a user profile? \
 A: I would expect there to be options like liking the page, liking the user, and commenting.
 
+### Revision (1):
+In this version, based on Becca's feedback we decided on creating a separate rules pop-up for the create post page, instead of having the rules show up everytime a user creates a post. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page. We also added an additional sort by setting for liked posts, so users can switch to their own liked posts as needed.
+![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
+    *Image 5.1: Previous Create Post*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/createpost.png)
+    *Image 5.2: New Create Post*
+
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
+    *Image 5.3: Original Sortby*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/sortby.png)
+    *Image 5.4: New Sortby*
+
 ### Shareholder 2: John Robinson, Regular User
 
 We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because [REASON].
