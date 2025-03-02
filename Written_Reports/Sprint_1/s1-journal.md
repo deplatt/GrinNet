@@ -149,7 +149,7 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 
 
 ### Revision:
-After this interview, we decided to add functionality to our prototype for our other user role, the administrator. 
+After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png)
     *Image 5.2.1: New Admin Home*
@@ -157,13 +157,19 @@ After this interview, we decided to add functionality to our prototype for our o
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png)
     *Image 5.2.2: New Admin Reports*
 
-### Shareholder 3: Jessica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
+    *Image 5.2.3: Original Search*
 
-We had Jessica test our prototype at 7:15 PM, Thursday February 27. She was a non-naive stakeholder who we chose both because she matched our availability as well as she was someone who had already heard about our idea. 
+![Image](../Sprint_1/Sprint_1_Images/Changes_John/search.png)
+    *Image 5.2.4: New Search*
 
-This time, Jeronimo started by giving Jessica the prototype and instructing her to use it as if it were a phone. Since Jessica was already familiar with the project, she understood the purpose of the app and had a general idea of its features. We were aware of some of her general thoughts because we had previously discussed the app with her. Therefore, we asked her to be highly critical in her feedback.
+### Shareholder 3: Jesica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
 
-We began by giving her the regular user prototype and asked her to explore all the functionalities she could think of within the app. Shibam told her to assume she had already used the app, so there was no need for her to create an account. The first thing Jessica did was scroll through the home page. She then clicked on the tags, explored them, and commented on the order of both the tags and the posts.
+We had Jesica test our prototype at 7:15 PM, Thursday February 27. She was a non-naive stakeholder who we chose both because she matched our availability as well as she was someone who had already heard about our idea. 
+
+This time, Jeronimo started by giving Jesica the prototype and instructing her to use it as if it were a phone. Since Jesica was already familiar with the project, she understood the purpose of the app and had a general idea of its features. We were aware of some of her general thoughts because we had previously discussed the app with her. Therefore, we asked her to be highly critical in her feedback.
+
+We began by giving her the regular user prototype and asked her to explore all the functionalities she could think of within the app. Shibam told her to assume she had already used the app, so there was no need for her to create an account. The first thing Jesica did was scroll through the home page. She then clicked on the tags, explored them, and commented on the order of both the tags and the posts.
 
 Next, she proceeded to create a post. She mentioned that she liked the inclusion of post guidelines but suggested that they could be displayed in a more space-efficient way, perhaps as a pop-up instead of a text box. She also pointed out that, since this was a mobile app, it would make more sense to have the photo gallery embedded in the post creation process rather than requiring users to upload a file manually.
 
@@ -171,7 +177,7 @@ Afterward, she used the search bar and then noted that she believed she had expl
 
 Jeronimo then introduced the initial administrator prototype, which was still in an early development phase. After pretending she already had an admin account, she proceeded to log in. She encountered the home admin page, which displayed three main functions available to the user: Rules, Issues, and Regular View. However, Shibam informed her that only the "Issues" option was functional at this stage.
 
-Jessica selected the "Issues" option and was able to see a single account that had received multiple reports. She questioned why only one account was displayed and inquired about what would happen if multiple accounts appeared on the issues page—specifically, how admins would be able to select and search for different cases.
+Jesica selected the "Issues" option and was able to see a single account that had received multiple reports. She questioned why only one account was displayed and inquired about what would happen if multiple accounts appeared on the issues page—specifically, how admins would be able to select and search for different cases.
 
 She then reviewed the three available actions: Warn, Ban, and Dismiss. She commented that these three actions seemed appropriate and sufficient.
 
@@ -192,6 +198,21 @@ I Want to be able to see their profile picture on the page and have a “logout�
 
 
 ### Revision:
+
+In this revision, based on Jesica's feedback we decided to add the log out button which we had previously forgotten. We also added an alternative flow for search which showcases if something random was searched up. Next we removed the deletion of posts in the user settings and instead added an option to delete posts from viewing them. This was more intuitive according to Jesica. 
+
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
+    *Image 5.3.1: Previous User Settings*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/settings.png)
+    *Image 5.3.2: New User Settings*
+
+![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/viewpost.png)
+    *Image 5.3.3: Old View Post*
+
+![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/viewpost.png)
+    *Image 5.3.4: New View Post*
+
 
 <!-- 
 Add a section to your Sprint Journal for each set of revisions describing:
