@@ -164,25 +164,23 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. We also decided to add more alternate flows, for example connection lost page and searching by tag. We have decided that being able to edit posts isn't really necessary. The users can just delete their old post and make a new post if they want to edit it. This changed our MVP since we considered this part of the MVP. 
 
 
-<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png" alt="New Admin Home" width="200"/>
+!<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png" alt="New Admin Home" width="200"/>
+    *Image 5.2.1: New Admin Home* 
 
-**    *Image 5.2.1: New Admin Home* **
-
-<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png" alt="New Admin Reports" width="200"/>
-
-**    *Image 5.2.2: New Admin Reports* **
+!<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png" alt="New Admin Reports" width="200"/>
+    *Image 5.2.2: New Admin Reports* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
-**    *Image 5.2.3: Original Search* **
+    *Image 5.2.3: Original Search* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/search.png)
-**    *Image 5.2.4: New Search* **
+    *Image 5.2.4: New Search* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/connectionlost.png)
-**    *Image 5.2.5: New Connection Lost page* **
+    *Image 5.2.5: New Connection Lost page* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/searchbytag.png)
-**   *Image 5.2.6: New Search By Tag page* **
+   *Image 5.2.6: New Search By Tag page* 
 
 ### Shareholder 3: Jesica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
 
@@ -223,19 +221,19 @@ I Want to be able to see their profile picture on the page and have a â€œlogoutâ
 In this revision, based on Jesica's feedback we decided to add the log out button which we had previously forgotten. We also added an alternative flow for search which showcases if something random was searched up. Next we removed the deletion of posts in the user settings and instead added an option to delete posts from viewing them. This was more intuitive according to Jesica. We also decided to add a stretch goal for our project: expiration dates. We realize that server space will be a definite problem for us, and users probably don't want to see posts about events that ended a few days ago. Thus, a stretch goal for our project should be for users to be able to set an expiration date for their posts.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
-**    *Image 5.3.1: Previous User Settings* **
+    *Image 5.3.1: Previous User Settings* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/settings.png)
-**    *Image 5.3.2: New User Settings* **
+    *Image 5.3.2: New User Settings* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/viewpost.png)
-**    *Image 5.3.3: Old View Post* **
+    *Image 5.3.3: Old View Post* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/viewpost.png)
-**    *Image 5.3.4: New View Post* **
+    *Image 5.3.4: New View Post* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/searchempty.png)
-**    *Image 5.3.5: Empty Search* **
+    *Image 5.3.5: Empty Search* 
 
 
 <!-- 
@@ -247,7 +245,7 @@ Add a section to your Sprint Journal for each set of revisions describing:
 
 ## Part 6: (Storyboard)
 ![Image](../Sprint_1/Sprint_1_Images/storyboard_csc324_final.png)
-** *Image 6: Storyboard* **
+    *Image 6: Storyboard* 
 
 ## Part 7: (CIDER Lab)
 
