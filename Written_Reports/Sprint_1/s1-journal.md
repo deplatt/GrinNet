@@ -30,27 +30,27 @@ Below our pictures of our initial prototype. Our use cases in our first paper pr
  - Viewing and Showing Interest in Posts.
 ### 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
-**    *Image 3.1: Search*    **
+    *Image 3.1: Search*    
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
-**    *Image 3.2: Create Post*  **
+    *Image 3.2: Create Post*  
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/viewpost.png)
-**    *Image 3.3: View Post* **
+    *Image 3.3: View Post* 
 
 Below are some other pictures that helped with the overall functionality of our program.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
-**    *Image 3.4: Login* **
+    *Image 3.4: Login* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/homepage.png)
-**    *Image 3.5: Homepage* **
+    *Image 3.5: Homepage* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
-**    *Image 3.6: Settings* **
+    *Image 3.6: Settings* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
-**    *Image 3.7: Sortby* **
+    *Image 3.7: Sortby* 
 
 <!-- Add a section to your Sprint Journal with:
 - One or more photos of your prototype
@@ -94,10 +94,10 @@ Muhammad did very well at navigating the interface without help. Overall, he lik
 In this version, based on Muhammad's feedback we decided on creating one save button for all of the create post page, instead of multiple save buttons. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
-**    *Image 4.1: Original Create Post* **
+    *Image 4.1: Original Create Post* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
-**    *Image 4.2: New Create Post* **
+    *Image 4.2: New Create Post* 
 
 ## Part 5: (Test with shareholders)
 
@@ -124,22 +124,22 @@ In this revision, based on Becca's feedback we decided on creating a separate ru
 In in this revision, we also added an forgot password action to our login page.
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
-**    *Image 5.1.1: Previous Create Post* **
+    *Image 5.1.1: Previous Create Post* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/createpost.png)
-**    *Image 5.1.2: New Create Post* **
+    *Image 5.1.2: New Create Post* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
-**    *Image 5.1.3: Original Sortby* **
+    *Image 5.1.3: Original Sortby* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/sortby.png)
-**    *Image 5.1.4: New Sortby* **
+    *Image 5.1.4: New Sortby* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
-**    *Image 5.1.5: Original Login* **
+    *Image 5.1.5: Original Login* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/login.png)
-**    *Image 5.1.5: New Login* **
+    *Image 5.1.5: New Login* 
 
 ### Shareholder 2: John Robinson, Regular User
 
@@ -164,10 +164,10 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. We also decided to add more alternate flows, for example connection lost page and searching by tag. We have decided that being able to edit posts isn't really necessary. The users can just delete their old post and make a new post if they want to edit it. This changed our MVP since we considered this part of the MVP. 
 
 
-!<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png" alt="New Admin Home" width="200"/>
+<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png" alt="New Admin Home" width="200"\>
     *Image 5.2.1: New Admin Home* 
 
-!<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png" alt="New Admin Reports" width="200"/>
+<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png" alt="New Admin Reports" width="200"\>
     *Image 5.2.2: New Admin Reports* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
