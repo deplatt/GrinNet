@@ -164,10 +164,9 @@ A: I think that not allowing shitpost would be best. Social media can be overwhe
 After this interview, we decided to add functionality to our prototype for our other user role, the administrator. We also decided to showcase users when searching for anything before posts show up. We also decided to add more alternate flows, for example connection lost page and searching by tag. We have decided that being able to edit posts isn't really necessary. The users can just delete their old post and make a new post if they want to edit it. This changed our MVP since we considered this part of the MVP. 
 
 
-<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png" alt="New Admin Home" width="200"\>
+\n<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png" alt="New Admin Home" width="200"/>  
     *Image 5.2.1: New Admin Home* 
-
-<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png" alt="New Admin Reports" width="200"\>
+\n<img src="../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png" alt="New Admin Reports" width="200"/>  
     *Image 5.2.2: New Admin Reports* 
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
