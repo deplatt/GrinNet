@@ -39,6 +39,7 @@ We will aim to complete the following tasks, as dictated by the Sprint 1 require
     - Work on paper prototype with Anthony and Jeronimo.
     - Work on the storyboard.
     - Reach out to naive stakeholder.
+    - Complete individual pulse check at the end of the sprint
 - Jeronimo: 
     - 1 Use Case. 
     - Work on paper prototype with Shibam and Anthony. 
