@@ -30,28 +30,28 @@ Below our pictures of our initial prototype. Our use cases in our first paper pr
  - Viewing and Showing Interest in Posts.
 ### 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
-**    *Image 3.1: Search*
-**
+**    *Image 3.1: Search*    **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
-**    *Image 3.2: Create Post*
-**
+**    *Image 3.2: Create Post*  **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/viewpost.png)
-**    *Image 3.3: View Post*
-**
+**    *Image 3.3: View Post* **
+
 Below are some other pictures that helped with the overall functionality of our program.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
-**    *Image 3.4: Login*
-**
+**    *Image 3.4: Login* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/homepage.png)
-**    *Image 3.5: Homepage*
-**
+**    *Image 3.5: Homepage* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
-**    *Image 3.6: Settings*
-**
+**    *Image 3.6: Settings* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
-**    *Image 3.7: Sortby*
-**
+**    *Image 3.7: Sortby* **
+
 <!-- Add a section to your Sprint Journal with:
 - One or more photos of your prototype
 - You might also want to include photos of your team working on the prototype! (optional)
@@ -94,11 +94,11 @@ Muhammad did very well at navigating the interface without help. Overall, he lik
 In this version, based on Muhammad's feedback we decided on creating one save button for all of the create post page, instead of multiple save buttons. This reduced the cluttering of our create post page as well as maximised the empty space that we were not using before on this page.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/createpost.png)
-**    *Image 4.1: Original Create Post*
-**
+**    *Image 4.1: Original Create Post* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
-**    *Image 4.2: New Create Post*
-**
+**    *Image 4.2: New Create Post* **
+
 ## Part 5: (Test with shareholders)
 
 ### Shareholder 1: Becca, Regular User
@@ -124,23 +124,23 @@ In this revision, based on Becca's feedback we decided on creating a separate ru
 In in this revision, we also added an forgot password action to our login page.
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Muhammad/createpost.png)
-**    *Image 5.1.1: Previous Create Post*
-**
+**    *Image 5.1.1: Previous Create Post* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/createpost.png)
-**    *Image 5.1.2: New Create Post*
-**
+**    *Image 5.1.2: New Create Post* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/sortby.png)
-**    *Image 5.1.3: Original Sortby*
-**
+**    *Image 5.1.3: Original Sortby* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/sortby.png)
-**    *Image 5.1.4: New Sortby*
-**
+**    *Image 5.1.4: New Sortby* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/login.png)
-**    *Image 5.1.5: Original Login*
-**
+**    *Image 5.1.5: Original Login* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Becca/login.png)
-**    *Image 5.1.5: New Login*
-**
+**    *Image 5.1.5: New Login* **
+
 ### Shareholder 2: John Robinson, Regular User
 
 We had John test our prototype at 4:15 PM, Monday February 24. He was a naive user, and we chose him because he is someone involved in different groups across campus, that was available to be interviewed and did not had heard anything about the project.
@@ -166,24 +166,24 @@ After this interview, we decided to add functionality to our prototype for our o
 
 <img src="../Sprint_1/Sprint_1_Images/Changes_John/adminhome.png" alt="New Admin Home" width="200"/>
 
-**    *Image 5.2.1: New Admin Home*
-**
+**    *Image 5.2.1: New Admin Home* **
+
 <img src="../Sprint_1/Sprint_1_Images/Changes_John/adminreports.png" alt="New Admin Reports" width="200"/>
 
-**    *Image 5.2.2: New Admin Reports*
-**
+**    *Image 5.2.2: New Admin Reports* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/search.png)
-**    *Image 5.2.3: Original Search*
+**    *Image 5.2.3: Original Search* **
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/search.png)
-**    *Image 5.2.4: New Search*
+**    *Image 5.2.4: New Search* **
 
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/connectionlost.png)
-**    *Image 5.2.5: New Connection Lost page*
-**
+**    *Image 5.2.5: New Connection Lost page* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_John/searchbytag.png)
-**   *Image 5.2.6: New Search By Tag page*
-**
+**   *Image 5.2.6: New Search By Tag page* **
+
 ### Shareholder 3: Jesica Rodriguez Beyer - Non-naive Stakeholder Regular User & Administrator
 
 We had Jesica test our prototype at 7:15 PM, Thursday February 27. She was a non-naive stakeholder who we chose both because she matched our availability as well as she was someone who had already heard about our idea. 
@@ -223,20 +223,20 @@ I Want to be able to see their profile picture on the page and have a â€œlogoutâ
 In this revision, based on Jesica's feedback we decided to add the log out button which we had previously forgotten. We also added an alternative flow for search which showcases if something random was searched up. Next we removed the deletion of posts in the user settings and instead added an option to delete posts from viewing them. This was more intuitive according to Jesica. We also decided to add a stretch goal for our project: expiration dates. We realize that server space will be a definite problem for us, and users probably don't want to see posts about events that ended a few days ago. Thus, a stretch goal for our project should be for users to be able to set an expiration date for their posts.
 
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/settings.png)
-**    *Image 5.3.1: Previous User Settings*
-**
+**    *Image 5.3.1: Previous User Settings* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/settings.png)
-**    *Image 5.3.2: New User Settings*
-**
+**    *Image 5.3.2: New User Settings* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Initial_Prototype/viewpost.png)
-**    *Image 5.3.3: Old View Post*
-**
+**    *Image 5.3.3: Old View Post* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/viewpost.png)
-**    *Image 5.3.4: New View Post*
-**
+**    *Image 5.3.4: New View Post* **
+
 ![Image](../Sprint_1/Sprint_1_Images/Changes_Jesica/searchempty.png)
-**    *Image 5.3.5: Empty Search*
-**
+**    *Image 5.3.5: Empty Search* **
+
 
 <!-- 
 Add a section to your Sprint Journal for each set of revisions describing:
@@ -247,8 +247,8 @@ Add a section to your Sprint Journal for each set of revisions describing:
 
 ## Part 6: (Storyboard)
 ![Image](../Sprint_1/Sprint_1_Images/storyboard_csc324_final.png)
-** *Image 6: Storyboard*
-**
+** *Image 6: Storyboard* **
+
 ## Part 7: (CIDER Lab)
 
 During the crique stage, we identified the following assumptions:
