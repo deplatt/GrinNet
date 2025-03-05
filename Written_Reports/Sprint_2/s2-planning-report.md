@@ -1,6 +1,7 @@
 # Sprint 2 Planning Report
 
 ## Capacity
+We will each aim to put in at least 10 hours of progress outside of class over the course of sprint 2. Since spring break is between this sprint, we are more eager to finish more tasks.
 
 ## Goals
 We will aim to complete the following tasks, as dictated by the Sprint 2 requirements:
