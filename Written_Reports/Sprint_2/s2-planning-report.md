@@ -17,21 +17,23 @@ We will aim to complete the following tasks, as dictated by the Sprint 2 require
 - Test our continuous integration with a few sample tests
 
 We will also aim to complete the following additional goals:
-- 
+- Start working on database setup and integrating Flutter with Firebase
+
 
 ## Task Breakdown
 - See issue tracker: https://trello.com/b/oLoye0oC/grinnet
 
 ## Assignment
 - As a group:
-    - 
+    - Talk about the style guides and decide on one
 - Pranav:
     - 
 - Shibam:
-    - 
+    - Database description and database modeling
 - Jeronimo:
-    - 
+    - Work on coming up with risks
+    - Write the epics
 - Deven:
     - 
 - Anthony:
-    - 
+    - Database setup, integrating Flutter with Firebase
