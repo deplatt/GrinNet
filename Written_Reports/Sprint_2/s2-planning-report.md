@@ -18,6 +18,8 @@ We will aim to complete the following tasks, as dictated by the Sprint 2 require
 
 We will also aim to complete the following additional goals:
 - Start working on database setup and integrating Flutter with Firebase
+- Set up a functional UI based on the paper prototype
+- Try to set up Firebase authentication and get an email to send
 
 
 ## Task Breakdown
@@ -26,14 +28,18 @@ We will also aim to complete the following additional goals:
 ## Assignment
 - As a group:
     - Talk about the style guides and decide on one
+    - Work on the architecture and design outlines
+    - Set up and test continuous integration
 - Pranav:
-    - 
+    - Start working on the UI
 - Shibam:
+    - Start working on the UI
     - Database description and database modeling
 - Jeronimo:
     - Work on coming up with risks
     - Write the epics
 - Deven:
-    - 
+    - Set up firebase authentication
+    - Create a roadmap for the project
 - Anthony:
     - Database setup, integrating Flutter with Firebase
