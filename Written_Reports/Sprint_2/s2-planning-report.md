@@ -16,6 +16,8 @@ We will aim to complete the following tasks, as dictated by the Sprint 2 require
 - Plan out a framework of documention for the app
 - Write a plan for how we will implement continuous integration into our project
 - Test our continuous integration with a few sample tests
+- We will write our sprint review report to demonstrate to customers what progress we have made
+- We will complete a sprint retrospective report to evaluate our progress in the sprint as a team
 
 We will also aim to complete the following additional goals:
 - Start working on database setup and integrating Flutter with Firebase
