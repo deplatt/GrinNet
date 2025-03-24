@@ -31,18 +31,18 @@ We will also aim to complete the following additional goals:
 ## Assignment
 - As a group:
     - Talk about the style guides and decide on one
-    - Work on the architecture and design outlines
     - Set up and test continuous integration
 - Pranav:
     - Start working on the UI
+    - Part 2 and 4 with Anthony
 - Shibam:
     - Start working on the UI
     - Database description and database modeling
 - Jeronimo:
-    - Work on coming up with risks
-    - Write the epics
+    - Part 5 with Deven
 - Deven:
     - Set up firebase authentication
-    - Create a roadmap for the project
+    - Part 5 with Jeronimo
 - Anthony:
     - Database setup, integrating Flutter with Firebase
+    - Part 2 and 4 with Pranav
