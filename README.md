@@ -9,6 +9,7 @@ GrinNet will segment posts into broad categories such as gaming, sports, educati
 ```
 GrinNet/
 ├── README.md                       # Top-Level ReadMe file
+├── Flutter_Tutorial                # Folder containing code for a tutorial flutter app
 ├── Written_Reports/                # Folder containing our Written Reports
     ├── milestone-2-report.md       # Report for Milestone 2
     ├── Sprint_1/                   # Folder containing write-ups for sprint 1
