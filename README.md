@@ -23,7 +23,7 @@ GrinNet/
 ```
 
 ## Living Document Link
-https://docs.google.com/document/d/1CTr36a_xVtXY6tOySVvDR9Y9vrs7qS_BvlUNhrXX-tU/edit?usp=sharing
+[https://docs.google.com/document/d/1CTr36a_xVtXY6tOySVvDR9Y9vrs7qS_BvlUNhrXX-tU/edit?usp=sharing](https://docs.google.com/document/d/1N8MflN70gUDutiXGfdL87tRxbGoefqRwZsnvDhCE3Ic/edit?usp=sharing)
 
 ## Issue Tracking Tool Link
 https://trello.com/b/oLoye0oC/grinnet
