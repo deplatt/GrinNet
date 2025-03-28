@@ -1,4 +1,4 @@
-# Sprint 1 Journal
+# Sprint 2 Journal
 
 ## Part 2: Software Architecture
 
