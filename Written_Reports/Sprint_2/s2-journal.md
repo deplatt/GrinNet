@@ -12,14 +12,13 @@
 
 For each, give:
 
-Likelihood of occurring (high, medium, low)
-Impact if it occurs (high, medium, low)
-Evidence upon which you base your estimates, such as what information you have already gathered or what experiments you have done
-Steps you are taking to reduce the likelihood or impact, and steps to permit better estimates
-Plan for detecting the problem (trivial example: running automated tests to determine that a file format has changed)
-Mitigation plan should it occur
-Be specific. If part of your risk analysis could be included in a different team's sprint journal, then you are probably not being specific enough. -->
-
+- Likelihood of occurring (high, medium, low)
+- Impact if it occurs (high, medium, low)
+- Evidence upon which you base your estimates, such as what information you have already gathered or what experiments you have done
+- Steps you are taking to reduce the likelihood or impact, and steps to permit better estimates
+- Plan for detecting the problem (trivial example: running automated tests to determine that a file format has changed)
+- Mitigation plan should it occur
+- Be specific. If part of your risk analysis could be included in a different team's sprint journal, then you are probably not being specific enough. -->
 
 ### 5.2: Epics
 
@@ -31,9 +30,13 @@ Divide your planned work into about 3-6 epics. For each epic, write in your Spri
 - Effort estimate -- How many person-week units do you expect it will take (If 3 team members will work on it for 2 weeks, that's 6 person-weeks.)
 - Subtasks -- In the backlog of your Issue Manager, label tasks so they can easily be identified as part of the given epic. Create any relevant tasks that do not exist yet. Note that issues do not need to be well formed until they are added to the current sprint backlog. -->
 
-### 5.3: Documentation Plan
+### 5.4: Product Roadmap
 
-<!-- In your Requirements Document, outline a plan for the documentation that you plan to deliver with the system, e.g., user guides, admin guides, developer guides, man pages, help menus, wikis, etc. Make sure to create corresponding issues in your Issue Manager. -->
+<!-- In your Sprint Journal, create a timeline or calendar to represent your product roadmap. You might experiment with different text or graphical formats to make a calendar that is easy for your team  to understand. In your roadmap, include:
+
+- Approximate start date of each epic
+- Approximate completion date of each epic
+- Enough time for flexibility in case your approximations are off -->
 
 ## Part 6: Continuous Integration Plan
 
