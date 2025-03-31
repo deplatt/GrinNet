@@ -2,22 +2,23 @@
 
 ## Description of what we completed this sprint
 
-At the end of the second sprint, we were able to: 
-- Find pre-existing style guides for each language that we agree upon for use
-- Design an overview of our software architecture
-- Elaborate on a few design decisions, providing alternatives with pros and cons
-- Complete a description of the database orginization for the app
-- Give a detailed description of the components in the architecture
+At the end of the second sprint, we: 
+- Found pre-existing style guides for each language that we agree upon for use
+- Designed an overview of our software architecture
+- Elaborated on a few design decisions, providing alternatives with pros and cons
+- Completed a description of the database orginization for the app
+- Gave a detailed description of the components in the architecture
 - Identify risks for the completion of our project
-- Write 3-6 epics planning out certain subsets of the project 
-- Create a roadmap for the timeline of our project
-- Plan out a framework of documention for the app
-- Write a plan for how we will implement continuous integration into our project
-- Test our continuous integration with a few sample tests
+- Wrote 3-6 epics planning out certain subsets of the project 
+- Created a roadmap for the timeline of our project
+- Planned out a framework of documention for the app
+- Wrote a plan for how we will implement continuous integration into our project
+- Tested our continuous integration with a few sample tests
 
 We also worked on completing the following additional goals:
-- Start working on database setup 
+- Started working on database setup 
 - Set up a functional UI based on the paper prototype
+- Completed tutorials for relevant tools such as flutter.
 
 
 ## How has your product improved or progressed from a customer perspective? 
