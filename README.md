@@ -19,6 +19,7 @@ GrinNet/
         ├── s1-review-report.md     # Sprint report for sprint 1
     ├── Sprint_2/                   # Folder containing Images for sprint 2
         ├── s2-planning-report.md   # Planning report for sprint 2
+        ├── s2-review-report.md     # Sprint report for sprint 2
 
 ```
 
