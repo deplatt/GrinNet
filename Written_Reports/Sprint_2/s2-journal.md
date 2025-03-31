@@ -39,6 +39,11 @@ Divide your planned work into about 3-6 epics. For each epic, write in your Spri
 - Effort estimate -- How many person-week units do you expect it will take (If 3 team members will work on it for 2 weeks, that's 6 person-weeks.)
 - Subtasks -- In the backlog of your Issue Manager, label tasks so they can easily be identified as part of the given epic. Create any relevant tasks that do not exist yet. Note that issues do not need to be well formed until they are added to the current sprint backlog. -->
 
+
+### Epic 1: User accounts + successful login
+This epic will achieve a full integration of the user database and user log in, so the final goal will have a fully functional account creation, verification and login. What needs to be done for this epic to happen is we need to have successfully  learned how to integrate and connect our database to our app, completed our learning experiences regarding dart programming and have knowledge about firebase authentication a. In addition, some of the issues we have already worked on on previous milestones and sprints will come into play. Mainly, what we are doing in this sprint with the software design and architecture as well as our paper prototype. We estimate that the full implementation will take 8 person weeks, meaning that 4 of us will work for 2 weeks, to achieve our envisioned product. The pic will have the following issues: Design login page UI, Existing user login, Send new user an email with a verification link, Add functionality to email verification link, Integrating Flutter with Firebase, and set up error authentication handlers. 
+
+
 ### 5.3: Product Roadmap
 
 <!-- In your Sprint Journal, create a timeline or calendar to represent your product roadmap. You might experiment with different text or graphical formats to make a calendar that is easy for your team  to understand. In your roadmap, include:
