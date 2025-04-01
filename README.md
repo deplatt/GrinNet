@@ -9,18 +9,23 @@ GrinNet will segment posts into broad categories such as gaming, sports, educati
 ```
 GrinNet/
 ├── README.md                       # Top-Level ReadMe file
-├── StyleGuidelines.md              # Contains links to style guides for relevant programming languages
+├── DeveloperGuidelines.md          # Contains information for developers, including style guides
 ├── Flutter_Tutorial                # Folder containing code for a tutorial flutter app
 ├── Written_Reports/                # Folder containing our Written Reports
     ├── milestone-2-report.md       # Report for Milestone 2
     ├── Sprint_1/                   # Folder containing write-ups for sprint 1
-        ├── Sprint_1_Images/        # Folder containing Images for sprint 1
+        ├── Sprint_1_Images/        # Folder containing images for sprint 1
         ├── s1-planning-report.md   # Planning report for sprint 1
         ├── s1-journal.md           # Journal documenting progress for sprint 1
         ├── s1-review-report.md     # Sprint report for sprint 1
-    ├── Sprint_2/                   # Folder containing Images for sprint 2
+    ├── Sprint_2/                   # Folder containing write-ups for sprint 2
         ├── s2-planning-report.md   # Planning report for sprint 2
         ├── s2-review-report.md     # Sprint report for sprint 2
+        ├── s2-review-report.md     # Sprint report for sprint 2
+    ├── Sprint_3/                   # Folder containing write-ups for sprint 2
+        ├── s3-planning-report.md   # Planning report for sprint 3
+        ├── s3-review-report.md     # Sprint report for sprint 3
+        ├── s3-review-report.md     # Sprint report for sprint 3
 
 
 ```

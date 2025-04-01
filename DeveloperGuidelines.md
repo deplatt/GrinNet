@@ -1,3 +1,5 @@
+## Coding Guidelines
+
 For this project, we will expect any Dart code to be formatted accoring to the following style guide: \
 https://dart.dev/effective-dart/style
 
@@ -10,3 +12,11 @@ https://www.sqlstyle.guide/
 This guide was chosen because it is comprehensive and provides good rationale.
 
 To enforce proper style, team members are expected to bring any issues to the team's attention and judicously use ```dart format``` (in the case of dart code).
+
+## Testing and CI
+
+<!-- In the Developer Guidelines section of your Repository, document what a developer needs to know about testing and CI, including:
+
+How to add a new test to the code base.
+Which tests will be executed in a CI build.
+Which development actions trigger a CI build. -->
