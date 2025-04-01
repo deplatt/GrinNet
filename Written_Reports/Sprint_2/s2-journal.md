@@ -4,6 +4,22 @@
 
 <!-- For each of two decisions pertaining to your software architecture, identify and briefly describe an alternative. For each of the two alternatives, discuss its pros and cons compared to your choice. -->
 
+1.7 Two Architectural Decisions & Their Alternatives 
+Below are 2 notable choices, plus an alternative and brief pros/cons for each. 
+
+Choice: Flutter for Front-End
+Alternative: Native iOS (Swift) + Native Android (Kotlin).
+Pros of Alternative: Optimal performance, platform-specific UIs.
+Cons of Alternative: Double development effort, less code reuse, longer development cycles.
+Rational : Given the time-constraints on our team this semester, we have decided that it is more viable for us to develop a single front-end using flutter rather than two separate native front-ends for iOS and Android. 
+
+Choice: Node.js/Express for Back-End
+Alternative: Ruby on Rails
+Pros of Alternative: Rapid development with convention-over-configuration, built-in scaffolding.
+Cons of Alternative: Smaller developer pool within the team (the team is more familiar with JS), potential overhead for real-time features.
+Rational : The team members are more familiar with Node.js. Once again, given the time constraints and the fact that the team would have to spend time getting acquainted with Ruby on Rails, we have opted to use Node.js as our back-end. 
+
+
 ## Part 5: Process Description
 
 ### 5.1: Risk Assessment
