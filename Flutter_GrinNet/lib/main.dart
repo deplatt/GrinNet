@@ -10,7 +10,9 @@ class GrinNetApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GrinNet',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: LoginScreen(),
     );
   }
@@ -26,7 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   void _login() {
-    // need to impleement actual login functionality
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => EventFeedScreen()),
@@ -34,30 +35,26 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _signUp() {
-    // need to implement sign-up functionality
+    // Implement sign-up functionality
   }
 
   void _adminLogin() {
-    // need to implement admin login functionality
+    // Implement admin login functionality
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('GrinNET')),
+      appBar: AppBar(title: Text('GrinNet Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 10),
-            Text(
-              'Welcome to GrinNET, a social media app made for Grinnellians by Grinnellians!',
-            ),
-            SizedBox(height: 20),
             TextField(
               controller: _emailController,
               decoration: InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
             ),
             TextField(
               controller: _passwordController,
@@ -66,10 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20),
             ElevatedButton(onPressed: _login, child: Text('Login')),
-            SizedBox(height: 10),
             ElevatedButton(onPressed: _signUp, child: Text('Sign Up')),
-            SizedBox(height: 10),
-            ElevatedButton(onPressed: _adminLogin, child: Text('Admin Login')),
+            TextButton(onPressed: _adminLogin, child: Text('Admin Login')),
           ],
         ),
       ),
@@ -83,12 +78,7 @@ class Event {
   final String text;
   final List<String> tags;
 
-  Event({
-    required this.username,
-    required this.imageUrl,
-    required this.text,
-    required this.tags,
-  });
+  Event({required this.username, required this.imageUrl, required this.text, required this.tags});
 }
 
 class EventFeedScreen extends StatefulWidget {
@@ -132,19 +122,38 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
 
   String searchQuery = '';
 
+  void _navigateToCreatePostScreen() async {
+    final newEvent = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CreatePostScreen()),
+    );
+
+    if (newEvent != null) {
+      setState(() {
+        events.insert(0, newEvent);
+      });
+    }
+  }
+
+  void _navigateToProfileScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileScreen(events: events)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Event> filteredEvents =
-        events.where((event) {
-          return event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
-              event.tags.any(
-                (tag) => tag.toLowerCase().contains(searchQuery.toLowerCase()),
-              ) ||
-              event.username.toLowerCase().contains(searchQuery.toLowerCase());
-        }).toList();
+    List<Event> filteredEvents = events.where((event) {
+      return event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
+          event.tags.any((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase())) || 
+          event.username.toLowerCase().contains(searchQuery.toLowerCase());
+    }).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Campus Events')),
+      appBar: AppBar(
+        title: Text('Campus Events'),
+      ),
       body: Column(
         children: [
           Padding(
@@ -201,25 +210,120 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {}, // have to implement post creation
-            ),
-            IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {}, // have to implement refresh functionality
-            ),
-            IconButton(
-              icon: Icon(Icons.person),
-              onPressed: () {}, // have to implement profile navigation
-            ),
+            IconButton(icon: Icon(Icons.add), onPressed: _navigateToCreatePostScreen),
+            IconButton(icon: Icon(Icons.refresh), onPressed: () => setState(() {})),
+            IconButton(icon: Icon(Icons.person), onPressed: _navigateToProfileScreen),
           ],
         ),
       ),
+    );
+  }
+}
+
+class CreatePostScreen extends StatefulWidget {
+  @override
+  _CreatePostScreenState createState() => _CreatePostScreenState();
+}
+
+class _CreatePostScreenState extends State<CreatePostScreen> {
+  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _tagsController = TextEditingController();
+  final TextEditingController _imageUrlController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+
+  void _submitPost() {
+    if (_textController.text.isEmpty || _tagsController.text.isEmpty || _imageUrlController.text.isEmpty || _usernameController.text.isEmpty) {
+      return;
+    }
+
+    List<String> tags = _tagsController.text.split(',').map((tag) => tag.trim()).toList();
+
+    final newEvent = Event(
+      username: _usernameController.text,
+      imageUrl: _imageUrlController.text,
+      text: _textController.text,
+      tags: tags,
+    );
+
+    Navigator.pop(context, newEvent);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Create Post'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(labelText: 'Username'),
+            ),
+            TextField(
+              controller: _imageUrlController,
+              decoration: InputDecoration(labelText: 'Image URL'),
+            ),
+            TextField(
+              controller: _textController,
+              decoration: InputDecoration(labelText: 'Post Text'),
+            ),
+            TextField(
+              controller: _tagsController,
+              decoration: InputDecoration(labelText: 'Tags (comma-separated)'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(onPressed: _submitPost, child: Text('Submit Post')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  final List<Event> events;
+
+  ProfileScreen({required this.events});
+
+  void _navigateToSettingsScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingsScreen()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+        actions: [
+          IconButton(icon: Icon(Icons.settings), onPressed: () => _navigateToSettingsScreen(context)),
+        ],
+      ),
+      body: ListView(
+        children: events.map((event) => ListTile(
+          title: Text(event.text),
+          subtitle: Text('Posted by ${event.username}'),
+        )).toList(),
+      ),
+    );
+  }
+}
+
+class SettingsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Settings')),
+      body: Center(child: Text('Change Username and Password Settings Here')),
     );
   }
 }
