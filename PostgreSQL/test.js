@@ -1,82 +1,173 @@
 // test.js
-const db = require('./functions.js');
+const { expect } = require('chai');
+const db = require('./functions.js'); 
 
-async function runTests() {
-  try {
-    console.log('--- Starting Tests ---');
+// Helper to remove test users and posts if necessary.
 
-    // 1. Create a user
-    console.log('\nCreating user "alice"...');
-    let userAlice = await db.createUser("alice", "password123", "Hello, I am Alice", "http://example.com/alice.jpg");
-    console.log("Created:", userAlice);
+describe('User Functions', function () {
+  let user;
 
-    console.log('\nCreating user "bob"...');
-    let userBob = await db.createUser("bob", "securepass", "Hi, I'm Bob", "http://example.com/bob.jpg");
-    console.log("Created:", userBob);
+  afterEach(async function () {
+    // Clean up: Delete the created user if exists
+    if (user && user.id) {
+      try {
+        await db.deleteUser(user.id);
+      } catch (err) {
+        // Ignore errors if user was already deleted
+      }
+    }
+  });
 
-    // 2. Change Alice's bio and profile picture
-    console.log('\nChanging Alice\'s bio...');
-    let updatedAliceBio = await db.changeBio(userAlice.id, "Updated bio for Alice");
-    console.log("Updated Alice bio:", updatedAliceBio);
+  it('should create a user', async function () {
+    user = await db.createUser('testuser', 'password123', 'Test bio', 'profile.jpg');
+    expect(user).to.have.property('id');
+    expect(user.username).to.equal('testuser');
+  });
 
-    console.log('\nChanging Alice\'s profile picture...');
-    let updatedAlicePic = await db.changeProfilePicture(userAlice.id, "http://example.com/alice-new.jpg");
-    console.log("Updated Alice profile picture:", updatedAlicePic);
+  it('should ban a user', async function () {
+    user = await db.createUser('banuser', 'password123');
+    const banned = await db.banUser(user.id);
+    expect(banned.status).to.equal('banned');
+  });
 
-    // 3. Change Alice's password and verify it
-    console.log('\nChanging Alice\'s password...');
-    let updatedAlicePassword = await db.changePassword(userAlice.id, "newpassword456");
-    console.log("Password changed for Alice:", updatedAlicePassword);
+  it('should warn a user', async function () {
+    user = await db.createUser('warnuser', 'password123');
+    const warned = await db.warnUser(user.id);
+    expect(warned.status).to.equal('warned');
+  });
 
-    console.log('\nVerifying Alice\'s new password...');
-    let isPasswordCorrect = await db.checkPassword("alice", "newpassword456");
-    console.log("Password verification result:", isPasswordCorrect);
+  it('should change bio', async function () {
+    user = await db.createUser('bioUser', 'password123', 'Old bio');
+    const updated = await db.changeBio(user.id, 'New bio');
+    expect(updated.bio_text).to.equal('New bio');
+  });
 
-    // 4. Create a post by Alice
-    console.log('\nAlice creates a post...');
-    let post = await db.createPost(userAlice.id, "This is a post by Alice", "http://example.com/post1.jpg", ["tag1", "tag2"]);
-    console.log("Created post:", post);
+  it('should change profile picture', async function () {
+    user = await db.createUser('picUser', 'password123', '', 'old.jpg');
+    const updated = await db.changeProfilePicture(user.id, 'new.jpg');
+    expect(updated.profile_picture).to.equal('new.jpg');
+  });
 
-    // 5. Terminate Alice's post
-    console.log('\nTerminating Alice\'s post...');
-    let terminatedPost = await db.terminatePost(post.post_id);
-    console.log("Terminated post:", terminatedPost);
+  it('should change and verify password', async function () {
+    user = await db.createUser('passUser', 'oldpassword');
+    const checkOld = await db.checkPassword('passUser', 'oldpassword');
+    expect(checkOld).to.be.true;
+    await db.changePassword(user.id, 'newpassword');
+    const checkNew = await db.checkPassword('passUser', 'newpassword');
+    expect(checkNew).to.be.true;
+    const checkOldAgain = await db.checkPassword('passUser', 'oldpassword');
+    expect(checkOldAgain).to.be.false;
+  });
 
-    // 6. Bob reports Alice's post
-    console.log('\nBob reports Alice\'s post...');
-    let report = await db.reportPost(userAlice.id, "Inappropriate content", post.post_id, userBob.id);
-    console.log("Created report:", report);
+  it('should delete a user', async function () {
+    user = await db.createUser('deleteUser', 'password123');
+    const deleted = await db.deleteUser(user.id);
+    expect(deleted.id).to.equal(user.id);
+    // Check that user is no longer available
+    try {
+      await db.checkPassword('deleteUser', 'password123');
+    } catch (error) {
+      expect(error.message).to.equal('User not found');
+    }
+  });
+});
 
-    // 7. Dismiss the report
-    console.log('\nDismissing the report...');
-    let dismissedReport = await db.dismissReport(report.report_id);
-    console.log("Dismissed report:", dismissedReport);
+describe('Post Functions', function () {
+  let user, post;
 
-    // 8. Ban Alice and then warn her (to simulate status changes)
-    console.log('\nBanning Alice...');
-    let bannedAlice = await db.banUser(userAlice.id);
-    console.log("Banned user:", bannedAlice);
+  beforeEach(async function () {
+    // Create a user to be the post creator
+    user = await db.createUser('postCreator', 'password');
+  });
 
-    console.log('\nWarning Alice (status change)...');
-    let warnedAlice = await db.warnUser(userAlice.id);
-    console.log("Warned user:", warnedAlice);
+  afterEach(async function () {
+    // Clean up the post if it exists
+    if (post && post.post_id) {
+      try {
+        await db.deletePost(post.post_id);
+      } catch (err) {
+        // Ignore errors if the post cannot be deleted
+      }
+    }
+    // Clean up the creator user
+    if (user && user.id) {
+      await db.deleteUser(user.id);
+    }
+  });
 
-    // 9. Delete Bob
-    console.log('\nDeleting user Bob...');
-    let deletedBob = await db.deleteUser(userBob.id);
-    console.log("Deleted user Bob:", deletedBob);
+  it('should create a post', async function () {
+    post = await db.createPost(user.id, 'Hello world!', 'image.jpg', ['tag1', 'tag2']);
+    expect(post).to.have.property('post_id');
+    expect(post.creator).to.equal(user.id);
+  });
 
-    // 10. Finally, delete Alice as cleanup
-    console.log('\nDeleting user Alice...');
-    let deletedAlice = await db.deleteUser(userAlice.id);
-    console.log("Deleted user Alice:", deletedAlice);
+  it('should terminate a post', async function () {
+    post = await db.createPost(user.id, 'Post to terminate');
+    const terminated = await db.terminatePost(post.post_id);
+    expect(terminated.date_of_termination).to.not.be.null;
+  });
 
-    console.log('\n--- Tests Completed ---');
-  } catch (err) {
-    console.error('Test error:', err);
-  } finally {
-    process.exit();
-  }
-}
+  it('should delete a terminated post with no reports', async function () {
+    post = await db.createPost(user.id, 'Post to delete');
+    await db.terminatePost(post.post_id);
+    const deleted = await db.deletePost(post.post_id);
+    expect(deleted.post_id).to.equal(post.post_id);
+    // Mark post as deleted so afterEach does not try to delete it again.
+    post = null;
+  });
 
-runTests();
+  it('should not delete a post that has reports', async function () {
+    post = await db.createPost(user.id, 'Reported post');
+    const reporter = await db.createUser('reporter', 'password');
+    try {
+      await db.reportPost(user.id, 'Offensive content', post.post_id, reporter.id);
+      await db.terminatePost(post.post_id);
+      await db.deletePost(post.post_id);
+    } catch (error) {
+      expect(error.message).to.equal('Post has reports and cannot be deleted.');
+    }
+    await db.deleteUser(reporter.id);
+  });
+});
+
+describe('Report Functions', function () {
+  let user, reporter, post, report;
+
+  beforeEach(async function () {
+    user = await db.createUser('reportedUser', 'password');
+    reporter = await db.createUser('reporterUser', 'password');
+    post = await db.createPost(user.id, 'Offensive post');
+  });
+
+  afterEach(async function () {
+    if (report && report.report_id) {
+      try {
+        await db.dismissReport(report.report_id);
+      } catch (err) {}
+    }
+    if (post && post.post_id) {
+      try {
+        await db.deletePost(post.post_id);
+      } catch (err) {}
+    }
+    if (user && user.id) {
+      await db.deleteUser(user.id);
+    }
+    if (reporter && reporter.id) {
+      await db.deleteUser(reporter.id);
+    }
+  });
+
+  it('should report a post and update the user report count', async function () {
+    report = await db.reportPost(user.id, 'Inappropriate content', post.post_id, reporter.id);
+    expect(report).to.have.property('report_id');
+  });
+
+  it('should dismiss a report', async function () {
+    report = await db.reportPost(user.id, 'Spam', post.post_id, reporter.id);
+    const dismissed = await db.dismissReport(report.report_id);
+    expect(dismissed.report_id).to.equal(report.report_id);
+    // Prevent afterEach from re-dismissing the report.
+    report = null;
+  });
+});

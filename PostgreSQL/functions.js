@@ -155,7 +155,7 @@ async function createPost(creator, postText, postImage = '', postTags = []) {
   return result.rows[0];
 }
 
-// Terminate a post (set its termination date to now)
+// Terminate a post (set its termination date to now). This will make the post disappear from public view, but not delete. This happens if somebody reports a post.
 async function terminatePost(postId) {
   const updateQuery = `
     UPDATE posts
@@ -166,6 +166,46 @@ async function terminatePost(postId) {
   const result = await query(updateQuery, [postId]);
   return result.rows[0];
 }
+
+// Delete a post if it has been terminated and has no reports
+async function deletePost(postId) {
+  // Check if the post has been terminated and has no reports
+  const checkQuery = `
+    SELECT p.date_of_termination, COUNT(r.report_id) AS report_count
+    FROM posts p
+    LEFT JOIN reports r ON p.post_id = r.post_id
+    WHERE p.post_id = $1
+    GROUP BY p.date_of_termination
+  `;
+  
+  const result = await query(checkQuery, [postId]);
+
+  if (result.rows.length === 0) {
+    throw new Error("Post not found.");
+  }
+
+  const { date_of_termination, report_count } = result.rows[0];
+
+  if (!date_of_termination) {
+    throw new Error("Post must be terminated before deletion.");
+  }
+
+  if (parseInt(report_count) > 0) {
+    throw new Error("Post has reports and cannot be deleted.");
+  }
+
+  // Delete the post
+  const deleteQuery = `
+    DELETE FROM posts
+    WHERE post_id = $1
+    RETURNING *
+  `;
+  const deleteResult = await query(deleteQuery, [postId]);
+  
+  return deleteResult.rows[0];
+}
+
+
 
 /* ========================
    Report-related functions
@@ -213,6 +253,7 @@ module.exports = {
   checkPassword,
   createPost,
   terminatePost,
+  deletePost,
   reportPost,
   dismissReport,
   deleteUser
