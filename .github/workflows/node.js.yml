@@ -39,15 +39,15 @@ jobs:
         working-directory: ./PostgreSQL
         run: npm install
 
-      - name: Set up database schema
-        run: psql -h 127.0.0.1 -U postgres -d GrinNetDev -f PostgreSQL/schema.sql
-        env:
-          PGPASSWORD: csc324AdminDropTheClass!
+      # - name: Set up database schema
+      #   run: psql -h 132.161.166.56 -U postgres -d GrinNetDev -f PostgreSQL/schema.sql
+      #   env:
+      #     PGPASSWORD: csc324AdminDropTheClass!
 
       - name: Run tests
         working-directory: ./PostgreSQL
         env:
-          DB_HOST: 127.0.0.1
+          DB_HOST: 132.161.166.56
           DB_USER: postgres
           DB_DATABASE: GrinNetDev
           DB_PASSWORD: csc324AdminDropTheClass!
