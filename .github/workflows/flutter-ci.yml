@@ -2,27 +2,33 @@ name: Flutter CI
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, dev ]  # Triggers on pushes to main/dev
   pull_request:
-    branches: [ main ]
+    branches: [ main ]       # Triggers on PRs to main
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
+    
+    # Set default working directory for all steps
+    defaults:
+      run:
+        working-directory: ./Flutter_GrinNet
 
-      - name: Flutter_GrinNet
-        working-directory: ./Flutter_GrinNet  
-        
-      # All subsequent steps run in this directory
+    steps:
+      # 1. Checkout repository
+      - uses: actions/checkout@v4
+
+      # 2. Set up Flutter
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
-          
+          flutter-version: 'stable'  # Uses latest stable Flutter SDK
+
+      # 3. Install dependencies (runs in ./flutter_app)
       - run: flutter pub get
-      - run: flutter test
-      - run: flutter test integration_test/
-      - run: flutter analyze
-      - run: flutter format --set-exit-if-changed .
+
+      # 4. Run tests (all commands inherit working-directory)
+      - run: flutter test           # Unit/widget tests
+      - run: flutter test integration_test/  # Integration tests
+      - run: flutter analyze        # Static analysis
+      - run: flutter format --set-exit-if-changed .  # Format check
