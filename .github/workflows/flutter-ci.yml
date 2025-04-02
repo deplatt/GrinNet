@@ -1,0 +1,34 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ main, dev ] # Runs on push to main/dev branches
+  pull_request:
+    branches: [ main ]      # Runs on PRs to main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - uses: actions/checkout@v4
+
+      # Set up Flutter
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable' # Use latest stable Flutter SDK
+
+      # Install dependencies
+      - run: flutter pub get
+
+      # Run unit/widget tests
+      - run: flutter test
+
+      # Run integration tests
+      - run: flutter test integration_test/
+
+      # Static analysis (code quality checks)
+      - run: flutter analyze
+
+      # Check code formatting
+      - run: flutter format --set-exit-if-changed .
