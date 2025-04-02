@@ -86,8 +86,11 @@ This epic will achieve a complete User interface integration, meaning that all t
 ### Continuous Integration Plan for Flutter 
 The test library we are going to use is the built-in Flutter Testing Framework, that includes the   flutter_test for unit/widget tests and integration_test for end-to-end testing. The reasons why we are using this library are that it is compatible with flutter, provides sufficient tools for unit tests, widget tests and integration tests and works seamlessly with  Github Actions. Regarding the CI service, we are going to use github actions as it is the recommended and we are already doing 90% of the work on the github repository. 
 
+### Continuous Integration Plan for Node.js
+We opted for Mocha as our test library for Node.js, complimented by Chai for assertions, because their simplicity and strong community backing make them a natural fit for our Node.js environment. This decision is clearly reflected in our package.json, where Mocha is set up to run our tests with just a simple npm test command. On the continuous integration front, we decided to use GitHub Actions. Its integration with our repository allows us to automatically trigger tests on every push or pull request to the main branch. Our CI workflow installs our dependencies then runs our tests for node.js using a PostgreSQL database created in a Docker container. 
 
 ## Part 7: Test Automation and Continuous Integration Setup
+
 
 <!-- In your Sprint Journal, include a screenshot of your successful tests to demonstrate that they have run and passed. -->
 
