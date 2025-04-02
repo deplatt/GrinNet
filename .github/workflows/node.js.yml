@@ -44,4 +44,3 @@ jobs:
         env:
           DATABASE_URL: postgres://postgres:csc324AdminDropTheClass!@127.0.0.1:5432/GrinNetDev
         run: npm test
-
