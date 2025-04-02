@@ -8,8 +8,9 @@ CREATE TABLE users (
     salt_for_password TEXT NOT NULL,
     hashed_password TEXT NOT NULL,
     num_of_reports INTEGER DEFAULT 0,
-    status VARCHAR(20) NOT NULL CHECK (status IN ('warned', 'banned', 'reported'))
+    status VARCHAR(20) NOT NULL CHECK (status IN ('warned', 'banned', 'reported', 'nothing'))
 );
+
 -- Create the posts table
 CREATE TABLE posts (
     post_id SERIAL PRIMARY KEY,
@@ -21,6 +22,7 @@ CREATE TABLE posts (
     creator INTEGER NOT NULL,
     FOREIGN KEY (creator) REFERENCES users(id)
 );
+
 -- Create the reports table
 CREATE TABLE reports (
     report_id SERIAL PRIMARY KEY,
