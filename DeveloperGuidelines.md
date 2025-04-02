@@ -32,6 +32,20 @@ This guide was published by Google and as such is recognized as an industry stan
 
 ### Flutter testing:
 
+1.# **Locate the Test Directory:**
+   For **Unit/Widget** Tests put them in Flutter_GrinNet/test
+   For **Integration Tests** put them in Flutter_GrinNet/integration_test
+   
+2.  **Create or Update a Test File:**
+   - If you're introducing a new test, create a file (e.g., `newTest.dart`) in the corresponding directory.
+
+3.  **Write Your Test:**
+   - Follow the project’s testing style and structure.
+   - Use the test the flutter_test library for validating outcomes.
+   - Ensure to update the CI workflow if a test requires adding an emulator
+
+
+
 ### Node.js testing:
 
 1. **Locate the Test Directory:**
