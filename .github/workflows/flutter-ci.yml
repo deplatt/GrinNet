@@ -14,7 +14,7 @@ jobs:
       
 
       - name: Flutter_GrinNet
-        working-directory: /Flutter_GrinNet  # 
+        working-directory: ./Flutter_GrinNet  
         
       # All subsequent steps run in this directory
       - uses: subosito/flutter-action@v2
