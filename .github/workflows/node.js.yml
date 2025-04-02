@@ -1,0 +1,68 @@
+# This workflow installs dependencies, sets up the database schema, and runs tests
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: csc324AdminDropTheClass!
+          POSTGRES_DB: GrinNetDev
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 21.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Install dependencies
+        working-directory: ./PostgreSQL
+        run: npm install
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h 127.0.0.1 -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+        env:
+          PGPASSWORD: csc324AdminDropTheClass!
+
+      - name: Set up database schema
+        run: psql -h 127.0.0.1 -U postgres -d GrinNetDev -f PostgreSQL/schema.sql
+        env:
+          PGPASSWORD: csc324AdminDropTheClass!
+
+      - name: Run tests
+        working-directory: ./PostgreSQL
+        env:
+          DB_HOST: 127.0.0.1
+          DB_USER: postgres
+          DB_DATABASE: GrinNetDev
+          DB_PASSWORD: csc324AdminDropTheClass!
+          DB_PORT: 5432
+        run: npm test
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
