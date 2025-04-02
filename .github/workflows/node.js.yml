@@ -1,5 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code, and run tests across different versions of node
 
+# This workflow will install dependencies, set up the database schema, and run tests
+
 name: Node.js CI
 
 on:
@@ -30,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use Node.js 14.x
+      - name: Use Node.js 21.x
         uses: actions/setup-node@v3
         with:
           node-version: '21'
@@ -39,8 +41,17 @@ jobs:
         working-directory: ./PostgreSQL
         run: npm install
 
+      - name: Set up database schema
+        run: psql -h 127.0.0.1 -U postgres -d GrinNetDev -f PostgreSQL/schema.sql
+        env:
+          PGPASSWORD: csc324AdminDropTheClass!
+
       - name: Run tests
         working-directory: ./PostgreSQL
         env:
-          DATABASE_URL: postgres://postgres:csc324AdminDropTheClass!@127.0.0.1:5432/GrinNetDev
+          DB_HOST: 127.0.0.1
+          DB_USER: postgres
+          DB_DATABASE: GrinNetDev
+          DB_PASSWORD: csc324AdminDropTheClass!
+          DB_PORT: 5432
         run: npm test
