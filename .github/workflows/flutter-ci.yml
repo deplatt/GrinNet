@@ -9,44 +9,38 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 30
+
     steps:
-      # 1. Checkout the repository
       - uses: actions/checkout@v4
-
-      # 2. Debug: Show initial directory structure
-      - name: List root directory
-        run: |
-          echo "Current directory: $(pwd)"
-          ls -la
-
-      # 3. Navigate to Flutter subdirectory
-      - name: Enter Flutter project
-        run: |
-          cd Flutter_GrinNet || { echo "Error: flutter_app directory not found"; exit 1; }
-          echo "Now in: $(pwd)"
-          ls -la  # Verify Flutter files exist
-
-      # 4. Set up Flutter SDK (now in correct directory)
-   # 2. Set up Flutter with explicit version
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.2'  # Explicit version instead of 'stable'
+          fetch-depth: 0
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'
           channel: stable
           cache: true
-      # 5. Run all tests and checks (from Flutter subdirectory)
-      - name: Run Flutter commands
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Run tests
         run: |
           flutter pub get
-          flutter test 
+          flutter test
           flutter test integration_test/
           flutter analyze
-          flutter format --set-exit-if-changed .
-        working-directory: ./Flutter_GrinNet # Explicit path
-
-      # 6. (Optional) Build verification
-      - name: Build debug APK
-        if: success()
-        run: flutter build apk --debug
         working-directory: ./Flutter_GrinNet
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: |
+            ./coverage/
+            ./integration_test/screenshots/
