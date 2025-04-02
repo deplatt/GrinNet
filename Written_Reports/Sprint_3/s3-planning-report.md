@@ -1,14 +1,29 @@
-<!-- As before, for any changes to the Requirements Document, add a link to a difference document in your Sprint Journal. The difference document is separate from the Requirements Document and there are a couple ways to create it:
+# Sprint 2 Planning Report
 
-1) Format added text with underline and deleted text with strikethrough.
-2) Generate a URL comparing commits of your document before and after changes.
-If your Requirements Document did not change this sprint, clearly say so in your Sprint Journal. -->
+## Capacity
+We will each aim to put 8 hours of work in for this sprint. Since the sprint is only about one week, we cannot reasonably put in more than that and still stay on top of our other classes.
 
-<!-- Make an entry in your Sprint Journal document including:
+## Goals
+- Practice writing good commit messages
+- Develop good code review habits
+- Fully implement and document all technical processes (version control, testing, CI, etc.)
+- Complete an end-to-end implementation of the app
+    - We are not planning on finishing an MVP this sprint
+    - We will work on connecting our frontend and backend
+    - We will continue developing the frontend, including login page
+    - We will connect the login to Firebase authentication
+        - We will send a user a working link through email that they can click to verify their account
 
-A summary of non-user-facing progress for this milestone. -->
-
-
-<!-- Make an entry in your Sprint Journal that includes:
-
-Name of the git tag for the commit containing your demo code. -->
+## Task Breakdown
+Everyone:
+- Complete code reviews of all code being pushed to main
+As a group:
+- Connect the backend and the frontend to make sure the demo is end-to-end
+Pranav and Shibam:
+- Continue developing the front-end of the app
+- Create more pages to navigate and polish the post-creation process
+Jeronimo and Anthony:
+- Work on the backend and get the server and database working for post-creation
+Deven:
+- Continue working on integrating Flutter with Firebase
+- Work on the login page to set up user authentication with Firebase
