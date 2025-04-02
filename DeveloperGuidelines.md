@@ -22,6 +22,14 @@ This guide was published by Google and as such is recognized as an industry stan
 
 ## Testing and CI
 
+### CI Build Triggers
+
+1. **On Code Push:**
+   - Every push to the main branch triggers the CI pipeline automatically.
+
+2. **On Pull Requests:**
+   - Opening a pull request targeting the main branch will also trigger a CI build.
+
 ### Flutter testing:
 
 ### Node.js testing:
@@ -44,14 +52,6 @@ This guide was published by Google and as such is recognized as an industry stan
      npm test
      ```
    - Confirm that your new tests pass before pushing your changes.
-
-### CI Build Triggers
-
-1. **On Code Push:**
-   - Every push to the main branch triggers the CI pipeline automatically.
-
-2. **On Pull Requests:**
-   - Opening a pull request targeting the main branch will also trigger a CI build.
 
 
 <!-- In the Developer Guidelines section of your Repository, document what a developer needs to know about testing and CI, including:
