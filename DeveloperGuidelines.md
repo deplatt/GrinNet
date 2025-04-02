@@ -1,4 +1,4 @@
-## Coding Guidelines
+### Coding Guidelines
 
 For this project, we will expect any Dart code to be formatted accoring to the following style guide: \
 https://dart.dev/effective-dart/style
@@ -18,7 +18,41 @@ https://google.github.io/styleguide/jsguide.html
 
 This guide was published by Google and as such is recognized as an industry standard. It is also very comprehensive.
 
-## Testing and CI
+---
+
+### Testing and CI
+
+## Flutter testing:
+
+## Node.js testing:
+
+1. **Locate the Test Directory:**
+   - All node.js tests are located in the `GrinNet/PostgreSQL` directory. This is where you'll add or update your test files. All test files in this directory are ran every CI trigger.
+
+2. **Create or Update a Test File:**
+   - If you're introducing a new test, create a file (e.g., `newTest.js`) in the same directory.
+   - You can also add test cases to an existing file (such as `test.js`).
+
+3. **Write Your Test:**
+   - Follow the project’s testing style and structure.
+   - Use the test framework's functions and the assertion library for validating outcomes.
+   - Ensure your tests properly clean up any data they create (like test users or posts).
+
+4. **Verify Locally:**
+   - Run your tests locally using the command:
+     ```bash
+     npm test
+     ```
+   - Confirm that your new tests pass before pushing your changes.
+
+## CI Build Triggers
+
+1. **On Code Push:**
+   - Every push to the main branch triggers the CI pipeline automatically.
+
+2. **On Pull Requests:**
+   - Opening a pull request targeting the main branch will also trigger a CI build.
+
 
 <!-- In the Developer Guidelines section of your Repository, document what a developer needs to know about testing and CI, including:
 
