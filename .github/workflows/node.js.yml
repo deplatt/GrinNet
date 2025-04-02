@@ -53,3 +53,7 @@ jobs:
           DB_PASSWORD: csc324AdminDropTheClass!
           DB_PORT: 5432
         run: npm test
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
