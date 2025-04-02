@@ -1,0 +1,28 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+
+      - name: Flutter_GrinNet
+        working-directory: ./Flutter_GrinNet  # 
+        
+      # All subsequent steps run in this directory
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter test integration_test/
+      - run: flutter analyze
+      - run: flutter format --set-exit-if-changed .
