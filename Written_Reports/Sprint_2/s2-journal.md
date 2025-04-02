@@ -74,6 +74,11 @@ This epic will achieve a complete User interface integration, meaning that all t
 - Approximate completion date of each epic
 - Enough time for flexibility in case your approximations are off -->
 
+## Timeline for project complition: 
+Epic 1: Start date April 1 ---> April 16 + Extra time if needed of 4 days = April 20 
+Epic 2 Stard date April 5 ---> April 26 + Extra time if needed of 4 days = April 30
+Epic 3 Start date April 1 --- > April 22 + Extra time if needed of 3 days = April 25
+
 ## Part 6: Continuous Integration Plan
 
 <!-- In your Sprint Journal, write a test plan, describing:
