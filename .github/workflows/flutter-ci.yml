@@ -9,38 +9,31 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
     steps:
+      # 1. Checkout repository with full history
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Required for Flutter version checking
 
-      - uses: subosito/flutter-action@v2
+      # 2. Set up Flutter with explicit version
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.2'  # Explicit version instead of 'stable'
           channel: stable
           cache: true
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'zulu'
+      # 3. Navigate to Flutter directory (if using subdirectory)
+      - name: Enter Flutter project
+        run: cd Flutter_GrinNet || exit 1
+        working-directory: ./  # Start from root
 
+      # 4. Run Flutter commands
       - name: Run tests
         run: |
           flutter pub get
           flutter test
           flutter test integration_test/
           flutter analyze
+          flutter format --set-exit-if-changed .
         working-directory: ./Flutter_GrinNet
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-reports
-          path: |
-            ./coverage/
-            ./integration_test/screenshots/
