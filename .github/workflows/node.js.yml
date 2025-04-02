@@ -1,5 +1,3 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code, and run tests across different versions of node
-
 # This workflow will install dependencies, set up the database schema, and run tests
 
 name: Node.js CI
