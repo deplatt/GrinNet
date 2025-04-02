@@ -2,33 +2,50 @@ name: Flutter CI
 
 on:
   push:
-    branches: [ main, dev ]  # Triggers on pushes to main/dev
+    branches: [main, dev]
   pull_request:
-    branches: [ main ]       # Triggers on PRs to main
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     
-    # Set default working directory for all steps
-    defaults:
-      run:
-        working-directory: ./Flutter_GrinNet
-
     steps:
-      # 1. Checkout repository
+      # 1. Checkout the repository
       - uses: actions/checkout@v4
 
-      # 2. Set up Flutter
-      - uses: subosito/flutter-action@v2
+      # 2. Debug: Show initial directory structure
+      - name: List root directory
+        run: |
+          echo "Current directory: $(pwd)"
+          ls -la
+
+      # 3. Navigate to Flutter subdirectory
+      - name: Enter Flutter project
+        run: |
+          cd Flutter_GrinNet || { echo "Error: flutter_app directory not found"; exit 1; }
+          echo "Now in: $(pwd)"
+          ls -la  # Verify Flutter files exist
+
+      # 4. Set up Flutter SDK (now in correct directory)
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'  # Uses latest stable Flutter SDK
+          flutter-version: 'stable'
+          cache: true
 
-      # 3. Install dependencies (runs in ./flutter_app)
-      - run: flutter pub get
+      # 5. Run all tests and checks (from Flutter subdirectory)
+      - name: Run Flutter commands
+        run: |
+          flutter pub get
+          flutter test
+          flutter test integration_test/
+          flutter analyze
+          flutter format --set-exit-if-changed .
+        working-directory: ./Flutter_GrinNet # Explicit path
 
-      # 4. Run tests (all commands inherit working-directory)
-      - run: flutter test           # Unit/widget tests
-      - run: flutter test integration_test/  # Integration tests
-      - run: flutter analyze        # Static analysis
-      - run: flutter format --set-exit-if-changed .  # Format check
+      # 6. (Optional) Build verification
+      - name: Build debug APK
+        if: success()
+        run: flutter build apk --debug
+        working-directory: ./Flutter_GrinNet
