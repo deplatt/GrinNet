@@ -91,6 +91,9 @@ We opted for Mocha as our test library for Node.js, complimented by Chai for ass
 
 ## Part 7: Test Automation and Continuous Integration Setup
 
+![Image](../Sprint_2/Sprint_2_Images/TestPassSC.png)
+    *Image 5.1.1: Screenshot of Successful Tests* 
+
 
 <!-- In your Sprint Journal, include a screenshot of your successful tests to demonstrate that they have run and passed. -->
 

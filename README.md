@@ -19,6 +19,7 @@ GrinNet/
         ├── s1-journal.md           # Journal documenting progress for sprint 1
         ├── s1-review-report.md     # Sprint report for sprint 1
     ├── Sprint_2/                   # Folder containing write-ups for sprint 2
+        ├── Sprint_2_Images/        # Folder containing images for sprint 2
         ├── s2-planning-report.md   # Planning report for sprint 2
         ├── s2-review-report.md     # Sprint report for sprint 2
         ├── s2-review-report.md     # Sprint report for sprint 2
