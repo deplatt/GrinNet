@@ -3,11 +3,11 @@ const crypto = require('crypto');
 
 // Updated pool configuration
 const pool = new Pool({
-    user: 'postgres',
-    host: '132.161.166.56',
-    database: 'GrinNetDev',
-    password: 'csc324AdminDropTheClass!',
-    port: 5432,
+  user: process.env.DB_USER || 'postgres',
+  host: process.env.DB_HOST || '132.161.166.56',
+  database: process.env.DB_DATABASE || 'GrinNetDev',
+  password: process.env.DB_PASSWORD || 'csc324AdminDropTheClass!',
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
 });
 
 // Helper function to execute a query
