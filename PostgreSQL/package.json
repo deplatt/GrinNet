@@ -5,6 +5,9 @@
   "scripts": {
     "test": "mocha"
   },
+  "dependencies": {
+    "pg": "^8.10.0"
+  },
   "devDependencies": {
     "mocha": "^10.2.0",
     "chai": "^4.3.6"
