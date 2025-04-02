@@ -83,6 +83,10 @@ This epic will achieve a complete User interface integration, meaning that all t
 - Your CI service and how your project repository is linked to it. (GitHub Actions is the recommended CI service.)
 - A brief justification for why you chose that CI service. -->
 
+### Continuous Integration Plan for Flutter 
+The test library we are going to use is the built-in Flutter Testing Framework, that includes the   flutter_test for unit/widget tests and integration_test for end-to-end testing. The reasons why we are using this library are that it is compatible with flutter, provides sufficient tools for unit tests, widget tests and integration tests and works seamlessly with  Github Actions. Regarding the CI service, we are going to use github actions as it is the recommended and we are already doing 90% of the work on the github repository. 
+
+
 ## Part 7: Test Automation and Continuous Integration Setup
 
 <!-- In your Sprint Journal, include a screenshot of your successful tests to demonstrate that they have run and passed. -->
