@@ -32,7 +32,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.5'  # Explicit version instead of 'stable'
+          flutter-version: '3.29.2'  # Explicit version instead of 'stable'
           channel: stable
           cache: true
       # 5. Run all tests and checks (from Flutter subdirectory)
