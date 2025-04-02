@@ -4,7 +4,7 @@ const crypto = require('crypto');
 // Updated pool configuration
 const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || '132.161.166.56',
+  host: process.env.DB_HOST || '127.0.0.1',
   database: process.env.DB_DATABASE || 'GrinNetDev',
   password: process.env.DB_PASSWORD || 'csc324AdminDropTheClass!',
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
