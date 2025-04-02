@@ -32,9 +32,10 @@ This guide was published by Google and as such is recognized as an industry stan
 
 ### Flutter testing:
 
-1.# **Locate the Test Directory:**
-   For **Unit/Widget** Tests put them in Flutter_GrinNet/test
-   For **Integration Tests** put them in Flutter_GrinNet/integration_test
+1. **Locate the Test Directory:**
+   - For **Unit/Widget** Tests put them in Flutter_GrinNet/test
+   - For **Integration Tests** put them in Flutter_GrinNet/integration_test
+   - All test files in these directories are ran every CI trigger.
    
 2.  **Create or Update a Test File:**
    - If you're introducing a new test, create a file (e.g., `newTest.dart`) in the corresponding directory.
@@ -44,12 +45,11 @@ This guide was published by Google and as such is recognized as an industry stan
    - Use the test the flutter_test library for validating outcomes.
    - Ensure to update the CI workflow if a test requires adding an emulator
 
-
-
 ### Node.js testing:
 
 1. **Locate the Test Directory:**
-   - All node.js tests are located in the `GrinNet/PostgreSQL` directory. This is where you'll add or update your test files. All test files in this directory are ran every CI trigger.
+   - All node.js tests are located in the `GrinNet/PostgreSQL` directory. This is where you'll add or update your test files.
+   - All test files in this directory are ran every CI trigger.
 
 2. **Create or Update a Test File:**
    - If you're introducing a new test, create a file (e.g., `newTest.js`) in the same directory.
