@@ -15,7 +15,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:13
+        image: postgres:17
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: csc324AdminDropTheClass!
@@ -34,7 +34,7 @@ jobs:
       - name: Use Node.js 14.x
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '21'
 
       - name: Install dependencies
         run: npm install
