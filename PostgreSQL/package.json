@@ -4,11 +4,13 @@
   "main": "functions.js",
   "scripts": {
     "test": "mocha"
-  },  
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": ""
-
 }
 
