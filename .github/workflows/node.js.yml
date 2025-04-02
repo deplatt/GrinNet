@@ -1,4 +1,4 @@
-# This workflow will install dependencies, set up the database schema, and run tests
+# This workflow installs dependencies, sets up the database schema, and runs tests
 
 name: Node.js CI
 
@@ -39,6 +39,15 @@ jobs:
         working-directory: ./PostgreSQL
         run: npm install
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h 127.0.0.1 -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+        env:
+          PGPASSWORD: csc324AdminDropTheClass!
+
       - name: Set up database schema
         run: psql -h 127.0.0.1 -U postgres -d GrinNetDev -f PostgreSQL/schema.sql
         env:
@@ -53,7 +62,7 @@ jobs:
           DB_PASSWORD: csc324AdminDropTheClass!
           DB_PORT: 5432
         run: npm test
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
-
