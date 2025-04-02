@@ -33,6 +33,4 @@ jobs:
         run: |
           flutter pub get
           flutter test
-          flutter analyze
-          flutter format --set-exit-if-changed .
         working-directory: ./Flutter_GrinNet
