@@ -27,3 +27,23 @@ Jeronimo and Anthony:
 Deven:
 - Continue working on integrating Flutter with Firebase
 - Work on the login page to set up user authentication with Firebase
+
+
+
+Notes for steps to finish end-to-end implementation by Tuesday 8th April 
+
+Assign various front-end pages to Deven, Jeronimo, and Pranav. 
+Front-end pages needed :
+- log in page
+- home page
+- create post page
+- view post page
+
+Features needed :
+- have the created post appear in the feed when clicking refresh button
+- user email authentication to register a new account, user receives email
+- have the new post appear on another user's app
+- finalize 'categories of interest'
+
+Other tasks 
+- code review needed. each commit needs a code review. 
