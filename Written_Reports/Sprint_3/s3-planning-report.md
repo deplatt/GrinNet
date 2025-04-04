@@ -34,16 +34,16 @@ Notes for steps to finish end-to-end implementation by Tuesday 8th April
 
 Assign various front-end pages to Deven, Jeronimo, and Pranav. 
 Front-end pages needed :
-- log in page
-- home page
-- create post page
-- view post page
+- log in page — Deven
+- home page — Jeronimo (add categories of interest / searching by categories of interest)
+- create post page — Shibam
+- view post page — Pranav 
 
 Features needed :
 - have the created post appear in the feed when clicking refresh button
 - user email authentication to register a new account, user receives email
 - have the new post appear on another user's app
-- finalize 'categories of interest'
+- finalize 'categories of interest' - sports, culture, games, SEPCs, dance, music, food, social, misc.
 
 Other tasks 
-- code review needed. each commit needs a code review. 
+- code review needed. each commit needs a code review. Each review needs to have 3 comments and a summary comment.
