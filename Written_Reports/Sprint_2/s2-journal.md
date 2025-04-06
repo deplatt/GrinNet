@@ -74,6 +74,13 @@ This epic will achieve a complete User interface integration, meaning that all t
 - Approximate completion date of each epic
 - Enough time for flexibility in case your approximations are off -->
 
+## Timeline for project complition: 
+Epic 1: Start date April 1 ---> April 16 + Extra time if needed of 4 days = April 20 
+
+Epic 2 Stard date April 5 ---> April 26 + Extra time if needed of 4 days = April 30
+
+Epic 3 Start date April 1 --- > April 22 + Extra time if needed of 3 days = April 25
+
 ## Part 6: Continuous Integration Plan
 
 <!-- In your Sprint Journal, write a test plan, describing:
@@ -83,7 +90,17 @@ This epic will achieve a complete User interface integration, meaning that all t
 - Your CI service and how your project repository is linked to it. (GitHub Actions is the recommended CI service.)
 - A brief justification for why you chose that CI service. -->
 
+### Continuous Integration Plan for Flutter 
+The test library we are going to use is the built-in Flutter Testing Framework, that includes the   flutter_test for unit/widget tests and integration_test for end-to-end testing. The reasons why we are using this library are that it is compatible with flutter, provides sufficient tools for unit tests, widget tests and integration tests and works seamlessly with  Github Actions. Regarding the CI service, we are going to use github actions as it is the recommended and we are already doing 90% of the work on the github repository. 
+
+### Continuous Integration Plan for Node.js
+We opted for Mocha as our test library for Node.js, complimented by Chai for assertions, because their simplicity and strong community backing make them a natural fit for our Node.js environment. This decision is clearly reflected in our package.json, where Mocha is set up to run our tests with just a simple npm test command. On the continuous integration front, we decided to use GitHub Actions. Its integration with our repository allows us to automatically trigger tests on every push or pull request to the main branch. Our CI workflow installs our dependencies then runs our tests for node.js using a PostgreSQL database created in a Docker container. 
+
 ## Part 7: Test Automation and Continuous Integration Setup
+
+![Image](../Sprint_2/Sprint_2_Images/TestPassSC.png)
+    *Image 5.1.1: Screenshot of Successful Tests* 
+
 
 <!-- In your Sprint Journal, include a screenshot of your successful tests to demonstrate that they have run and passed. -->
 

@@ -1,0 +1,36 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout repository with full history
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for Flutter version checking
+
+      # 2. Set up Flutter with explicit version
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'  # Explicit version instead of 'stable'
+          channel: stable
+          cache: true
+
+      # 3. Navigate to Flutter directory (if using subdirectory)
+      - name: Enter Flutter project
+        run: cd Flutter_GrinNet || exit 1
+        working-directory: ./  # Start from root
+
+      # 4. Run Flutter commands
+      - name: Run tests
+        run: |
+          flutter pub get
+          flutter test
+        working-directory: ./Flutter_GrinNet
