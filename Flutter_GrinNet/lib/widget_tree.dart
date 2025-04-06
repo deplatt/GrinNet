@@ -1,8 +1,7 @@
-import 'package:firebase_test2/auth.dart';
-import 'package:firebase_test2/pages/home_page.dart';
-import 'package:firebase_test2/pages/login_register_page.dart';
+import 'package:Flutter_GrinNet/auth.dart';
+import 'package:Flutter_GrinNet/home_page.dart';
+import 'package:Flutter_GrinNet/login_register_page.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
 
 
 class WidgetTree extends StatefulWidget {
@@ -19,7 +18,7 @@ class _WidgetTreeState extends State<WidgetTree> {
       stream: Auth().authStateChanges, 
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return EventFeedScreen();
+          return HomePage();
         } else {
           return const LoginPage();
         }
