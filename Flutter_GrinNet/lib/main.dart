@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'create_post.dart';
 
 void main() {
   runApp(GrinNetApp());
@@ -216,70 +217,6 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
             IconButton(icon: Icon(Icons.add), onPressed: _navigateToCreatePostScreen),
             IconButton(icon: Icon(Icons.refresh), onPressed: () => setState(() {})),
             IconButton(icon: Icon(Icons.person), onPressed: _navigateToProfileScreen),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CreatePostScreen extends StatefulWidget {
-  @override
-  _CreatePostScreenState createState() => _CreatePostScreenState();
-}
-
-class _CreatePostScreenState extends State<CreatePostScreen> {
-  final TextEditingController _textController = TextEditingController();
-  final TextEditingController _tagsController = TextEditingController();
-  final TextEditingController _imageUrlController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-
-  void _submitPost() {
-    if (_textController.text.isEmpty || _tagsController.text.isEmpty || _imageUrlController.text.isEmpty || _usernameController.text.isEmpty) {
-      return;
-    }
-
-    List<String> tags = _tagsController.text.split(',').map((tag) => tag.trim()).toList();
-
-    final newEvent = Event(
-      username: _usernameController.text,
-      imageUrl: _imageUrlController.text,
-      text: _textController.text,
-      tags: tags,
-    );
-
-    Navigator.pop(context, newEvent);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Create Post'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: _imageUrlController,
-              decoration: InputDecoration(labelText: 'Image URL'),
-            ),
-            TextField(
-              controller: _textController,
-              decoration: InputDecoration(labelText: 'Post Text'),
-            ),
-            TextField(
-              controller: _tagsController,
-              decoration: InputDecoration(labelText: 'Tags (comma-separated)'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(onPressed: _submitPost, child: Text('Submit Post')),
           ],
         ),
       ),
