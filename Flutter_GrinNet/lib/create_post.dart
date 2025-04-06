@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // To access the Event class
+import 'dart:io';
+import 'main.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreatePostScreen extends StatefulWidget {
   @override
@@ -7,45 +9,34 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
-  final TextEditingController _textController = TextEditingController();
-  final TextEditingController _imageUrlController = TextEditingController();
-
-  final List<String> availableTags = [
-    'sports',
-    'culture',
-    'games',
-    'SEPCs',
-    'dance',
-    'music',
-    'food',
-    'social',
-    'misc',
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final List<String> allTags = [
+    'Sports', 'Culture', 'Games', 'SEPCs', 'Dance', 'Music', 'Food', 'Social', 'Misc'
   ];
+  final Set<String> selectedTags = {};
+  File? _selectedImage;
 
-  List<String> selectedTags = [];
-
-  void _toggleTag(String tag) {
-    setState(() {
-      if (selectedTags.contains(tag)) {
-        selectedTags.remove(tag);
-      } else {
-        selectedTags.add(tag);
-      }
-    });
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
   }
 
   void _submitPost() {
-    if (_textController.text.isEmpty ||
-        _imageUrlController.text.isEmpty ||
-        selectedTags.isEmpty) {
-      return;
-    }
+    final title = _titleController.text.trim();
+    final description = _descriptionController.text.trim();
+    if (title.isEmpty || description.isEmpty || selectedTags.isEmpty) return;
 
     final newEvent = Event(
       username: 'current_user', // Replace with actual user if available
-      imageUrl: _imageUrlController.text,
-      text: _textController.text,
-      tags: selectedTags,
+      imageUrl: _selectedImage != null ? _selectedImage!.path : 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/150',
+      text: '$title\n\n$description',
+      tags: selectedTags.toList(),
     );
 
     Navigator.pop(context, newEvent);
@@ -54,49 +45,69 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Create Post'),
-      ),
+      appBar: AppBar(title: Text('Create Event Post')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _imageUrlController,
-              decoration: InputDecoration(labelText: 'Image URL'),
-            ),
-            TextField(
-              controller: _textController,
-              decoration: InputDecoration(labelText: 'Post Text'),
-            ),
-            SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Select Tags:', style: TextStyle(fontWeight: FontWeight.bold)),
-            ),
-            SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: availableTags.map((tag) {
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: InputDecoration(labelText: 'Event Title'),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Event Description'),
+                maxLines: 4,
+              ),
+              SizedBox(height: 20),
+              Text('Select Tags:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Wrap(
+                spacing: 8.0,
+                runSpacing: 4.0,
+                children: allTags.map((tag) {
                   final isSelected = selectedTags.contains(tag);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: FilterChip(
-                      label: Text(tag),
-                      selected: isSelected,
-                      onSelected: (_) => _toggleTag(tag),
-                    ),
+                  return FilterChip(
+                    label: Text(tag),
+                    selected: isSelected,
+                    onSelected: (selected) {
+                      setState(() {
+                        if (selected) {
+                          selectedTags.add(tag);
+                        } else {
+                          selectedTags.remove(tag);
+                        }
+                      });
+                    },
                   );
                 }).toList(),
               ),
-            ),
-            SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: _submitPost,
-              child: Text('Submit Post'),
-            ),
-          ],
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: _pickImage,
+                    child: Text('Upload Image'),
+                  ),
+                  SizedBox(width: 10),
+                  if (_selectedImage != null)
+                    Text(
+                      'Image selected',
+                      style: TextStyle(color: Colors.green),
+                    )
+                ],
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: _submitPost,
+                  child: Text('Post'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -75,11 +75,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
 class Event {
   final String username;
-  final String imageUrl;
+  final String imageUrl;  // Event's image
+  final String profileImageUrl; // User's profile picture
   final String text;
   final List<String> tags;
 
-  Event({required this.username, required this.imageUrl, required this.text, required this.tags});
+  Event({
+    required this.username,
+    required this.imageUrl,
+    required this.profileImageUrl,
+    required this.text,
+    required this.tags,
+  });
 }
 
 class EventFeedScreen extends StatefulWidget {
@@ -92,30 +99,35 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
     Event(
       username: 'mukhopad2',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Join us for Bollywood Gardner at Main Hall Basement!',
       tags: ['Music', 'Culture'],
     ),
     Event(
       username: 'sportsguy101',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Basketball Game: Grinnell vs. Iowa Hawks',
       tags: ['Sports', 'Gaming'],
     ),
     Event(
       username: 'bhandari2',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Art Exhibition at JRC',
       tags: ['Art', 'Exhibition'],
     ),
     Event(
       username: 'platt',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Prof Talk: Ethics of AI',
       tags: ['Technology', 'Talk'],
     ),
     Event(
       username: 'saso',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Diwali',
       tags: ['Culture', 'Music', 'Dance'],
     ),
@@ -184,7 +196,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                     children: [
                       ListTile(
                         leading: CircleAvatar(
-                          backgroundImage: NetworkImage(event.imageUrl),
+                          backgroundImage: NetworkImage(event.profileImageUrl),
                         ),
                         title: Text(event.username),
                       ),
@@ -196,12 +208,14 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Wrap(
                           spacing: 8.0,
-                          children:
-                              event.tags
-                                  .map((tag) => Chip(label: Text(tag)))
-                                  .toList(),
+                          children: event.tags.map((tag) => Chip(label: Text(tag))).toList(),
                         ),
                       ),
+                      if (event.imageUrl.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(event.imageUrl),
+                        ),
                     ],
                   ),
                 );
