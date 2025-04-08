@@ -3,35 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'create_post.dart';
-import 'auth.dart';
-import 'pages/login_register_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(GrinNetApp());
 }
-
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primaryColor: Colors.orange,
-//       ),
-//       home: const WidgetTree(),
-//     );
-//   }
-
-// }
-
-// void main() {
-//   runApp(GrinNetApp());
-// }
 
 class GrinNetApp extends StatelessWidget {
   @override
@@ -46,60 +23,6 @@ class GrinNetApp extends StatelessWidget {
     );
   }
 }
-
-// class LoginScreen extends StatefulWidget {
-//   @override
-//   _LoginScreenState createState() => _LoginScreenState();
-// }
-
-// class _LoginScreenState extends State<LoginScreen> {
-//   final TextEditingController _emailController = TextEditingController();
-//   final TextEditingController _passwordController = TextEditingController();
-
-//   void _login() {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => EventFeedScreen()),
-//     );
-//   }
-
-//   void _signUp() {
-//     // Implement sign-up functionality
-//   }
-
-//   void _adminLogin() {
-//     // Implement admin login functionality
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('GrinNet Login')),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             TextField(
-//               controller: _emailController,
-//               decoration: InputDecoration(labelText: 'Email'),
-//               keyboardType: TextInputType.emailAddress,
-//             ),
-//             TextField(
-//               controller: _passwordController,
-//               decoration: InputDecoration(labelText: 'Password'),
-//               obscureText: true,
-//             ),
-//             SizedBox(height: 20),
-//             ElevatedButton(onPressed: _login, child: Text('Login')),
-//             ElevatedButton(onPressed: _signUp, child: Text('Sign Up')),
-//             TextButton(onPressed: _adminLogin, child: Text('Admin Login')),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class Event {
   final String username;
