@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'create_post.dart';
 
 void main() {
   runApp(GrinNetApp());
@@ -74,11 +75,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
 class Event {
   final String username;
-  final String imageUrl;
+  final String imageUrl;  // Event's image
+  final String profileImageUrl; // User's profile picture
   final String text;
   final List<String> tags;
 
-  Event({required this.username, required this.imageUrl, required this.text, required this.tags});
+  Event({
+    required this.username,
+    required this.imageUrl,
+    required this.profileImageUrl,
+    required this.text,
+    required this.tags,
+  });
 }
 
 class EventFeedScreen extends StatefulWidget {
@@ -91,30 +99,35 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
     Event(
       username: 'mukhopad2',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Join us for Bollywood Gardner at Main Hall Basement!',
       tags: ['Music', 'Culture'],
     ),
     Event(
       username: 'sportsguy101',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Basketball Game: Grinnell vs. Iowa Hawks',
       tags: ['Sports', 'Gaming'],
     ),
     Event(
       username: 'bhandari2',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Art Exhibition at JRC',
       tags: ['Art', 'Exhibition'],
     ),
     Event(
       username: 'platt',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Prof Talk: Ethics of AI',
       tags: ['Technology', 'Talk'],
     ),
     Event(
       username: 'saso',
       imageUrl: 'https://via.placeholder.com/150',
+      profileImageUrl: 'https://via.placeholder.com/50',
       text: 'Diwali',
       tags: ['Culture', 'Music', 'Dance'],
     ),
@@ -183,7 +196,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                     children: [
                       ListTile(
                         leading: CircleAvatar(
-                          backgroundImage: NetworkImage(event.imageUrl),
+                          backgroundImage: NetworkImage(event.profileImageUrl),
                         ),
                         title: Text(event.username),
                       ),
@@ -195,12 +208,14 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Wrap(
                           spacing: 8.0,
-                          children:
-                              event.tags
-                                  .map((tag) => Chip(label: Text(tag)))
-                                  .toList(),
+                          children: event.tags.map((tag) => Chip(label: Text(tag))).toList(),
                         ),
                       ),
+                      if (event.imageUrl.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(event.imageUrl),
+                        ),
                     ],
                   ),
                 );
@@ -216,70 +231,6 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
             IconButton(icon: Icon(Icons.add), onPressed: _navigateToCreatePostScreen),
             IconButton(icon: Icon(Icons.refresh), onPressed: () => setState(() {})),
             IconButton(icon: Icon(Icons.person), onPressed: _navigateToProfileScreen),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CreatePostScreen extends StatefulWidget {
-  @override
-  _CreatePostScreenState createState() => _CreatePostScreenState();
-}
-
-class _CreatePostScreenState extends State<CreatePostScreen> {
-  final TextEditingController _textController = TextEditingController();
-  final TextEditingController _tagsController = TextEditingController();
-  final TextEditingController _imageUrlController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-
-  void _submitPost() {
-    if (_textController.text.isEmpty || _tagsController.text.isEmpty || _imageUrlController.text.isEmpty || _usernameController.text.isEmpty) {
-      return;
-    }
-
-    List<String> tags = _tagsController.text.split(',').map((tag) => tag.trim()).toList();
-
-    final newEvent = Event(
-      username: _usernameController.text,
-      imageUrl: _imageUrlController.text,
-      text: _textController.text,
-      tags: tags,
-    );
-
-    Navigator.pop(context, newEvent);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Create Post'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: _imageUrlController,
-              decoration: InputDecoration(labelText: 'Image URL'),
-            ),
-            TextField(
-              controller: _textController,
-              decoration: InputDecoration(labelText: 'Post Text'),
-            ),
-            TextField(
-              controller: _tagsController,
-              decoration: InputDecoration(labelText: 'Tags (comma-separated)'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(onPressed: _submitPost, child: Text('Submit Post')),
           ],
         ),
       ),
