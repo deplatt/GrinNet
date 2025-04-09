@@ -2,12 +2,14 @@
 const { expect } = require('chai');
 const db = require('./functions.js'); 
 
+// Helper to remove test users and posts if necessary.
 describe('User Functions', function () {
   let user;
 
   // After each test, if a user was created, clean up by deleting the user.
   afterEach(async function () {
     if (user && user.id) {
+      // Clean up: Delete user if they already exist
       try {
         await db.deleteUser(user.id);
       } catch (err) {
