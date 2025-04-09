@@ -5,7 +5,6 @@ import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
 
-
 // Before running the app, we first check that we are connected to Firebase
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
