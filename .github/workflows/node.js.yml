@@ -17,7 +17,7 @@ jobs:
         image: postgres:17
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: csc324AdminDropTheClass!
+          POSTGRES_PASSWORD: test!
           POSTGRES_DB: GrinNetDev
         ports:
           - 5432:5432
@@ -46,12 +46,12 @@ jobs:
             sleep 2
           done
         env:
-          PGPASSWORD: csc324AdminDropTheClass!
+          PGPASSWORD: test!
 
       - name: Set up database schema
         run: psql -h 127.0.0.1 -U postgres -d GrinNetDev -f PostgreSQL/schema.sql
         env:
-          PGPASSWORD: csc324AdminDropTheClass!
+          PGPASSWORD: test!
 
       - name: Run tests
         working-directory: ./PostgreSQL
@@ -59,7 +59,7 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_USER: postgres
           DB_DATABASE: GrinNetDev
-          DB_PASSWORD: csc324AdminDropTheClass!
+          DB_PASSWORD: test!
           DB_PORT: 5432
         run: npm test
 
