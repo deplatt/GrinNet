@@ -97,38 +97,40 @@ class EventFeedScreen extends StatefulWidget {
 
 class _EventFeedScreenState extends State<EventFeedScreen> {
   final List<Event> events = [
+    // removing placeholder images to ensure image is only displayed if it exists.
+    // image exists check on line 234
     Event(
       username: 'mukhopad2',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Join us for Bollywood Gardner at Main Hall Basement!',
       tags: ['Music', 'Culture'],
     ),
     Event(
       username: 'sportsguy101',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Basketball Game: Grinnell vs. Iowa Hawks',
       tags: ['Sports', 'Gaming'],
     ),
     Event(
       username: 'bhandari2',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Art Exhibition at JRC',
       tags: ['Art', 'Exhibition'],
     ),
     Event(
       username: 'platt',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Prof Talk: Ethics of AI',
       tags: ['Technology', 'Talk'],
     ),
     Event(
       username: 'saso',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Diwali',
       tags: ['Culture', 'Music', 'Dance'],
     ),
@@ -193,7 +195,10 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
               itemCount: filteredEvents.length,
               itemBuilder: (context, index) {
                 Event event = filteredEvents[index];
-                // Wrap the event card in an InkWell for touch detection.
+                // We wrap the event card in an InkWell for touch detection.
+                // When we wrap a widget in an Inkwell, our event card in this instance,
+                // it makes the entire card react visually and functionally when the user 
+                // clicks on it, which allows us to navigate to the view_post page for that event.
                 return InkWell(
                   onTap: () {
                     // When tapped, navigate to the ViewPostScreen,
