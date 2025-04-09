@@ -1,13 +1,14 @@
 const { Pool } = require('pg');
-const crypto = require('crypto');
 
-// Updated pool configuration
+// Import configuration for magic numbers
+const config = require('./config');
+
 const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || '127.0.0.1',
-  database: process.env.DB_DATABASE || 'GrinNetDev',
-  password: process.env.DB_PASSWORD || 'csc324AdminDropTheClass!',
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
+  user: process.env.DB_USER || config.DB_USER,
+  host: process.env.DB_HOST || config.DB_HOST,
+  database: process.env.DB_DATABASE || config.DB_DATABASE,
+  password: process.env.DB_PASSWORD || config.DB_PASSWORD,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : config.DB_PORT,
 });
 
 // Helper function to execute a query
@@ -16,32 +17,20 @@ async function query(text, params) {
   return res;
 }
 
-// Helper function to generate a random salt
-function generateSalt() {
-  return crypto.randomBytes(16).toString('hex');
-}
-
-// Helper function to hash a password using pbkdf2
-function hashPassword(password, salt) {
-  return crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-}
-
 /* ========================
    User-related functions
    ======================== */
 
-// Create a new user
-async function createUser(username, password, bioText = '', profilePicture = '') {
-  const salt = generateSalt();
-  const hashedPassword = hashPassword(password, salt);
-  // We'll set an initial status as the SQL CHECK requires one of the allowed values.
+// Create a new user (no longer tracks passwords)
+async function createUser(username, bioText = '', profilePicture = '') {
+  // Set an initial status as required by the SQL CHECK constraint.
   const status = 'nothing';
   const insertQuery = `
-    INSERT INTO users (username, bio_text, profile_picture, salt_for_password, hashed_password, status)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO users (username, bio_text, profile_picture, status)
+    VALUES ($1, $2, $3, $4)
     RETURNING *
   `;
-  const values = [username, bioText, profilePicture, salt, hashedPassword, status];
+  const values = [username, bioText, profilePicture, status];
   const result = await query(insertQuery, values);
   return result.rows[0];
 }
@@ -94,36 +83,6 @@ async function changeProfilePicture(userId, newProfilePicture) {
   return result.rows[0];
 }
 
-// Change the password for a user (generates a new salt and hash)
-async function changePassword(userId, newPassword) {
-  const salt = generateSalt();
-  const hashedPassword = hashPassword(newPassword, salt);
-  const updateQuery = `
-    UPDATE users
-    SET salt_for_password = $1, hashed_password = $2
-    WHERE id = $3
-    RETURNING *
-  `;
-  const result = await query(updateQuery, [salt, hashedPassword, userId]);
-  return result.rows[0];
-}
-
-// Check if a provided password is correct for a given username
-async function checkPassword(username, password) {
-  const selectQuery = `
-    SELECT salt_for_password, hashed_password
-    FROM users
-    WHERE username = $1
-  `;
-  const result = await query(selectQuery, [username]);
-  if (result.rows.length === 0) {
-    throw new Error("User not found");
-  }
-  const { salt_for_password, hashed_password } = result.rows[0];
-  const attemptedHash = hashPassword(password, salt_for_password);
-  return attemptedHash === hashed_password;
-}
-
 // Delete a user (and optionally clean up related posts and reports)
 async function deleteUser(userId) {
   // Remove any reports made by or against the user
@@ -155,7 +114,7 @@ async function createPost(creator, postText, postImage = '', postTags = []) {
   return result.rows[0];
 }
 
-// Terminate a post (set its termination date to now). This will make the post disappear from public view, but not delete. This happens if somebody reports a post.
+// Terminate a post (set its termination date to now)
 async function terminatePost(postId) {
   const updateQuery = `
     UPDATE posts
@@ -232,7 +191,7 @@ async function reportPost(reportedUser, complaintText, postId, reporterUser) {
   return result.rows[0];
 }
 
-// Dismiss a report (deleting it from the reports table)
+// Dismiss a report (delete it from the reports table)
 async function dismissReport(reportId) {
   const deleteQuery = `
     DELETE FROM reports
@@ -249,12 +208,10 @@ module.exports = {
   warnUser,
   changeBio,
   changeProfilePicture,
-  changePassword,
-  checkPassword,
+  deleteUser,
   createPost,
   terminatePost,
   deletePost,
   reportPost,
-  dismissReport,
-  deleteUser
+  dismissReport
 };
