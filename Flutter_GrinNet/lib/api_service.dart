@@ -7,7 +7,6 @@ const String baseUrl = 'http://localhost:3000';
 // const String baseUrl = 'http://your-local-ip:3000'; // Otherwise, use this. 
 // to get your IP, run "ipconfig (Windows)" or "ifconfig (Mac/Linux)"
 
-
 /* ========================
    User-related Requests
    ======================== */
@@ -87,6 +86,50 @@ Future<http.Response> deletePost(int postId) {
   return http.delete(Uri.parse('$baseUrl/posts/$postId'));
 }
 
+// API model for posts
+class Post {
+  final String creationDate;
+  final String creationTime;
+  final String postText;
+  final String userProfilePicture;
+  final String postTags;
+  final String postPicture;
+
+  Post({
+    required this.creationDate,
+    required this.creationTime,
+    required this.postText,
+    required this.userProfilePicture,
+    required this.postTags,
+    required this.postPicture,
+  });
+
+  // Parse from JSON map
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      creationDate: json['creation_date'],
+      creationTime: json['creation_time'],
+      postText: json['post_text'],
+      userProfilePicture: json['profile_picture'],
+      postTags: json['post_tags'],
+      postPicture: json['post_image'],
+    );
+  }
+}
+
+// Returns all current posts with associated user data as a List.
+Future<List<Post>> getAllPosts() async {
+  final response = await http.get(Uri.parse('$baseUrl/posts'));
+
+  if (response.statusCode == 200) {
+    // Parse the JSON list and return a list of Post objects
+    List<dynamic> postsJson = jsonDecode(response.body);
+    List<Post> posts = postsJson.map((json) => Post.fromJson(json)).toList();
+    return posts;
+  } else {
+    throw Exception('Failed to load posts');
+  }
+}
 
 /* ========================
    Report-related Requests
