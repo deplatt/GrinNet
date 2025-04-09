@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "main": "functions.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha test.js app.test.js"
   },
   "dependencies": {
+    "express": "^4.21.2",
     "pg": "^8.10.0"
   },
   "devDependencies": {
-    "mocha": "^10.2.0",
-    "chai": "^4.3.6"
+    "chai": "^4.5.0",
+    "mocha": "^10.8.2",
+    "supertest": "^7.1.0"
   },
   "keywords": [],
   "author": "",

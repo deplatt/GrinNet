@@ -1,26 +1,27 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5432;
 
 // Parse incoming JSON bodies
 app.use(express.json());
 
-// Import functions from database module
+// Import configuration for magic numbers
+const config = require('./config');
+const port = process.env.PORT || config.PORT;
+
+// Import functions from the database module
 const {
   createUser,
   banUser,
   warnUser,
   changeBio,
   changeProfilePicture,
-  changePassword,
-  checkPassword,
   deleteUser,
   createPost,
   terminatePost,
   deletePost,
   reportPost,
   dismissReport
-} = require('./functions.js'); // adjust path when we change locations
+} = require('./functions.js');
 
 /* ========================
    User-related Endpoints
@@ -29,8 +30,8 @@ const {
 // Create a new user
 app.post('/users', async (req, res) => {
   try {
-    const { username, password, bioText, profilePicture } = req.body;
-    const user = await createUser(username, password, bioText, profilePicture);
+    const { username, bioText, profilePicture } = req.body;
+    const user = await createUser(username, bioText, profilePicture);
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -74,32 +75,6 @@ app.put('/users/:id/profile-picture', async (req, res) => {
     const { newProfilePicture } = req.body;
     const user = await changeProfilePicture(req.params.id, newProfilePicture);
     res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Change password for a user
-app.put('/users/:id/password', async (req, res) => {
-  try {
-    const { newPassword } = req.body;
-    const user = await changePassword(req.params.id, newPassword);
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Login (check password) endpoint
-app.post('/users/login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const isValid = await checkPassword(username, password);
-    if (isValid) {
-      res.json({ success: true });
-    } else {
-      res.status(401).json({ error: 'Invalid credentials' });
-    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -179,6 +154,15 @@ app.delete('/reports/:id', async (req, res) => {
    Start the Server
    ======================== */
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// if you want to start up the server manually, uncomment this and use it. 
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
+
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+module.exports = app;
