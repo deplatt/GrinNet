@@ -1,5 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// Utility class to send information to Firebase
+/// 
+/// This code started from the following tutorial:
+/// https://www.youtube.com/watch?v=rWamixHIKmQ&ab_channel=FlutterMapp
+
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -7,6 +12,7 @@ class Auth {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  // Authenticate user info for an existing account
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -17,6 +23,7 @@ class Auth {
     );
   }
 
+  // Create a new user and add their credentials to the Firebase database
   Future<void> createUserWithEmailAndPassword({
     required String email,
     required String password,
@@ -27,6 +34,7 @@ class Auth {
     );
   }
 
+  // Sign out the user
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

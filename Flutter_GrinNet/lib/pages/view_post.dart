@@ -2,7 +2,7 @@
 // This file defines the ViewPostScreen widget that shows the full details of an event post.
 
 import 'package:flutter/material.dart';
-import 'main.dart'; // Import the file that contains the Event model.
+import '../main.dart'; // Import the file that contains the Event model.
 
 /// A stateless widget that displays a full view of a single event post.
 class ViewPostScreen extends StatelessWidget {

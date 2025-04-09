@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'main.dart';
+import '../main.dart';
 import 'package:image_picker/image_picker.dart';
 
 // CreatePostScreen class which takes the user to create post page.
@@ -40,10 +40,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     // new event
     final newEvent = Event(
       username: 'current_user', // Replace with actual user if available
-      // if image picked then use that based on async function, else placeholder image!
-      imageUrl: _selectedImage != null ? _selectedImage!.path : 'https://via.placeholder.com/150',
-      // profile image according to the user, placeholder for now!
-      profileImageUrl: 'https://via.placeholder.com/150',
+      // if image picked then use that based on async function, else no image!
+      imageUrl: _selectedImage != null ? _selectedImage!.path : '',
+      // profile image according to the user, null for now!
+      profileImageUrl: '',
       text: '$title\n\n$description',
       tags: selectedTags.toList(),
     );

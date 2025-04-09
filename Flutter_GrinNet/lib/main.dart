@@ -1,8 +1,14 @@
+import 'widget_tree.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'create_post.dart';
-import 'view_post.dart';
+import 'firebase_options.dart';
+import 'pages/create_post.dart';
+import 'pages/view_post.dart';
 
-void main() {
+// Before running the app, we first check that we are connected to Firebase
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(GrinNetApp());
 }
 
@@ -15,61 +21,7 @@ class GrinNetApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
-    );
-  }
-}
-
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  void _login() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => EventFeedScreen()),
-    );
-  }
-
-  void _signUp() {
-    // Implement sign-up functionality
-  }
-
-  void _adminLogin() {
-    // Implement admin login functionality
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('GrinNet Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(onPressed: _login, child: Text('Login')),
-            ElevatedButton(onPressed: _signUp, child: Text('Sign Up')),
-            TextButton(onPressed: _adminLogin, child: Text('Admin Login')),
-          ],
-        ),
-      ),
+      home: const WidgetTree(),
     );
   }
 }
@@ -94,7 +46,6 @@ class EventFeedScreen extends StatefulWidget {
   @override
   _EventFeedScreenState createState() => _EventFeedScreenState();
 }
-
 class _EventFeedScreenState extends State<EventFeedScreen> {
   final List<Event> events = [
     // removing placeholder images to ensure image is only displayed if it exists.

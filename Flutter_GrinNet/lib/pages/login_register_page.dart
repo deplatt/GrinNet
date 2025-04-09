@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
 
+/// This is the login and register page that greets the user
+/// when they open the app
+/// 
+/// This code started from the following tutorial:
+/// https://www.youtube.com/watch?v=rWamixHIKmQ&ab_channel=FlutterMapp
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}): super(key: key);
 
@@ -11,11 +17,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String? errorMessage = '';
-  bool isLogin = true;
+  bool isLogin = true; // Bool to see if we are logging in or registering
 
+  // Text fields for user input
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
+  // Sends the user's info to Firebase to authenticate the login
   Future<void> signInWithEmailAndPassword() async {
     try {
       await Auth().signInWithEmailAndPassword(
@@ -29,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  // Sends the user's info to Firebase to create a new account
   Future<void> createUserWithEmailAndPassword() async {
     try {
       await Auth().createUserWithEmailAndPassword(
@@ -43,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text('Firebase Auth');
+    return const Text('GrinNet');
   }
 
   Widget _entryField(
@@ -59,9 +68,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '': 'Humm ? $errorMessage');
+    return Text(errorMessage == '' ? '': '$errorMessage');
   }
 
+  // But that the user clicks to submit their inof
   Widget _submitButton() {
     return ElevatedButton(
       onPressed:
@@ -70,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Button that allows the user to swicth between logging in and registering a new account
   Widget _loginOrRegisterButton() {
     return TextButton(
       onPressed: () {
@@ -95,8 +106,8 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _entryField('email', _controllerEmail),
-            _entryField('passoword', _controllerPassword),
+            _entryField('Email', _controllerEmail),
+            _entryField('Password', _controllerPassword),
             _errorMessage(),
             _submitButton(),
             _loginOrRegisterButton(),
