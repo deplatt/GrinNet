@@ -2,7 +2,9 @@ import 'package:firebase_test2/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
-import 'create_post.dart';
+import 'pages/create_post.dart';
+import 'pages/view_post.dart';
+
 
 // Before running the app, we first check that we are connected to Firebase
 Future<void> main() async {
@@ -45,41 +47,42 @@ class EventFeedScreen extends StatefulWidget {
   @override
   _EventFeedScreenState createState() => _EventFeedScreenState();
 }
-
 class _EventFeedScreenState extends State<EventFeedScreen> {
   final List<Event> events = [
+    // removing placeholder images to ensure image is only displayed if it exists.
+    // image exists check on line 234
     Event(
       username: 'mukhopad2',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Join us for Bollywood Gardner at Main Hall Basement!',
       tags: ['Music', 'Culture'],
     ),
     Event(
       username: 'sportsguy101',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Basketball Game: Grinnell vs. Iowa Hawks',
       tags: ['Sports', 'Gaming'],
     ),
     Event(
       username: 'bhandari2',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Art Exhibition at JRC',
       tags: ['Art', 'Exhibition'],
     ),
     Event(
       username: 'platt',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Prof Talk: Ethics of AI',
       tags: ['Technology', 'Talk'],
     ),
     Event(
       username: 'saso',
-      imageUrl: 'https://via.placeholder.com/150',
-      profileImageUrl: 'https://via.placeholder.com/50',
+      imageUrl: '',
+      profileImageUrl: '',
       text: 'Diwali',
       tags: ['Culture', 'Music', 'Dance'],
     ),
@@ -109,6 +112,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Filter the events based on the search query.
     List<Event> filteredEvents = events.where((event) {
       return event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
           event.tags.any((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase())) || 
@@ -121,6 +125,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
       ),
       body: Column(
         children: [
+          // Search input to filter events.
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -137,38 +142,57 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
             ),
           ),
           Expanded(
+            // ListView.builder displays the list of filtered event cards.
             child: ListView.builder(
               itemCount: filteredEvents.length,
               itemBuilder: (context, index) {
                 Event event = filteredEvents[index];
-                return Card(
-                  margin: EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(event.profileImageUrl),
+                // We wrap the event card in an InkWell for touch detection.
+                // When we wrap a widget in an Inkwell, our event card in this instance,
+                // it makes the entire card react visually and functionally when the user 
+                // clicks on it, which allows us to navigate to the view_post page for that event.
+                return InkWell(
+                  onTap: () {
+                    // When tapped, navigate to the ViewPostScreen,
+                    // passing the tapped event as an argument.
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ViewPostScreen(event: event)),
+                    );
+                  },
+                  child: Card(
+                    margin: EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // ListTile shows the user's avatar and username.
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(event.profileImageUrl),
+                          ),
+                          title: Text(event.username),
                         ),
-                        title: Text(event.username),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(event.text, style: TextStyle(fontSize: 16)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Wrap(
-                          spacing: 8.0,
-                          children: event.tags.map((tag) => Chip(label: Text(tag))).toList(),
-                        ),
-                      ),
-                      if (event.imageUrl.isNotEmpty)
+                        // Display the event's description text.
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.network(event.imageUrl),
+                          child: Text(event.text, style: TextStyle(fontSize: 16)),
                         ),
-                    ],
+                        // Display the category tags as Chips.
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Wrap(
+                            spacing: 8.0,
+                            children: event.tags.map((tag) => Chip(label: Text(tag))).toList(),
+                          ),
+                        ),
+                        // If an image URL is provided, display the image.
+                        if (event.imageUrl.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.network(event.imageUrl),
+                          ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -176,6 +200,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           ),
         ],
       ),
+      // A bottom navigation bar with buttons for additional actions.
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
