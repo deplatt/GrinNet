@@ -164,7 +164,35 @@ async function deletePost(postId) {
   return deleteResult.rows[0];
 }
 
+// Get all active posts along with associated relevant data
+async function getAllPosts() {
+  const selectQuery = `
+    SELECT 
+      to_char(p.date_created, 'YYYY-MM-DD') AS creation_date,
+      to_char(p.date_created, 'HH24:MI:SS') AS creation_time,
+      p.post_text,
+      p.post_image,
+      p.post_tags,
+      u.profile_picture
+    FROM posts p 
+    JOIN users u ON p.creator = u.id
+    WHERE p.date_of_termination IS NULL
+    ORDER BY p.date_created DESC
+  `;
+  const result = await query(selectQuery);
+  return result.rows;
+}
 
+// Helper function for test suite to clear all data from database. We run this at start of each test suite.
+async function clearDatabase() {
+  // Note: TRUNCATE TABLE ... CASCADE will ensure that all dependent data is removed.
+  const clearQuery = `
+    TRUNCATE TABLE reports, posts, users
+    RESTART IDENTITY CASCADE;
+  `;
+  await query(clearQuery);
+  return { message: 'Database cleared successfully.' };
+}
 
 /* ========================
    Report-related functions
@@ -212,6 +240,8 @@ module.exports = {
   createPost,
   terminatePost,
   deletePost,
+  getAllPosts,
+  clearDatabase,
   reportPost,
   dismissReport
 };

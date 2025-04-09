@@ -19,6 +19,7 @@ const {
   createPost,
   terminatePost,
   deletePost,
+  getAllPosts,
   reportPost,
   dismissReport
 } = require('./functions.js');
@@ -120,6 +121,16 @@ app.delete('/posts/:id', async (req, res) => {
   try {
     const post = await deletePost(req.params.id);
     res.json(post);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Refresh posts
+app.get('/posts', async (req, res) => {
+  try {
+    const posts = await require('./functions.js').getAllPosts();
+    res.json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
