@@ -45,7 +45,7 @@ https://trello.com/b/oLoye0oC/grinnet
 ## Backend
 
 1. **Download PostgreSQL, node.js, and (optionally) pgAdmin 4**
-   - Download PostgreSQL at https://www.postgresql.org/download/ or through equivalent command line arguments. Ensure that the command 'psql -U postgres' works in your before continuing. 
+   - Download PostgreSQL at https://www.postgresql.org/download/ or through equivalent command line arguments. 
    - Download node.js at https://nodejs.org/en/download or through equivalent command line arguments.
    - pgAdmin 4 isn't necessarily required for this project, but further steps will be listed as if you are using pgAdmin 4. Download at https://www.pgAdmin.org/download/ or through equivalent command line arguments.
 
@@ -56,7 +56,7 @@ https://trello.com/b/oLoye0oC/grinnet
 4. **Open your SQL shell and type 'psql -U postgres'**
    - On linux, the SQL shell is simply your terminal.
    - On Windows, the SQL shell executable should be somewhere in C://Program files/PostgreSQL/xx (whatever your version of postgreSQL is). In ~/scripts/, there is a .bat file called runpsql.bat that you can run. This can vary by version, though.
-   - On Mac, it could be that your SQL shell is your terminal. This is the case if you installed using the command 'brew install postgresql@17'. If not, type '/Library/PostgreSQL/17/bin/psql -U postgres' in the terminal instead. If you still cannot run psql, follow what the most liked post says on this stack exchange post: 'https://dba.stackexchange.com/questions/3005/how-to-run-psql-on-mac-os-x'.
+   - On Mac, it could be that your SQL shell is your terminal. If not, type '/Library/PostgreSQL/17/bin/psql -U postgres' in the terminal instead. If you still cannot run psql, follow what the most liked post says on this stack exchange post: 'https://dba.stackexchange.com/questions/3005/how-to-run-psql-on-mac-os-x'.
 5. **Run the command 'CREATE USER grinnetadmin WITH SUPERUSER CREATEDB PASSWORD 'csc324AdminDropTheClass!';'**
    - You can make the username and password different, but make sure to change the 'config.js' file in the ./PostgreSQL/ directory of this project accordingly.
 6. **Open pgAdmin, navigate to the dashboard, and press 'Add New Server'.**
