@@ -2,6 +2,9 @@
 const request = require('supertest');
 const { expect } = require('chai');
 const app = require('./app');
+const db = require('./functions.js'); 
+
+db.clearDatabase();
 
 describe('API Endpoints', function() {
   let userId, postId, reportId, reporterId;
@@ -208,6 +211,138 @@ describe('API Endpoints', function() {
       // Verify that the error message indicates the post cannot be deleted due to reports
       expect(delRes.body.error).to.include('Post has reports and cannot be deleted.');
     });
+
+    describe('Get All Posts Endpoint', function() {
+      let userId;
+      let activePost1, activePost2, terminatedPost;
+
+      // Setup a user before running tests for posts
+      before(async function() {
+        const res = await request(app)
+          .post('/users')
+          .send({ username: 'activeUser', bioText: '', profilePicture: 'activePic.jpg' })
+          .expect(201);
+        userId = res.body.id;
+      });
+
+      // Clean up the test user after all tests complete
+      after(async function() {
+        if (userId) {
+          await request(app)
+            .delete(`/users/${userId}`)
+            .expect(200);
+        }
+      });
+
+      // Before each test, create two active posts and one that will be terminated
+      beforeEach(async function() {
+        // Create first active post
+        let res = await request(app)
+          .post('/posts')
+          .send({
+            creator: userId,
+            postText: 'Active post 1',
+            postImage: 'image1.jpg',
+            postTags: ['sports', 'misc']
+          })
+          .expect(201);
+        activePost1 = res.body.post_id;
+
+        // Create second active post
+        res = await request(app)
+          .post('/posts')
+          .send({
+            creator: userId,
+            postText: 'Active post 2',
+            postImage: 'image2.jpg',
+            postTags: ['music', 'social']
+          })
+          .expect(201);
+        activePost2 = res.body.post_id;
+
+        // Create a post that will be terminated
+        res = await request(app)
+          .post('/posts')
+          .send({
+            creator: userId,
+            postText: 'Terminated post',
+            postImage: 'image3.jpg',
+            postTags: ['misc']
+          })
+          .expect(201);
+        terminatedPost = res.body.post_id;
+
+        // Terminate the third post to remove it from active posts list
+        await request(app)
+          .put(`/posts/${terminatedPost}/terminate`)
+          .expect(200);
+      });
+
+      // After each test, clean up any created posts.
+      afterEach(async function() {
+        // Terminate and delete active posts (the delete endpoint only works on terminated posts)
+        if (activePost1) {
+          await request(app).put(`/posts/${activePost1}/terminate`).expect(200);
+          await request(app).delete(`/posts/${activePost1}`).expect(200);
+        }
+        if (activePost2) {
+          await request(app).put(`/posts/${activePost2}/terminate`).expect(200);
+          await request(app).delete(`/posts/${activePost2}`).expect(200);
+        }
+        if (terminatedPost) {
+          // The terminated post is already terminated, so delete it
+          await request(app).delete(`/posts/${terminatedPost}`).expect(200);
+        }
+      });
+
+      it('should return an array of active posts with the correct properties', async function() {
+        const res = await request(app)
+          .get('/posts')
+          .expect(200);
+        // Verify the response is an array
+        expect(res.body).to.be.an('array');
+
+        // The terminated post should not appear in the active posts
+        const terminatedPosts = res.body.filter(post => post.post_text === 'Terminated post');
+        expect(terminatedPosts).to.have.lengthOf(0);
+
+        // Ensure each active post has the required properties
+        res.body.forEach(post => {
+          expect(post).to.have.property('creation_date');
+          expect(post).to.have.property('creation_time');
+          expect(post).to.have.property('post_text');
+          expect(post).to.have.property('post_image');
+          expect(post).to.have.property('post_tags');
+          expect(post).to.have.property('profile_picture');
+        });
+      });
+
+      it('should only return active posts (skipping terminated ones)', async function() {
+        const res = await request(app)
+          .get('/posts')
+          .expect(200);
+        // Active posts created in this test have texts "Active post 1" and "Active post 2".
+        // Neither of these should be in a terminated state.
+        const activePosts = res.body.filter(post =>
+          post.post_text === 'Active post 1' || post.post_text === 'Active post 2'
+        );
+        expect(activePosts.length).to.equal(2);
+      });
+
+      it('should return posts in descending order by creation datetime', async function() {
+        const res = await request(app)
+          .get('/posts')
+          .expect(200);
+        if (res.body.length >= 2) {
+          // Convert the returned creation_date and creation_time into JavaScript Date objects
+          const firstPostDate = new Date(`${res.body[0].creation_date}T${res.body[0].creation_time}`);
+          const secondPostDate = new Date(`${res.body[1].creation_date}T${res.body[1].creation_time}`);
+          // The first post should be at least as recent as the second post
+          expect(firstPostDate.getTime()).to.be.at.least(secondPostDate.getTime());
+        }
+      });
+    });
+
   });
 
   // Testing all endpoints related to reports

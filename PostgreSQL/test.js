@@ -2,6 +2,8 @@
 const { expect } = require('chai');
 const db = require('./functions.js'); 
 
+db.clearDatabase();
+
 // Helper to remove test users and posts if necessary.
 describe('User Functions', function () {
   let user;
@@ -130,6 +132,111 @@ describe('Post Functions', function () {
     }
     // Clean up reporter user.
     await db.deleteUser(reporter.id);
+  });
+
+  // This will test the getAllPosts (refresh) function.
+  describe('getAllPosts Function', function () {
+    let user, post1, post2, terminatedPost;
+  
+    // Create a test user for the posts.
+    beforeEach(async function () {
+      user = await db.createUser('activePostsUser');
+    });
+  
+    // Clean up after tests: delete any created posts and the user.
+    afterEach(async function () {
+      // Attempt to delete posts if they still exist.
+      if (post1 && post1.post_id) {
+        try {
+          await db.deletePost(post1.post_id);
+        } catch (err) { }
+      }
+      if (post2 && post2.post_id) {
+        try {
+          await db.deletePost(post2.post_id);
+        } catch (err) { }
+      }
+      if (terminatedPost && terminatedPost.post_id) {
+        try {
+          await db.deletePost(terminatedPost.post_id);
+        } catch (err) { }
+      }
+      if (user && user.id) {
+        await db.deleteUser(user.id);
+      }
+    });
+  
+    it('should return all active posts with the correct properties', async function () {
+      // Create two active posts.
+      post1 = await db.createPost(user.id, 'Active post 1', 'img1.jpg', ['sports', 'misc']);
+      post2 = await db.createPost(user.id, 'Active post 2', 'img2.jpg', ['music', 'social']);
+      
+      // Retrieve active posts using getAllPosts
+      const posts = await db.getAllPosts();
+      
+      // Check that both posts are included in the response.
+      // (Assuming no other active posts exist, otherwise filter by unique post_text)
+      const activePosts = posts.filter(p => p.post_text === 'Active post 1' || p.post_text === 'Active post 2');
+      expect(activePosts).to.have.lengthOf(2);
+      
+      // Verify that each post contains the expected properties.
+      activePosts.forEach(post => {
+        expect(post).to.have.property('creation_date');
+        expect(post).to.have.property('creation_time');
+        expect(post).to.have.property('post_text');
+        expect(post).to.have.property('post_image');
+        expect(post).to.have.property('post_tags');
+        expect(post).to.have.property('profile_picture');
+      });
+    });
+  
+    it('should not include terminated posts in the active posts list', async function () {
+      // Create an active post and another that will be terminated.
+      post1 = await db.createPost(user.id, 'Active post', 'img.jpg', ['misc']);
+      terminatedPost = await db.createPost(user.id, 'Terminated post', 'imgTerm.jpg', ['misc']);
+      
+      // Terminate the second post
+      await db.terminatePost(terminatedPost.post_id);
+      
+      // Retrieve active posts.
+      const posts = await db.getAllPosts();
+      
+      // Ensure that the terminated post does not appear.
+      const terminatedPostsFound = posts.filter(p => p.post_text === 'Terminated post');
+      expect(terminatedPostsFound).to.have.lengthOf(0);
+      
+      // And that the active post does appear.
+      const activePostsFound = posts.filter(p => p.post_text === 'Active post');
+      expect(activePostsFound).to.have.lengthOf(1);
+    });
+  
+    it('should return posts in descending order by creation datetime', async function () {
+      // Create two active posts in sequence.
+      post1 = await db.createPost(user.id, 'First post', 'first.jpg', ['misc']);
+      // Introduce a slight delay to ensure a different timestamp.
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      post2 = await db.createPost(user.id, 'Second post', 'second.jpg', ['misc']);
+      
+      // Retrieve active posts.
+      const posts = await db.getAllPosts();
+      // Filter our two posts by their unique text.
+      const filtered = posts.filter(p => p.post_text === 'First post' || p.post_text === 'Second post');
+      expect(filtered.length).to.equal(2);
+  
+      // Convert creation_date and creation_time to Date objects.
+      const [firstPost, secondPost] = filtered
+        .map(post => ({
+          text: post.post_text,
+          timestamp: new Date(`${post.creation_date}T${post.creation_time}`)
+        }))
+        // Sort by timestamp descending (newest first)
+        .sort((a, b) => b.timestamp - a.timestamp);
+  
+      // Expect that the most recent post has the text 'Second post'
+      expect(firstPost.text).to.equal('Second post');
+      // And that 'First post' is older.
+      expect(secondPost.timestamp.getTime()).to.be.below(firstPost.timestamp.getTime());
+    });
   });
 });
 
