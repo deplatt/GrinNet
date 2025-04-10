@@ -50,10 +50,10 @@ https://trello.com/b/oLoye0oC/grinnet
 
 ### PostgreSQL
 
-4. **Open your SQL shell and type psql -U postgres**
+4. **Open your SQL shell and type 'psql -U postgres'**
    - In Mac and linux, the SQL is simply your terminal.
    - On Windows, the SQL shell executable should be somewhere in C://Program files/PostgreSQL/xx (whatever your version of postgreSQL is). In ~/scripts/, there is a .bat file called runpsql.bat that you can run. This can vary by version, though.
-5. **Run the command CREATE USER grinnetadmin WITH SUPERUSER CREATEDB PASSWORD 'csc324AdminDropTheClass!';**
+5. **Run the command 'CREATE USER grinnetadmin WITH SUPERUSER CREATEDB PASSWORD 'csc324AdminDropTheClass!';'**
    - You can make the username and password different, but make sure to change the 'config.js' file in the ./PostgreSQL/ directory of this project accordingly.
 6. **Open pgAdmin, navigate to the dashboard, and press 'Add New Server'.**
    - If you don't see the option, create a new server group first. Do this by right clicking the left-hand menu and selecting 'Create->Server Group'
