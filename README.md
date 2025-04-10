@@ -64,10 +64,11 @@ https://trello.com/b/oLoye0oC/grinnet
 9. **Set the username to 'grinnetadmin' and the password to 'csc324AdminDropTheClass!'.**
    - Tip: Save your password! It saves a lot of time!
 10. **You should see a new server called 'GrinNetApp' running now!**
-11. **Navigate to the left-most side bar, and select the 'PSQL Tool Workspace' option. Select the 'GrinNetApp' server, and log into it with the 'grinnetadmin' account.**
+11. **Navigate to the left-most side bar, and select the 'PSQL Tool Workspace' option. Select the 'GrinNetApp' server, and log in with the 'grinnetadmin' account. Click 'Connect & Open PSQL'.**
 12. **Copy and paste the code in the 'schema.sql' file into this terminal.**
    - If you modify 'schema.sql' and want to reinitalize the database, it is recommended to simply delete the tables in the GUI workspace and redo this step. With a project this small, it's the quickest option.
-14. **Navigate to the GUI workspace and click on 'GrinNetApp'. Give it about 5 seconds, and you should see some activity! This means that you are done with the PostgreSQL database setup.**
+14. **Navigate to the GUI workspace and click on 'GrinNetApp'. Give it about 5 seconds, and you should see some activity! Make sure that in the 'tables' menu of the 'GrinNetApp' server, you see 'users', 'posts', and 'reports' tables. This means that you are done with the PostgreSQL database setup.**
+   - If you have some kind of error, it is recommended to repeat the PSQL steps in your terminal and not the pgAdmin shell. 
 
 ### Node.js
 14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./PostgreSQL/ directory.**
