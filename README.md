@@ -74,7 +74,7 @@ https://trello.com/b/oLoye0oC/grinnet
 
 16. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
 
-### Frontend
+## Frontend
 
 ---
 
