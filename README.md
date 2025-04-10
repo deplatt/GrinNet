@@ -48,7 +48,7 @@ https://trello.com/b/oLoye0oC/grinnet
 
 2. **Clone our repository in a path of your choosing.**
 
-## PostgreSQL
+### PostgreSQL
 
 4. **Open your SQL shell and type psql -U postgres**
    - In Mac and linux, the SQL is simply your terminal.
@@ -68,7 +68,7 @@ https://trello.com/b/oLoye0oC/grinnet
    - If you modify 'schema.sql' and want to reinitalize the database, it is recommended to simply delete the tables in the GUI workspace and redo this step. With a project this small, it's the quickest option.
 13. **Navigate to the GUI workspace and click on 'GrinNetApp'. Give it about 5 seconds, and you should see some activity! This means that you are done with the PostgreSQL database setup.**
 
-## Node.js
+### Node.js
 14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./PostgreSQL/ directory.**
 15. **Run 'npm app.js' to start up the express (node.js) server. Feel free to change the port of this express server in ~/config.js.**
 
