@@ -1,7 +1,11 @@
+// import 'dart:nativewrappers/_internal/vm/lib/internal_patch.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
+import '../api_service.dart';
 
+import 'dart:developer';
 /// This is the login and register page that greets the user
 /// when they open the app
 /// 
@@ -44,6 +48,13 @@ class _LoginPageState extends State<LoginPage> {
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
+
+      // Now send this information to the postgresql backend
+      final response = await createUser(_controllerEmail.text, "", "");
+      if (response.statusCode != 201) {
+        errorMessage = "Server error. Please try again.";
+      }
+
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -88,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
           isLogin = !isLogin;
         });
       },
-      child: Text(isLogin ? 'Register instead' : 'Login instead'),
+      child: Text(isLogin ? 'I want to create an account' : 'I already have an account'),
     );
   }
 

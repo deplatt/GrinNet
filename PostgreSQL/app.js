@@ -31,6 +31,7 @@ const {
 // Create a new user
 app.post('/users', async (req, res) => {
   try {
+    debug.log("Here in app.js");
     const { username, bioText, profilePicture } = req.body;
     const user = await createUser(username, bioText, profilePicture);
     res.status(201).json(user);
@@ -177,3 +178,6 @@ if (require.main === module) {
 }
 
 module.exports = app;
+
+const cors = require('cors');
+app.use(cors());

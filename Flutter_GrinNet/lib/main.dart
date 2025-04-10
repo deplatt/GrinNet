@@ -5,10 +5,19 @@ import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
 
+import 'api_service.dart';
+
 // Before running the app, we first check that we are connected to Firebase
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Now send this information to the postgresql backend
+  final response = await createUser("dummy user", "", "");
+  if (response.statusCode != 201) {
+    debugPrint("didn't work");
+  }
+
   runApp(GrinNetApp());
 }
 

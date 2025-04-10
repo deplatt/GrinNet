@@ -344,3 +344,5 @@ describe('Post Tag Validation', function () {
     expect(errorCaught).to.be.true;
   });
 });
+
+db.clearDatabase();
