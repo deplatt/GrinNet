@@ -19,16 +19,17 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   @override
   Widget build(BuildContext context) {
+     final Auth _auth = Auth();
     return StreamBuilder(
       // Check with firebase to see if the user is authenticated
-      stream: Auth().authStateChanges, 
+      stream: _auth.authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           // If the user logged in sucessfully, go to the homepage
           return EventFeedScreen();
         } else {
           // If the user didn't log in successfully, keep them at the sign-in page
-          return const LoginPage();
+          return LoginPage(auth: _auth);
         }
       },
     );
