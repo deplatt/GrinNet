@@ -36,3 +36,49 @@ GrinNet/
 
 ## Issue Tracking Tool Link
 https://trello.com/b/oLoye0oC/grinnet
+
+# Build Guide
+
+## Backend
+
+1. **Download PostgreSQL, node.js, and (optionally) pgAdmin 4**
+   - Download PostgreSQL at https://www.postgresql.org/download/ or through equivalent command line arguments. Ensure that the command 'psql -U postgres' works in your before continuing. 
+   - Download node.js at https://nodejs.org/en/download or through equivalent command line arguments.
+   - pgAdmin 4 isn't necessarily required for this project, but further steps will be listed as if you are using pgAdmin 4. Download at https://www.pgAdmin.org/download/ or through equivalent command line arguments.
+
+2. **Clone our repository in a path of your choosing.**
+
+### PostgreSQL
+
+4. **Open your SQL shell and type 'psql -U postgres'**
+   - On linux, the SQL shell is simply your terminal.
+   - On Windows, the SQL shell executable should be somewhere in C://Program files/PostgreSQL/xx (whatever your version of postgreSQL is). In ~/scripts/, there is a .bat file called runpsql.bat that you can run. This can vary by version, though.
+   - On Mac, it could be that your SQL shell is your terminal. This is the case if you installed using the command 'brew install postgresql@17'. If not, type '/Library/PostgreSQL/17/bin/psql -U postgres' in the terminal instead. If you still cannot run psql, follow what the most liked post says on this stack exchange post: 'https://dba.stackexchange.com/questions/3005/how-to-run-psql-on-mac-os-x'.
+5. **Run the command 'CREATE USER grinnetadmin WITH SUPERUSER CREATEDB PASSWORD 'csc324AdminDropTheClass!';'**
+   - You can make the username and password different, but make sure to change the 'config.js' file in the ./PostgreSQL/ directory of this project accordingly.
+6. **Open pgAdmin, navigate to the dashboard, and press 'Add New Server'.**
+   - If you don't see the option, create a new server group first. Do this by right clicking the left-hand menu and selecting 'Create->Server Group'
+7. **Name the server GrinNetApp, then navigate to the 'Connection' tab.**
+8. **Set the 'Host name/Address' to 'localhost' or '127.0.0.1', with port 5432**
+   - You can set your port to be different, but you must change the config.js file mentioned before accordingly.
+9. **Set the username to 'grinnetadmin' and the password to 'csc324AdminDropTheClass!'.**
+   - Tip: Save your password! It saves a lot of time!
+10. **Press 'save' in the bottom right corner of the server setup window.**
+11. **You should see a new server called 'GrinNetApp' running now!**
+12. **Navigate to the left-most side bar, and select the 'PSQL Tool Workspace' option. Select the 'GrinNetApp' server, and log in with the 'grinnetadmin' account. Click 'Connect & Open PSQL'.**
+13. **Copy and paste the code in the 'schema.sql' file into this terminal.**
+   - If you modify 'schema.sql' and want to reinitalize the database, it is recommended to simply delete the tables in the GUI workspace and redo this step. With a project this small, it's the quickest option.
+14. **Navigate to the GUI workspace and click on 'GrinNetApp'. Give it about 5 seconds, and you should see some activity! Make sure that in the 'tables' menu of the 'GrinNetApp' server, you see 'users', 'posts', and 'reports' tables. This means that you are done with the PostgreSQL database setup.**
+   - If you have some kind of error, it is recommended to repeat the PSQL steps in your terminal and not the pgAdmin shell. 
+
+### Node.js
+14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./PostgreSQL/ directory.**
+15. **Install dependancies found in package.json with 'npm install'**
+16. **Run 'node app.js' to start up the express (node.js) server. Feel free to change the port of this express server in ~/config.js.**
+
+17. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
+
+## Frontend
+
+---
+
