@@ -37,9 +37,9 @@ GrinNet/
 ## Issue Tracking Tool Link
 https://trello.com/b/oLoye0oC/grinnet
 
-## Build Guide
+# Build Guide
 
-### Backend
+## Backend
 
 1. **Download PostgreSQL, node.js, and (optionally) pgAdmin 4**
    - Download PostgreSQL at https://www.postgresql.org/download/ or through equivalent command line arguments. Ensure that the command 'psql -U postgres' works in your before continuing. 
