@@ -71,9 +71,10 @@ https://trello.com/b/oLoye0oC/grinnet
 
 ### Node.js
 14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./PostgreSQL/ directory.**
-15. **Run 'npm app.js' to start up the express (node.js) server. Feel free to change the port of this express server in ~/config.js.**
+15. **Install dependancies found in package.json with 'npm install'**
+16. **Run 'node app.js' to start up the express (node.js) server. Feel free to change the port of this express server in ~/config.js.**
 
-16. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
+17. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
 
 ## Frontend
 
