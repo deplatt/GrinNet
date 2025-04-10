@@ -94,6 +94,7 @@ class Post {
   final String userProfilePicture;
   final String postTags;
   final String postPicture;
+  final String posterUsername;
 
   Post({
     required this.creationDate,
@@ -102,6 +103,7 @@ class Post {
     required this.userProfilePicture,
     required this.postTags,
     required this.postPicture,
+    required this.posterUsername,
   });
 
   // Parse from JSON map
@@ -111,8 +113,9 @@ class Post {
       creationTime: json['creation_time'],
       postText: json['post_text'],
       userProfilePicture: json['profile_picture'],
-      postTags: json['post_tags'],
+      postTags: json['post_tags'].toString(),
       postPicture: json['post_image'],
+      posterUsername: json['username'], 
     );
   }
 }
