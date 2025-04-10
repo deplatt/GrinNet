@@ -9,7 +9,8 @@ import '../auth.dart';
 /// https://www.youtube.com/watch?v=rWamixHIKmQ&ab_channel=FlutterMapp
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}): super(key: key);
+  final Auth auth;
+  const LoginPage({Key? key,required this.auth}): super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();  
@@ -26,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   // Sends the user's info to Firebase to authenticate the login
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await Auth().signInWithEmailAndPassword(
+      await widget.auth.signInWithEmailAndPassword(
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
   // Sends the user's info to Firebase to create a new account
   Future<void> createUserWithEmailAndPassword() async {
     try {
-      await Auth().createUserWithEmailAndPassword(
+      await widget.auth.createUserWithEmailAndPassword(
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
