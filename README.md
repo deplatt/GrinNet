@@ -89,3 +89,8 @@ https://trello.com/b/oLoye0oC/grinnet
 4. You should now be set up! To boot the project, use ```flutter run``` and if prompted, select your desired platform to emulate the app on. If you are unsure, run the web version with Chrome or other browser.
 
 ---
+# Use Cases Implemented in Our Demo
+## Use Case 1: Search posts
+This has been added completely.
+## Use Case 2: Create posts
+This has also been added completely.
