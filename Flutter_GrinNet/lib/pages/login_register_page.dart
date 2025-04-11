@@ -1,16 +1,14 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
+import '../api_service.dart';
+import 'global.dart';
 
-/// This is the login and register page that greets the user
-/// when they open the app
-/// 
-/// This code started from the following tutorial:
-/// https://www.youtube.com/watch?v=rWamixHIKmQ&ab_channel=FlutterMapp
 
+// This is the page for the user to log in or create their account from. It greets the user upon opening the app
 class LoginPage extends StatefulWidget {
-  final Auth auth;
-  const LoginPage({Key? key,required this.auth}): super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();  
@@ -18,16 +16,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String? errorMessage = '';
-  bool isLogin = true; // Bool to see if we are logging in or registering
+  bool isLogin = true;
 
-  // Text fields for user input
+  // Text fields for email and password
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
-  // Sends the user's info to Firebase to authenticate the login
+  // Function for sending sign-in info to firebase
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await widget.auth.signInWithEmailAndPassword(
+      await Auth().signInWithEmailAndPassword(
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
@@ -38,16 +36,33 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Sends the user's info to Firebase to create a new account
+  // Function for sending new account info to Firebase and Postgresql.
+  // Firebase handles authentication, but we still need postgre to know what user is making a post.
   Future<void> createUserWithEmailAndPassword() async {
     try {
-      await widget.auth.createUserWithEmailAndPassword(
+      // Send firebase the email and password to create an account with
+      await Auth().createUserWithEmailAndPassword(
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
+      String username = _controllerEmail.text.split('@')[0];
+      
+      // Send username to postgre (201 means success)
+      final response = await createUser(username, "", "");
+      if (response.statusCode != 201) {
+        throw Exception('Failed to create user on API');
+      }
+
+      final userData = jsonDecode(response.body);
+      Global.userId = userData['id'];
     } on FirebaseAuthException catch (e) {
+      // Check if there were any errors with firebase (invalid input, etc)
       setState(() {
         errorMessage = e.message;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
       });
     }
   }
@@ -69,19 +84,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '': '$errorMessage');
+    return Text(errorMessage == '' ? '' : '$errorMessage');
   }
 
-  // But that the user clicks to submit their inof
+  // Button the user clicks to submit their info
   Widget _submitButton() {
     return ElevatedButton(
-      onPressed:
-        isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
+      onPressed: isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
       child: Text(isLogin ? 'Login' : 'Register'),
     );
   }
 
-  // Button that allows the user to swicth between logging in and registering a new account
+  // Button to switch between logging in and registering
   Widget _loginOrRegisterButton() {
     return TextButton(
       onPressed: () {
@@ -89,10 +103,11 @@ class _LoginPageState extends State<LoginPage> {
           isLogin = !isLogin;
         });
       },
-      child: Text(isLogin ? 'Register instead' : 'Login instead'),
+      child: Text(isLogin ? 'I want to create an account' : 'I already have an account'),
     );
   }
 
+  // UI containing the input fields for users and submiting button
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
+import 'api_service.dart';
 
+// The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
 Future<void> main() async {
+  // Ensuring that the widgets and Firebase are initialized before running the app.
   WidgetsFlutterBinding.ensureInitialized();
+  // Initializing Firebase with the current platform's options.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // Runs the main app widget.
   runApp(GrinNetApp());
 }
 
+// Main app widget which sets up the overall MaterialApp.
 class GrinNetApp extends StatelessWidget {
+  const GrinNetApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,17 +29,19 @@ class GrinNetApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
     );
   }
 }
 
+// Event model representing a post in the event feed.
 class Event {
   final String username;
-  final String imageUrl;  // Event's image
-  final String profileImageUrl; // User's profile picture
-  final String text;
-  final List<String> tags;
+  final String imageUrl;    // Event's image
+  final String profileImageUrl;  // User's profile picture
+  final String text;        // Event description text.
+  final List<String> tags;       // List of tags associated with the event.
 
   Event({
     required this.username,
@@ -42,52 +52,50 @@ class Event {
   });
 }
 
+// Stateful widget that manages and displays the event feed.
 class EventFeedScreen extends StatefulWidget {
+  const EventFeedScreen({super.key});
+
   @override
   _EventFeedScreenState createState() => _EventFeedScreenState();
 }
-class _EventFeedScreenState extends State<EventFeedScreen> {
-  final List<Event> events = [
-    // removing placeholder images to ensure image is only displayed if it exists.
-    // image exists check on line 234
-    Event(
-      username: 'mukhopad2',
-      imageUrl: '',
-      profileImageUrl: '',
-      text: 'Join us for Bollywood Gardner at Main Hall Basement!',
-      tags: ['Music', 'Culture'],
-    ),
-    Event(
-      username: 'sportsguy101',
-      imageUrl: '',
-      profileImageUrl: '',
-      text: 'Basketball Game: Grinnell vs. Iowa Hawks',
-      tags: ['Sports', 'Gaming'],
-    ),
-    Event(
-      username: 'bhandari2',
-      imageUrl: '',
-      profileImageUrl: '',
-      text: 'Art Exhibition at JRC',
-      tags: ['Art', 'Exhibition'],
-    ),
-    Event(
-      username: 'platt',
-      imageUrl: '',
-      profileImageUrl: '',
-      text: 'Prof Talk: Ethics of AI',
-      tags: ['Technology', 'Talk'],
-    ),
-    Event(
-      username: 'saso',
-      imageUrl: '',
-      profileImageUrl: '',
-      text: 'Diwali',
-      tags: ['Culture', 'Music', 'Dance'],
-    ),
-  ];
 
+class _EventFeedScreenState extends State<EventFeedScreen> {
+  List<Event> events = [];
+  // holds the current search query text
   String searchQuery = '';
+
+
+  Future<void> _loadPosts() async {
+    try {
+      // Retrieve posts from API.
+      List<Post> posts = await getAllPosts();
+      // Map each Post to an Event object.
+      List<Event> loadedEvents = posts.map((post) {
+        // Split the comma-separated tags string into a list
+        List<String> tags = post.postTags.split(',');
+        return Event(
+          username: post.posterUsername,
+          imageUrl: post.postPicture,
+          profileImageUrl: post.userProfilePicture,
+          text: post.postText,
+          tags: tags,
+        );
+      }).toList();
+      // Update state with loaded events.
+      setState(() {
+        events = loadedEvents;
+      });
+    } catch (e) {
+      print("Error loading posts: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPosts();
+  }
 
   void _navigateToCreatePostScreen() async {
     final newEvent = await Navigator.push(
@@ -95,6 +103,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
       MaterialPageRoute(builder: (context) => CreatePostScreen()),
     );
 
+    // If a new event is returned, add it to the beginning of the events list.
     if (newEvent != null) {
       setState(() {
         events.insert(0, newEvent);
@@ -111,7 +120,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Filter the events based on the search query.
+    // Filter events based on user’s search query. Filter applies to text content, tags, and username.
     List<Event> filteredEvents = events.where((event) {
       return event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
           event.tags.any((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase())) || 
@@ -122,9 +131,9 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
       appBar: AppBar(
         title: Text('Campus Events'),
       ),
+      // Main screen body containing search, list of event cards, etc.
       body: Column(
         children: [
-          // Search input to filter events.
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -133,6 +142,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.search),
               ),
+              // Update search query as the user types.
               onChanged: (value) {
                 setState(() {
                   searchQuery = value;
@@ -141,7 +151,6 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
             ),
           ),
           Expanded(
-            // ListView.builder displays the list of filtered event cards.
             child: ListView.builder(
               itemCount: filteredEvents.length,
               itemBuilder: (context, index) {
@@ -164,19 +173,21 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // ListTile shows the user's avatar and username.
                         ListTile(
                           leading: CircleAvatar(
-                            backgroundImage: NetworkImage(event.profileImageUrl),
+                            // Displays profile image from network or a placeholder if unavailable.
+                            backgroundImage: event.profileImageUrl.isNotEmpty
+                                ? NetworkImage(event.profileImageUrl)
+                                : AssetImage('assets/placeholder.png') as ImageProvider,
                           ),
                           title: Text(event.username),
                         ),
-                        // Display the event's description text.
+                        // Display event description text.
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(event.text, style: TextStyle(fontSize: 16)),
                         ),
-                        // Display the category tags as Chips.
+                        // Display tags as chips.
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Wrap(
@@ -184,7 +195,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                             children: event.tags.map((tag) => Chip(label: Text(tag))).toList(),
                           ),
                         ),
-                        // If an image URL is provided, display the image.
+                        // If an image URL is provided, display the image below the description.
                         if (event.imageUrl.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -199,13 +210,13 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           ),
         ],
       ),
-      // A bottom navigation bar with buttons for additional actions.
+      // Bottom navigation bar containing actions for creating posts, refreshing feed, and profile navigation.
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(icon: Icon(Icons.add), onPressed: _navigateToCreatePostScreen),
-            IconButton(icon: Icon(Icons.refresh), onPressed: () => setState(() {})),
+            IconButton(icon: Icon(Icons.refresh), onPressed: _loadPosts),
             IconButton(icon: Icon(Icons.person), onPressed: _navigateToProfileScreen),
           ],
         ),
@@ -214,10 +225,11 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   }
 }
 
+// Profile screen displaying a list of events associated with the user.
 class ProfileScreen extends StatelessWidget {
   final List<Event> events;
 
-  ProfileScreen({required this.events});
+  const ProfileScreen({super.key, required this.events});
 
   void _navigateToSettingsScreen(BuildContext context) {
     Navigator.push(
@@ -229,12 +241,14 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // App bar includes a settings button.
       appBar: AppBar(
         title: Text('Profile'),
         actions: [
           IconButton(icon: Icon(Icons.settings), onPressed: () => _navigateToSettingsScreen(context)),
         ],
       ),
+      // Display list of events with basic details.
       body: ListView(
         children: events.map((event) => ListTile(
           title: Text(event.text),
@@ -246,10 +260,13 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Settings')),
+      // Placeholder content for changing settings.
       body: Center(child: Text('Change Username and Password Settings Here')),
     );
   }
