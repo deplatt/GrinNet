@@ -24,7 +24,7 @@ We also connected the login logic of the frontend to Firebase's authentication s
 
 
 ### Git Tag
-
+The Git Tag for this sprint will be 'Sprint3'.
 
 <!-- Make an entry in your Sprint Journal document including:
 
