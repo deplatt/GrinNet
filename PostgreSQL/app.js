@@ -28,9 +28,7 @@ const {
   dismissReport
 } = require('./functions.js');
 
-/* ========================
-   User-related Endpoints
-   ======================== */
+// User-related Endpoints
 
 // Create a new user
 app.post('/users', async (req, res) => {
@@ -107,9 +105,7 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
-/* ========================
-   Post-related Endpoints
-   ======================== */
+// Post-related Endpoints
 
 // Create a new post
 app.post('/posts', async (req, res) => {
@@ -167,9 +163,7 @@ app.get('/posts', async (req, res) => {
   }
 });
 
-/* ========================
-   Report-related Endpoints
-   ======================== */
+// Report-related Endpoints
 
 // Report a post
 app.post('/reports', async (req, res) => {
@@ -196,9 +190,7 @@ app.delete('/reports/:id', async (req, res) => {
   }
 });
 
-/* ========================
-   Start the Server
-   ======================== */
+// Start the Server
 
 if (require.main === module) {
   app.listen(port, () => {
