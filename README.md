@@ -1,9 +1,10 @@
 # GrinNet
 
+---
+
 ## Product Description
 GrinNet seeks to address the unique challenges of Grinnell’s community by offering an organized, accessible, and interest-focused platform. Unlike traditional social media platforms, GrinNet is tailored specifically for Grinnell students, leveraging the shared context of campus life. The existing systems such as email notifications and physical bulletin boards with event flyers often fall short of their goal due to information overload. GrinNet streamlines these processes by allowing students to sift through categorized posts, ensuring relevance and fostering meaningful interactions.
 GrinNet will segment posts into broad categories such as gaming, sports, educational, and social, allowing users to easily find content relevant to their interests. Clubs and organizations will be able to create accounts as well, posting event details directly to the app and reducing reliance on overcrowded email inboxes or bulletin boards. In addition, GrinNet will have features like direct messaging to enable seamless collaboration and socialization among students (and/or organizations). Only Grinnell students can join, verified through their college email address.
-
 
 ## Repository Structure:
 ```
@@ -37,12 +38,14 @@ GrinNet/
 ## Issue Tracking Tool Link
 https://trello.com/b/oLoye0oC/grinnet
 
+---
+
 # Build Guide
 
 ## Backend
 
 1. **Download PostgreSQL, node.js, and (optionally) pgAdmin 4**
-   - Download PostgreSQL at https://www.postgresql.org/download/ or through equivalent command line arguments. Ensure that the command 'psql -U postgres' works in your before continuing. 
+   - Download PostgreSQL at https://www.postgresql.org/download/ or through equivalent command line arguments. 
    - Download node.js at https://nodejs.org/en/download or through equivalent command line arguments.
    - pgAdmin 4 isn't necessarily required for this project, but further steps will be listed as if you are using pgAdmin 4. Download at https://www.pgAdmin.org/download/ or through equivalent command line arguments.
 
@@ -53,7 +56,7 @@ https://trello.com/b/oLoye0oC/grinnet
 4. **Open your SQL shell and type 'psql -U postgres'**
    - On linux, the SQL shell is simply your terminal.
    - On Windows, the SQL shell executable should be somewhere in C://Program files/PostgreSQL/xx (whatever your version of postgreSQL is). In ~/scripts/, there is a .bat file called runpsql.bat that you can run. This can vary by version, though.
-   - On Mac, it could be that your SQL shell is your terminal. This is the case if you installed using the command 'brew install postgresql@17'. If not, type '/Library/PostgreSQL/17/bin/psql -U postgres' in the terminal instead. If you still cannot run psql, follow what the most liked post says on this stack exchange post: 'https://dba.stackexchange.com/questions/3005/how-to-run-psql-on-mac-os-x'.
+   - On Mac, it could be that your SQL shell is your terminal. If not, type '/Library/PostgreSQL/17/bin/psql -U postgres' in the terminal instead. If you still cannot run psql, follow what the most liked post says on this stack exchange post: 'https://dba.stackexchange.com/questions/3005/how-to-run-psql-on-mac-os-x'.
 5. **Run the command 'CREATE USER grinnetadmin WITH SUPERUSER CREATEDB PASSWORD 'csc324AdminDropTheClass!';'**
    - You can make the username and password different, but make sure to change the 'config.js' file in the ./PostgreSQL/ directory of this project accordingly.
 6. **Open pgAdmin, navigate to the dashboard, and press 'Add New Server'.**
@@ -65,8 +68,9 @@ https://trello.com/b/oLoye0oC/grinnet
    - Tip: Save your password! It saves a lot of time!
 10. **Press 'save' in the bottom right corner of the server setup window.**
 11. **You should see a new server called 'GrinNetApp' running now!**
-12. **Navigate to the left-most side bar, and select the 'PSQL Tool Workspace' option. Select the 'GrinNetApp' server, and log in with the 'grinnetadmin' account. Click 'Connect & Open PSQL'.**
-13. **Copy and paste the code in the 'schema.sql' file into this terminal.**
+12. **Right click 'GrinNetApp' and create a new database called 'GrinNetDev'. We will use this database for all further steps.**
+13. **Navigate to the left-most side bar, and select the 'PSQL Tool Workspace' option. Select the 'GrinNetApp' server, select the 'GrinNetDev' database, and log in with the 'grinnetadmin' account. Click 'Connect & Open PSQL'.**
+14. **Copy and paste the code in the 'schema.sql' file into this terminal.**
    - If you modify 'schema.sql' and want to reinitalize the database, it is recommended to simply delete the tables in the GUI workspace and redo this step. With a project this small, it's the quickest option.
 14. **Navigate to the GUI workspace and click on 'GrinNetApp'. Give it about 5 seconds, and you should see some activity! Make sure that in the 'tables' menu of the 'GrinNetApp' server, you see 'users', 'posts', and 'reports' tables. This means that you are done with the PostgreSQL database setup.**
    - If you have some kind of error, it is recommended to repeat the PSQL steps in your terminal and not the pgAdmin shell. 
@@ -79,6 +83,14 @@ https://trello.com/b/oLoye0oC/grinnet
 17. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
 
 ## Frontend
+1. Install Flutter by following the instructions at this [link](https://docs.flutter.dev/get-started/install?_gl=1*mgpbu1*_gcl_aw*R0NMLjE3NDQyNTY5ODAuQ2p3S0NBand0ZGlfQmhBQ0Vpd0E5N3k4QkloNWhZYjBYTzI1TlJlN2tFNXQtUy1hREhyZVhhcUtIbkFyeEtsTTd6R0VabGJRTHhDVVpCb0NPaVVRQXZEX0J3RQ..*_gcl_dc*R0NMLjE3NDQyNTY5ODAuQ2p3S0NBand0ZGlfQmhBQ0Vpd0E5N3k4QkloNWhZYjBYTzI1TlJlN2tFNXQtUy1hREhyZVhhcUtIbkFyeEtsTTd6R0VabGJRTHhDVVpCb0NPaVVRQXZEX0J3RQ..*_ga*NTU3NDcwNzIwLjE3Mzk1MDQxOTg.*_ga_04YGWK0175*MTc0NDI1Njk4MC4xNS4wLjE3NDQyNTY5ODAuMC4wLjA.). Choose your operating system, and the reccomended first type of app. 
+2. Clone the GrinNet, then navigate to GrinNet/Flutter_GrinNet
+3. Run the command ```flutter pub get```
+4. You should now be set up! To boot the project, use ```flutter run``` and if prompted, select your desired platform to emulate the app on. If you are unsure, run the web version with Chrome or other browser.
 
 ---
-
+# Use Cases Implemented in Our Demo
+## Use Case 1: Search posts
+This has been added completely.
+## Use Case 2: Create posts
+This has also been added completely.
