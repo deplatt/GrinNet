@@ -33,5 +33,10 @@ The user is also able to view their own profile by the bottom right button in th
 
 ## What progress have you made that is not visible to a common user?
 A lot of time investigating, learning, and testing the dart language as well as Node.js. In addition, we have had several meetings discussing and working, there has been time dedicated to write reports like this and other miscellaneous requirements.
-Anthony (do the rest for backend!!!)
+
+Behind the scenes, we created tests for the frontend and backend and integrated these tests with Github Actions to automatically test the project whenever a commit is made. We exercised good coding and version control practices by creating branches with git and developing within those branches instead of main. We completed a code review every time we wanted to merge a branch into main to make sure that the main branch is clean and functional. We made many revisions to our code base through code reviews, and we documented our code as we wanted to ensure readability and clarity.
+
+For the backend, we completed our node.js functions (found in functions.js), our express (node.js) server (found in app.js), created a trigger in our schema.sql that normalizes and validates post tags. The node.js functions properly connect to the database, and all work as expected. We connected these backend elements to our 
+
+We also removed password storing/generation/logging in using the postgreSQL database; we use Firebase now for this. For Firebase, we set up a small database. In this database, we set up a authentication function. User sends their username and encrypted password upon pressing the 'login button', and Firebase sends back whether the user successfully logged in. They can also register with the database to initalize their username and password. 
 
