@@ -1,36 +1,30 @@
-// view_post.dart
-// This file defines the ViewPostScreen widget that shows the full details of an event post.
-
 import 'package:flutter/material.dart';
-import '../main.dart'; // Import the file that contains the Event model.
+import '../main.dart';
 
-/// A stateless widget that displays a full view of a single event post.
+// This is the screen that shows a post in greater detail
+// when the user clicks on a post in the homepage
 class ViewPostScreen extends StatelessWidget {
-  // The Event object to display
   final Event event;
 
-  /// Constructor for ViewPostScreen. The 'event' parameter is required.
-  const ViewPostScreen({Key? key, required this.event}) : super(key: key);
+  const ViewPostScreen({super.key, required this.event});
 
+  // Displays the post name, description, and tags
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar displays the username and includes a back button.
       appBar: AppBar(
         title: Text(event.username),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          // Tapping the back arrow pops the view off the navigation stack.
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      // The main content area is scrollable.
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Display the event image if available.
+            // If there is an image, display it
             if (event.imageUrl.isNotEmpty)
               Center(
                 child: Image.network(
@@ -39,14 +33,12 @@ class ViewPostScreen extends StatelessWidget {
                 ),
               ),
             SizedBox(height: 16.0),
-            // The Wrap widget displays the event's category tags using Chips.
             Wrap(
               spacing: 8.0,
               runSpacing: 4.0,
               children: event.tags.map((tag) => Chip(label: Text(tag))).toList(),
             ),
             SizedBox(height: 16.0),
-            // The event description text, shown in a larger font for improved readability.
             Text(
               event.text,
               style: TextStyle(fontSize: 18.0),
