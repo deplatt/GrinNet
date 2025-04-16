@@ -1,4 +1,4 @@
-# Sprint 2 Planning Report
+# Sprint 3 Planning Report
 
 ## Capacity
 We will each aim to put 8 hours of work in for this sprint. Since the sprint is only about one week, we cannot reasonably put in more than that and still stay on top of our other classes.
