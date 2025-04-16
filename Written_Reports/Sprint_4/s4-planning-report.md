@@ -31,6 +31,8 @@ Deven:
 Anthony:
 - Try to get images working the database
 - Work on getting a remote connection set up for the app
+- Work on terminating posts
+- Help frontend on integrating backend and frontend as required
 
 Pranav:
 - Write more frontend tests for the new pages
