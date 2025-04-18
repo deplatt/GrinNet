@@ -2,24 +2,33 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import '../main.dart';
 import 'package:image_picker/image_picker.dart';
+import '../api_service.dart';
+import 'global.dart';
 
-// CreatePostScreen class which takes the user to create post page.
 class CreatePostScreen extends StatefulWidget {
+  const CreatePostScreen({super.key});
+
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
+
+  // Text boxes for inputting the title and description of the post
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  // Tags based on what we decided
+  
+  // Available tags
   final List<String> allTags = [
     'Sports', 'Culture', 'Games', 'SEPCs', 'Dance', 'Music', 'Food', 'Social', 'Misc'
   ];
+
+  // Tracks which tags the user has selected
   final Set<String> selectedTags = {};
+
   File? _selectedImage;
 
-  // asynchronous function, waiting for user to pick image, if no image is picked, nothing happens, post is posted with placeholder image.
+  // Allows the user to pick an image from their computer
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -29,32 +38,55 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     }
   }
 
-  // _submitPost()
-  void _submitPost() {
-    // uses text controllers to find event title and description.
+  void _submitPost() async {
+
     final title = _titleController.text.trim();
     final description = _descriptionController.text.trim();
+
+    // Make sure there is a title, description, and at least one tag
     if (title.isEmpty || description.isEmpty || selectedTags.isEmpty) return;
-    // returns no post if either title, description or tag is empty
 
-    // new event
-    final newEvent = Event(
-      username: 'current_user', // Replace with actual user if available
-      // if image picked then use that based on async function, else no image!
-      imageUrl: _selectedImage != null ? _selectedImage!.path : '',
-      // profile image according to the user, null for now!
-      profileImageUrl: '',
-      text: '$title\n\n$description',
-      tags: selectedTags.toList(),
-    );
+    final postText = '$title\n\n$description';
+    final int currentUserId = Global.userId;
+    try {
+      // Send the data to the backend
+      final response = await createPost(
+        currentUserId,
+        postText,
+        _selectedImage != null ? _selectedImage!.path : '',
+        selectedTags.toList(),
+      );
 
-    Navigator.pop(context, newEvent);
+      // 201 refers to the success code
+      if (response.statusCode == 201) {
+        final newEvent = Event(
+          username: 'current_user', // Placeholder
+          imageUrl: _selectedImage != null ? _selectedImage!.path : '',
+          profileImageUrl: '',
+          text: postText,
+          tags: selectedTags.toList(),
+        );
+        
+        // Go back to the previous screen
+        Navigator.pop(context, newEvent);
+      } else {
+        // If the post creation failed
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to create post")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    }
   }
-  // UI
+
+  // Handles the UI of this page. Includes buttons for creating the post and attaching images,
+  // as well as fields for text input
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Title
       appBar: AppBar(title: Text('Create Event Post')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -62,20 +94,17 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Event Title
               TextField(
                 controller: _titleController,
                 decoration: InputDecoration(labelText: 'Event Title'),
               ),
               SizedBox(height: 10),
-              // Event Description
               TextField(
                 controller: _descriptionController,
                 decoration: InputDecoration(labelText: 'Event Description'),
                 maxLines: 4,
               ),
               SizedBox(height: 20),
-              // Tags
               Text('Select Tags:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               Wrap(
                 spacing: 8.0,
@@ -98,7 +127,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 }).toList(),
               ),
               SizedBox(height: 20),
-              // Button for uploading image
               Row(
                 children: [
                   ElevatedButton(
@@ -114,7 +142,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 ],
               ),
               SizedBox(height: 20),
-              // submit post button
               Center(
                 child: ElevatedButton(
                   onPressed: _submitPost,
