@@ -12,6 +12,7 @@ GrinNet/
 ├── README.md                       # Top-Level ReadMe file
 ├── DeveloperGuidelines.md          # Contains information for developers, including style guides
 ├── Flutter_Tutorial                # Folder containing code for a tutorial flutter app
+├── Flutter_GrinNet                 # Folder containing the main code for the project
 ├── Written_Reports/                # Folder containing our Written Reports
     ├── milestone-2-report.md       # Report for Milestone 2
     ├── Sprint_1/                   # Folder containing write-ups for sprint 1
@@ -28,6 +29,11 @@ GrinNet/
         ├── s3-planning-report.md   # Planning report for sprint 3
         ├── s3-review-report.md     # Sprint report for sprint 3
         ├── s3-review-report.md     # Sprint report for sprint 3
+    ├── Sprint_4/                   # Folder containing write-ups for sprint 2
+        ├── s4-planning-report.md   # Planning report for sprint 4
+        ├── s4-review-report.md     # Sprint report for sprint 4
+        ├── s4-review-report.md     # Sprint report for sprint 4
+
 
 
 ```

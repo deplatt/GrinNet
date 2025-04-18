@@ -26,7 +26,7 @@ Everyone:
 
 Deven: 
 - Create the user manual
-- Work on Firebase vertification emails
+- Work on Firebase verification emails
 
 Anthony:
 - Try to get images working the database
