@@ -37,6 +37,7 @@ Anthony:
 Pranav:
 - Write more frontend tests for the new pages
 - Add a report user feature
+- Conduct stakeholder meetings (Jesica and Becca)
 
 Shibam:
 - Clean up the UI and make things look pretty
@@ -47,5 +48,6 @@ Jero:
 - Create the user manual
 - Write more frontend tests for the new pages
 - Implement settings page
+- Conduct stakeholer meeting (John)
 
 
