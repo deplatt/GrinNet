@@ -33,6 +33,8 @@ For each subgroup
 - Identify the commit hash of the commit in which you wrote your new documentation. Provide a Github link where your instructor can view the diff of that commit.
 - If you created or updated any issues in your issue tracker, show a "before" and "after" snapshot of the detailed view of each issue so that the difference can clearly be seen -->
 
+### Subgroup 1: Shibam, Pranav, and Anthony
+
 
 **Teammate B Review:**
 
@@ -49,6 +51,23 @@ Additionally, widget build (line 88) is a big block of code with no in-line comm
 Lastly, it would be very helpful for the class and method comments to include preconditions and postconditions, and parameters and exceptions (if applicable). This would help follow the logic of the code with much more ease. 
 
 **Changes made :**
+
+
+### Subgroup 2: Deven and Jeronimo
+
+We discussed the file CreatePost_test.dart. The only existing documentation we had for this code were the line-by-line comments in the code. This is very helpful documentation, as the code would be hard to read without them. 
+
+We decided that it would be helpful to have more documentation in the code itself, as well are more related documentation in the Trello board. In the file, we added a block comment at the top with some basic information about the test suite and how the tests work. In the Trello board, we added a few issues for various test suites that we still need to write. This includes the last part of the create post tests (making it work with image selection on a phone), and testing pages that we have yet to create. We previously did not include testing in the issue tracker, which was an oversight because writing the test suites requires a significant amount of work. The changes the Trello board are shown in the screenshots below:
+
+Before:
+![Image](../Sprint_4/Sprint_4_Images/DocLab2TrelloBefore.png)
+
+After:
+![Image](../Sprint_4/Sprint_4_Images/DocLab2TrelloAfter.png)
+
+
+
+Commit: 
 
 ## Part 3: MVP
 
