@@ -1,5 +1,6 @@
 import 'package:firebase_test2/auth.dart';
 import 'package:firebase_test2/pages/login_register_page.dart';
+import 'package:firebase_test2/pages/verification_page.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 
@@ -25,7 +26,12 @@ class _WidgetTreeState extends State<WidgetTree> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           // If the user logged in sucessfully, go to the homepage
-          return EventFeedScreen();
+          if (snapshot.data?.emailVerified == true){
+            return EventFeedScreen();
+          }
+          return VerificationEmailPage();
+
+
         } else {
           // If the user didn't log in successfully, keep them at the sign-in page
           return const LoginPage();
