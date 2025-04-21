@@ -35,8 +35,8 @@ Anthony:
 - Help frontend on integrating backend and frontend as required
 
 Pranav:
-- Write more frontend tests for the new pages
-- Add a report user feature
+- Write more frontend tests for the new pages (user profile)
+- Add a report user feature to the view post page
 - Conduct stakeholder meetings (Jesica and Becca)
 
 Shibam:
@@ -46,7 +46,7 @@ Shibam:
 
 Jero:
 - Create the user manual
-- Write more frontend tests for the new pages
+- Write more frontend tests for the new pages (settings) 
 - Implement settings page
 - Conduct stakeholer meeting (John)
 
