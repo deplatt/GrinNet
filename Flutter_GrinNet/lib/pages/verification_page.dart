@@ -5,8 +5,13 @@ import 'package:firebase_test2/widget_tree.dart';
 import 'package:flutter/material.dart';
 import '../auth.dart';
 
-class VerificationEmailPage extends StatefulWidget {
+/// This class is the page that the user sees when their email has not been vertified.
+/// It simply informs them that they have recieved an email and waits for an update from Firebase.
+/// 
+/// This code was created with the help of ChatGPT and the following tutorial:
+/// https://www.youtube.com/watch?v=mnE9HHtxdGg&t=35s&ab_channel=ShahWali
 
+class VerificationEmailPage extends StatefulWidget {
   const VerificationEmailPage({super.key});
   
   @override
@@ -33,7 +38,6 @@ class _VerificationEmailPage extends State<VerificationEmailPage> {
           ));
       }
     });
-
   }
 
   @override
@@ -47,7 +51,7 @@ class _VerificationEmailPage extends State<VerificationEmailPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Verification email sent to email.',
+                'We send you a vertification email!',
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 18),
               ),

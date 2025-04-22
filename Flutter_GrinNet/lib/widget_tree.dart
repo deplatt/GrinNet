@@ -25,13 +25,12 @@ class _WidgetTreeState extends State<WidgetTree> {
       stream: Auth().authStateChanges, 
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // If the user logged in sucessfully, go to the homepage
+          // If the user is logged in and vertified, send them to the homepage
           if (snapshot.data?.emailVerified == true){
             return EventFeedScreen();
           }
+          // Otherwise, send them to the verification page to await an email
           return VerificationEmailPage();
-
-
         } else {
           // If the user didn't log in successfully, keep them at the sign-in page
           return const LoginPage();

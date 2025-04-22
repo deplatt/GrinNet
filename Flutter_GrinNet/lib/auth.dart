@@ -13,6 +13,7 @@ class Auth {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  // Send the user an email with a link to verify their email address
   Future<void> sendEmailVerificationLink() async {
     try {
       currentUser?.sendEmailVerification();

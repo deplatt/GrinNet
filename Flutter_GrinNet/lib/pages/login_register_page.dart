@@ -5,7 +5,6 @@ import '../auth.dart';
 import '../api_service.dart';
 import 'global.dart';
 
-
 // This is the page for the user to log in or create their account from. It greets the user upon opening the app
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -31,7 +30,8 @@ class _LoginPageState extends State<LoginPage> {
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = e.message;
+        // errorMessage = e.message;
+        errorMessage = "Email and password do not match, or account does not exist";
       });
     }
   }
@@ -40,21 +40,30 @@ class _LoginPageState extends State<LoginPage> {
   // Firebase handles authentication, but we still need postgre to know what user is making a post.
   Future<void> createUserWithEmailAndPassword() async {
     try {
-      // Send firebase the email and password to create an account with
-      await Auth().createUserWithEmailAndPassword(
-        email: _controllerEmail.text, 
-        password: _controllerPassword.text,
-      );
-      String username = _controllerEmail.text.split('@')[0];
-      
-      // Send username to postgre (201 means success)
-      final response = await createUser(username, "", "");
-      if (response.statusCode != 201) {
-        throw Exception('Failed to create user on API');
+      // Ensure that the entered email ends with "@grinnell.edu"
+      if (_controllerEmail.text.length < 13 ||
+        _controllerEmail.text.substring(_controllerEmail.text.length - 13) != "@grinnell.edu") {
+        setState(() {
+          errorMessage = "Please enter your grinnell.edu email.";
+        });      
       }
+      else {
+        // Send firebase the email and password to create an account with
+        await Auth().createUserWithEmailAndPassword(
+          email: _controllerEmail.text, 
+          password: _controllerPassword.text,
+        );
+        String username = _controllerEmail.text.split('@')[0];
+        
+        // Send username to postgre (201 means success)
+        final response = await createUser(username, "", "");
+        if (response.statusCode != 201) {
+          throw Exception('Failed to create user on API');
+        }
 
-      final userData = jsonDecode(response.body);
-      Global.userId = userData['id'];
+        final userData = jsonDecode(response.body);
+        Global.userId = userData['id'];
+      }      
     } on FirebaseAuthException catch (e) {
       // Check if there were any errors with firebase (invalid input, etc)
       setState(() {
