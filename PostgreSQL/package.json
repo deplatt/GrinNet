@@ -6,6 +6,7 @@
     "test": "mocha test.js app.test.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "pg": "^8.10.0"
   },

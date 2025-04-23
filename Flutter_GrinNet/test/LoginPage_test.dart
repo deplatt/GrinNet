@@ -48,7 +48,7 @@ void main() {
     expect(find.widgetWithText(TextField, 'Email'), findsOneWidget);
     expect(find.widgetWithText(TextField, 'Password'), findsOneWidget);
     expect(find.widgetWithText(ElevatedButton, 'Login'), findsOneWidget);
-    expect(find.widgetWithText(TextButton, 'Register instead'), findsOneWidget);
+    expect(find.widgetWithText(TextButton, 'I want to create an account'), findsOneWidget);
   });
 
     // Check 2: Text Fields can be filled 
@@ -69,14 +69,15 @@ void main() {
     await pumpLoginPage(tester);
 
     expect(find.text('Login'), findsOneWidget);
-    expect(find.text('Register instead'), findsOneWidget);
+    expect(find.text('I want to create an account'), findsOneWidget);
 
-    await tester.tap(find.text('Register instead'));
+    await tester.tap(find.text('I want to create an account'));
     await tester.pumpAndSettle();
 
     expect(find.text('Register'), findsOneWidget);
-    expect(find.text('Login instead'), findsOneWidget);
+    expect(find.text('I already have an account'), findsOneWidget);
   });
+
     // Mocks the entire log in process 
   testWidgets('Successful login flow with mock verification', (WidgetTester tester) async {
     await pumpLoginPage(tester);
