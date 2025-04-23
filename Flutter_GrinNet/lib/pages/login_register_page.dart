@@ -6,27 +6,26 @@ import '../api_service.dart';
 import 'global.dart';
 
 
-// This is the page for the user to log in or create their account from. It greets the user upon opening the app
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final Auth? auth; // <-- Accept Auth object for testing
+
+  const LoginPage({super.key, this.auth}); // <-- Optional named parameter
 
   @override
-  State<LoginPage> createState() => _LoginPageState();  
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   String? errorMessage = '';
   bool isLogin = true;
 
-  // Text fields for email and password
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
-  // Function for sending sign-in info to firebase
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await Auth().signInWithEmailAndPassword(
-        email: _controllerEmail.text, 
+      await (widget.auth ?? Auth()).signInWithEmailAndPassword(
+        email: _controllerEmail.text,
         password: _controllerPassword.text,
       );
     } on FirebaseAuthException catch (e) {
@@ -36,18 +35,15 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Function for sending new account info to Firebase and Postgresql.
-  // Firebase handles authentication, but we still need postgre to know what user is making a post.
   Future<void> createUserWithEmailAndPassword() async {
     try {
-      // Send firebase the email and password to create an account with
-      await Auth().createUserWithEmailAndPassword(
-        email: _controllerEmail.text, 
+      await (widget.auth ?? Auth()).createUserWithEmailAndPassword(
+        email: _controllerEmail.text,
         password: _controllerPassword.text,
       );
+
       String username = _controllerEmail.text.split('@')[0];
-      
-      // Send username to postgre (201 means success)
+
       final response = await createUser(username, "", "");
       if (response.statusCode != 201) {
         throw Exception('Failed to create user on API');
@@ -56,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
       final userData = jsonDecode(response.body);
       Global.userId = userData['id'];
     } on FirebaseAuthException catch (e) {
-      // Check if there were any errors with firebase (invalid input, etc)
       setState(() {
         errorMessage = e.message;
       });

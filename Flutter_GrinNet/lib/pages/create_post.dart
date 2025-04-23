@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import '../main.dart';
 import 'package:image_picker/image_picker.dart';
 import '../api_service.dart';
+import '../main.dart';
 import 'global.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/foundation.dart';
+
+final String imageBaseUrl = kIsWeb
+    ? 'http://localhost:4000'
+    : Platform.isAndroid
+        ? 'http://10.0.2.2:4000'
+        : 'http://localhost:4000';
 
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({super.key});
@@ -13,22 +21,18 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
-
-  // Text boxes for inputting the title and description of the post
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  
-  // Available tags
+
   final List<String> allTags = [
     'Sports', 'Culture', 'Games', 'SEPCs', 'Dance', 'Music', 'Food', 'Social', 'Misc'
   ];
-
-  // Tracks which tags the user has selected
   final Set<String> selectedTags = {};
 
   File? _selectedImage;
+  DateTime? _selectedEventDate;
 
-  // Allows the user to pick an image from their computer
+  // Pick an image from gallery
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -38,54 +42,90 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     }
   }
 
-  void _submitPost() async {
+  // Pick event date from calendar
+  Future<void> _pickEventDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(days: 1)),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    );
+    if (picked != null) {
+      setState(() {
+        _selectedEventDate = picked;
+      });
+    }
+  }
 
+  void _submitPost() async {
     final title = _titleController.text.trim();
     final description = _descriptionController.text.trim();
 
-    // Make sure there is a title, description, and at least one tag
-    if (title.isEmpty || description.isEmpty || selectedTags.isEmpty) return;
+    if (title.isEmpty || description.isEmpty || selectedTags.isEmpty || _selectedEventDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please fill in all fields, select tags, and set a date.")),
+      );
+      return;
+    }
 
     final postText = '$title\n\n$description';
     final int currentUserId = Global.userId;
+    String postImagePath = '';
+
+    // Upload image if one is selected
+    if (_selectedImage != null) {
+      try {
+        final filename = await uploadImage(_selectedImage!);
+        if (filename == null) {
+          throw Exception('Image upload failed');
+        }
+        postImagePath = 'uploads/$filename';
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to upload image: $e")),
+        );
+        return;
+      }
+    }
+
     try {
-      // Send the data to the backend
       final response = await createPost(
         currentUserId,
         postText,
-        _selectedImage != null ? _selectedImage!.path : '',
+        postImagePath,
         selectedTags.toList(),
+        _selectedEventDate!.toIso8601String(),
       );
 
-      // 201 refers to the success code
-      if (response.statusCode == 201) {
+      if (response != null && response.statusCode == 201) {
         final newEvent = Event(
-          username: 'current_user', // Placeholder
-          imageUrl: _selectedImage != null ? _selectedImage!.path : '',
+          username: 'current_user',
+          imageUrl: postImagePath.isNotEmpty ? 'imageBaseUrl/$postImagePath' : '',
           profileImageUrl: '',
           text: postText,
           tags: selectedTags.toList(),
         );
-        
-        // Go back to the previous screen
         Navigator.pop(context, newEvent);
       } else {
-        // If the post creation failed
+        final status = response?.statusCode ?? 'unknown';
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to create post")),
+          SnackBar(content: Text("Failed to create post (status $status)")),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: $e")),
+        SnackBar(content: Text("Error creating post: $e")),
       );
     }
   }
 
-  // Handles the UI of this page. Includes buttons for creating the post and attaching images,
-  // as well as fields for text input
+
   @override
   Widget build(BuildContext context) {
+    final String eventDateLabel = _selectedEventDate == null
+        ? 'Select Event Date'
+        : 'Event Date: ${DateFormat.yMMMd().format(_selectedEventDate!)}';
+
     return Scaffold(
       appBar: AppBar(title: Text('Create Event Post')),
       body: Padding(
@@ -135,11 +175,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ),
                   SizedBox(width: 10),
                   if (_selectedImage != null)
-                    Text(
-                      'Image selected',
-                      style: TextStyle(color: Colors.green),
-                    )
+                    Text('Image selected', style: TextStyle(color: Colors.green)),
                 ],
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _pickEventDate,
+                child: Text(eventDateLabel),
               ),
               SizedBox(height: 20),
               Center(

@@ -1,11 +1,21 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
+import 'package:flutter/foundation.dart';
 
-const String baseUrl = 'http://localhost:3000';
-// const String baseUrl = 'http://10.0.2.2:3000'; // Use this if running on Android emulator
+final String baseUrl = kIsWeb
+    ? 'http://localhost:3000'
+    : Platform.isAndroid
+        ? 'http://10.0.2.2:3000'
+        : 'http://localhost:3000';
 
-// const String baseUrl = 'http://your-local-ip:3000'; // Otherwise, use this. 
-// to get your IP, run "ipconfig (Windows)" or "ifconfig (Mac/Linux)"
+final String imageBaseUrl = kIsWeb
+    ? 'http://localhost:4000'
+    : Platform.isAndroid
+        ? 'http://10.0.2.2:4000'
+        : 'http://localhost:4000';
 
 /* ========================
    User-related Requests
@@ -63,18 +73,32 @@ Future<http.Response> deleteUser(int userId) {
    ======================== */
 
 // Create a post
-Future<http.Response> createPost(int creator, String postText, String postImage, List<String> postTags) {
-  return http.post(
-    Uri.parse('$baseUrl/posts'),
-    headers: {'Content-Type': 'application/json'},
-    body: jsonEncode({
-      'creator': creator,
-      'postText': postText,
-      'postImage': postImage,
-      'postTags': postTags,
-    }),
-  );
+Future<http.Response?> createPost(
+  int userId,
+  String postText,
+  String imagePath,
+  List<String> tags,
+  String eventDate, // must be an ISO string
+) async {
+  try {
+    final response = await http.post(
+      Uri.parse('$baseUrl/posts'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'creator': userId,
+        'postText': postText,
+        'postImage': imagePath,
+        'postTags': tags,
+        'eventDate': eventDate,
+      }),
+    );
+    return response;
+  } catch (e) {
+    print('Error in createPost: $e');
+    return null;
+  }
 }
+
 
 // Terminate a post
 Future<http.Response> terminatePost(int postId) {
@@ -162,18 +186,39 @@ Future<http.Response> dismissReport(int reportId) {
   return http.delete(Uri.parse('$baseUrl/reports/$reportId'));
 }
 
+/* ========================
+   Image-related Requests
+   ======================== */
 
+Future<String?> uploadImage(File imageFile) async {
+  try {
+    final uri = Uri.parse('$imageBaseUrl/upload');
+    final mimeType = lookupMimeType(imageFile.path) ?? 'image/jpeg';
+    final mimeParts = mimeType.split('/');
 
-// Here's an example usage of these http requests from what I understand:
+    // Read image bytes manually
+    final Uint8List imageBytes = await imageFile.readAsBytes();
 
-// final response = await createUser("john_doe", "Hi I’m John", "http://example.com/pfp.jpg");
+    final request = http.MultipartRequest('POST', uri)
+      ..files.add(http.MultipartFile.fromBytes(
+        'image',
+        imageBytes,
+        filename: imageFile.path.split('/').last,
+        contentType: MediaType(mimeParts[0], mimeParts[1]),
+      ));
 
-// if (response.statusCode == 201) {
-//   ScaffoldMessenger.of(context).showSnackBar(
-//     SnackBar(content: Text("User created successfully!")),
-//   );
-// } else {
-//   ScaffoldMessenger.of(context).showSnackBar(
-//     SnackBar(content: Text("Failed: ${jsonDecode(response.body)['error']}")),
-//   );
-// }
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['filename']; // Only the filename (e.g., resized-...)
+    } else {
+      print("Image upload failed: ${response.statusCode} ${response.body}");
+      return null;
+    }
+  } catch (e) {
+    print("Image upload exception: $e");
+    return null;
+  }
+}

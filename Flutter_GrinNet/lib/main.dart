@@ -5,6 +5,14 @@ import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
 import 'api_service.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+
+final String imageBaseUrl = kIsWeb
+    ? 'http://localhost:4000'
+    : Platform.isAndroid
+        ? 'http://10.0.2.2:4000'
+        : 'http://localhost:4000';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -65,24 +73,20 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   // holds the current search query text
   String searchQuery = '';
 
-
   Future<void> _loadPosts() async {
     try {
-      // Retrieve posts from API.
       List<Post> posts = await getAllPosts();
-      // Map each Post to an Event object.
       List<Event> loadedEvents = posts.map((post) {
-        // Split the comma-separated tags string into a list
         List<String> tags = post.postTags.split(',');
         return Event(
           username: post.posterUsername,
-          imageUrl: post.postPicture,
-          profileImageUrl: post.userProfilePicture,
+          imageUrl: post.postPicture.isNotEmpty ? imageBaseUrl + '/' + post.postPicture : '',
+          profileImageUrl: post.userProfilePicture.isNotEmpty ? imageBaseUrl + '/' + post.userProfilePicture : '',
           text: post.postText,
           tags: tags,
         );
       }).toList();
-      // Update state with loaded events.
+
       setState(() {
         events = loadedEvents;
       });
