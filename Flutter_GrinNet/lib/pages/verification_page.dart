@@ -43,7 +43,13 @@ class _VerificationEmailPage extends State<VerificationEmailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Email Verification')),
+      appBar: AppBar(
+        title: const Text("Email Verification"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        )
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
