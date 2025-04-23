@@ -16,6 +16,31 @@ Code Selected: Flutter_GrinNet/lib/pages/create_post.dart (Lines 1 - 157)
     -What questions did you ask, and what were the stakeholder's answers? -->
 
 ### Stakeholder 1:
+Rebecca Boroda - Regular User, grinnell college student. Conducted on Tuesday, 22nd April, 2025 at 4:00 PM
+
+Action to perform - Use Case 1 : Search 
+
+Behavior interacting with the documentation : Becca found the documentation to be concise and easy to understand.
+
+Success / failure in task : Becca succeeded in her task of searching through the search bar, although it took her a second to figure out the parameters she could search by. She finally ended up searching by content in the post, by tags, and by username (all 3 possibilities to search).
+
+Feedback on documentation : Becca initially found the documentation to be a bit too concise, but after testing the app, she found it to be sufficient for the current state of the app. 
+
+Questions asked to the stakeholder: 
+How intuitive was the interface to use? Which buttons did what you expected/which did not?
+4 out of 6. All the buttons did what was expected, except the profile page, where she expected to see her own profile and not various posts. However, the profile page simply had not been implemented yet.
+
+Did you like the layout of the create post page/how would you improve it?
+There should be a dedicated section in the post for date / time of event. 
+
+Do you have any other suggestions for changes to the interface?
+The interface is visually unappealing as things stand. 
+
+Do you think you would use this app personally?
+With an improved interface, I would possibly use it. 
+
+How the product will be updated based on feedback :
+
 
 ### Stakeholder 2:
 
