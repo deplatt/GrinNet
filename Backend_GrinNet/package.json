@@ -10,9 +10,12 @@
     "servers_start": "concurrently \"npm run start_server1\" \"npm run start_server2\""
   },
   "dependencies": {
+    "18": "^0.0.0",
+    "concat-stream": "^2.0.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "pg": "^8.10.0"
+    "pg": "^8.10.0",
+    "readable-stream": "^4.7.0"
   },
   "devDependencies": {
     "axios": "^1.8.4",

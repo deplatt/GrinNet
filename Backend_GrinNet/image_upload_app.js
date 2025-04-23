@@ -1,6 +1,11 @@
 /**
  * Local image upload server for GrinNet.
  * Accepts common image formats, resizes large images, and serves static content.
+ *
+ * @routes
+ * GET    /uploads/:filename     Serve uploaded static image
+ * POST   /upload                Upload and (if needed) resize an image
+ * DELETE /image/:filename       Delete a stored image
  */
 
 const express = require('express');
@@ -10,6 +15,20 @@ const fs = require('fs');
 const sharp = require('sharp');
 const config = require('./config');
 
+// ========== Configurable Logging Setup ==========
+const logToFile = false; // Set to true to log to file
+const logFilePath = path.join(__dirname, 'image-server.log');
+
+function logger(message) {
+  const logEntry = `[${new Date().toISOString()}] ${message}`;
+  if (logToFile) {
+    fs.appendFileSync(logFilePath, logEntry + '\n');
+  } else {
+    console.log(logEntry);
+  }
+}
+// =================================================
+
 const app = express();
 
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
@@ -17,7 +36,10 @@ const MAX_DIMENSION = 480;
 const PORT = config.UPLOAD_PORT;
 
 // Create the upload directory if it doesn't exist
-if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR);
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR);
+  logger('Created uploads directory');
+}
 
 // Serve images statically from /uploads
 app.use('/uploads', express.static(UPLOAD_DIR));
@@ -50,6 +72,7 @@ const upload = multer({
 app.post('/upload', (req, res) => {
   upload(req, res, async (err) => {
     if (err || !req.file) {
+      logger(`Image upload failed: ${err ? err.message : 'Invalid or missing file'}`);
       return res.status(400).json({ error: 'Invalid image or upload error.' });
     }
 
@@ -65,13 +88,15 @@ app.post('/upload', (req, res) => {
       if (shouldResize) {
         await image.resize({ width: MAX_DIMENSION, height: MAX_DIMENSION, fit: 'inside' }).toFile(outputPath);
         fs.unlinkSync(inputPath);
+        logger(`Uploaded and resized image: ${req.file.filename}`);
       } else {
         fs.renameSync(inputPath, outputPath);
+        logger(`Uploaded image without resizing: ${req.file.filename}`);
       }
 
       res.status(200).json({ filename: path.basename(outputPath) });
     } catch (e) {
-      console.error('[ERROR] Failed to process image:', e.message);
+      logger(`[ERROR] Failed to process image: ${e.message}`);
       res.status(500).json({ error: 'Image processing failed: ' + e.message });
     }
   });
@@ -82,8 +107,10 @@ app.delete('/image/:filename', (req, res) => {
   const filePath = path.join(UPLOAD_DIR, req.params.filename);
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(filePath);
+    logger(`Deleted image: ${req.params.filename}`);
     res.status(200).json({ message: 'Image deleted.' });
   } else {
+    logger(`Attempted to delete non-existent image: ${req.params.filename}`);
     res.status(404).json({ error: 'Image not found.' });
   }
 });
@@ -91,7 +118,7 @@ app.delete('/image/:filename', (req, res) => {
 // Start server
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`[Image Upload Server] Running on port ${PORT}`);
+    logger(`Image Upload Server running on port ${PORT}`);
   });
 }
 
