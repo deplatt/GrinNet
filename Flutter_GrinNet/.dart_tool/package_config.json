@@ -116,10 +116,22 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "ffi",
+      "rootUri": "file:///Users/jeronimocamargo/.pub-cache/hosted/pub.dev/ffi-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
       "name": "file",
       "rootUri": "file:///Users/jeronimocamargo/.pub-cache/hosted/pub.dev/file-7.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "file_picker",
+      "rootUri": "file:///Users/jeronimocamargo/.pub-cache/hosted/pub.dev/file_picker-6.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "file_selector_linux",
@@ -494,6 +506,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "win32",
+      "rootUri": "file:///Users/jeronimocamargo/.pub-cache/hosted/pub.dev/win32-5.12.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
       "name": "yaml",
       "rootUri": "file:///Users/jeronimocamargo/.pub-cache/hosted/pub.dev/yaml-3.1.3",
       "packageUri": "lib/",
@@ -506,10 +524,10 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-04-10T21:48:57.039376Z",
+  "generated": "2025-04-24T17:52:39.319366Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///opt/homebrew/Caskroom/flutter/3.29.2/flutter",
-  "flutterVersion": "3.29.2",
+  "flutterVersion": "3.29.3",
   "pubCache": "file:///Users/jeronimocamargo/.pub-cache"
 }

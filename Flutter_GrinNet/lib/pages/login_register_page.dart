@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
 import '../api_service.dart';
 import 'global.dart';
+import'../widget_tree.dart';
 
 // This is the page for the user to log in or create their account from. It greets the user upon opening the app
 class LoginPage extends StatefulWidget {
@@ -29,6 +30,9 @@ class _LoginPageState extends State<LoginPage> {
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
+     Navigator.of(context).pushReplacement(
+     MaterialPageRoute(builder: (context) => const WidgetTree()),
+     );
     } on FirebaseAuthException catch (e) {
       setState(() {
         // errorMessage = e.message;
