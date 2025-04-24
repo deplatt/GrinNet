@@ -104,6 +104,11 @@ Lastly, it would be very helpful for the class and method comments to include pr
 
 **Changes made :**
 
+Added comments to all methods and classes along with widget build (the UI) explaining each line of code.
+
+Commit Hash: 19885bc51ea79a51589c1562fd82dd97ddb80280
+
+Commit link: https://github.com/deplatt/GrinNet/commit/19885bc51ea79a51589c1562fd82dd97ddb80280
 
 ### Subgroup 2: Deven and Jeronimo
 
