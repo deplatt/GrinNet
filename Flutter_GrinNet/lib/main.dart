@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
+import 'pages/login_register_page.dart';
 import 'api_service.dart';
 import 'pages/profile_page.dart';
+import 'pages/seetings_page.dart';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -106,6 +108,8 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
     super.initState();
     _loadPosts();
   }
+
+  
 
   void _navigateToCreatePostScreen() async {
     final newEvent = await Navigator.push(
