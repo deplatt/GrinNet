@@ -30,8 +30,9 @@ class _LoginPageState extends State<LoginPage> {
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
-     Navigator.of(context).pushReplacement(
-     MaterialPageRoute(builder: (context) => const WidgetTree()),
+      Global.username = _controllerEmail.text.split('@')[0];
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const WidgetTree()),
      );
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -45,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
   // Firebase handles authentication, but we still need postgre to know what user is making a post.
   Future<void> createUserWithEmailAndPassword() async {
     try {
+
       // Ensure that the entered email ends with "@grinnell.edu"
       final email = _controllerEmail.text;
 
@@ -60,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
           password: _controllerPassword.text,
         );
         String username = _controllerEmail.text.split('@')[0];
+        Global.username = username;
         
         // Send username to postgre (201 means success)
         final response = await createUser(username, "", "");

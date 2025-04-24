@@ -24,6 +24,11 @@ Future<http.Response> createUser(String username, String bioText, String profile
   );
 }
 
+// Get a user
+Future<http.Response> getUser(int userId) {
+  return http.get(Uri.parse('$baseUrl/users/$userId'));
+}
+
 // Ban a user
 Future<http.Response> banUser(int userId) {
   return http.put(Uri.parse('$baseUrl/users/$userId/ban'));
