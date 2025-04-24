@@ -5,6 +5,7 @@ import '../auth.dart';
 import 'global.dart';
 import 'dart:convert';
 import '../widget_tree.dart';
+import 'seetings_page.dart';
 
 /// Profile Screen displays authenticated user's profile information and their events.
 /// 
@@ -56,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _navigateToSettingsScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SettingsScreen()),
+      MaterialPageRoute(builder: (context) => const SettingsPage()),
     );
   }
 
@@ -189,23 +190,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-    );
-  }
-}
-
-/// Simple Settings Screen placeholder 
-/// 
-/// Currently displays static text. Should be expanded to include:
-/// - Username/password changes
-/// - Profile management features
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
-      body: const Center(child: Text('Change Username and Password Settings Here')),
     );
   }
 }
