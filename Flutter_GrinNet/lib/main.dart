@@ -99,13 +99,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
     _loadPosts();
   }
 
-  void _navigateToLoginPage() async {
-    // Navigate to the login page and wait for the result.
-    final newEvent = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
-    );
-  }
+  
 
   void _navigateToCreatePostScreen() async {
     final newEvent = await Navigator.push(
