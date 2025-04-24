@@ -54,6 +54,9 @@ class Event {
   final String profileImageUrl;  // User's profile picture
   final String text;        // Event description text.
   final List<String> tags;       // List of tags associated with the event.
+  final int postId;         // postId for report feature
+  final int userId;         // userId for report feature
+
 
   Event({
     required this.username,
@@ -61,6 +64,8 @@ class Event {
     required this.profileImageUrl,
     required this.text,
     required this.tags,
+    required this.postId,
+    required this.userId,
   });
 }
 
@@ -92,6 +97,8 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           profileImageUrl: post.userProfilePicture,
           text: post.postText,
           tags: tags,
+          postId: post.post_id,
+          userId: post.creator,
         );
       }).toList();
       // Update state with loaded events.

@@ -100,6 +100,8 @@ class Post {
   final String postTags;
   final String postPicture;
   final String posterUsername;
+  final int post_id;
+  final int creator;
 
   Post({
     required this.creationDate,
@@ -109,6 +111,8 @@ class Post {
     required this.postTags,
     required this.postPicture,
     required this.posterUsername,
+    required this.post_id,
+    required this.creator,
   });
 
   // Parse from JSON map
@@ -121,6 +125,8 @@ class Post {
       postTags: json['post_tags'].toString(),
       postPicture: json['post_image'],
       posterUsername: json['username'], 
+      post_id: json['post_id'],
+      creator: json['creator'],
     );
   }
 }
