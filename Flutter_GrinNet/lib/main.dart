@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
+import 'pages/login_register_page.dart';
 import 'api_service.dart';
 import 'pages/seetings_page.dart';
 
@@ -96,6 +97,14 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   void initState() {
     super.initState();
     _loadPosts();
+  }
+
+  void _navigateToLoginPage() async {
+    // Navigate to the login page and wait for the result.
+    final newEvent = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
   }
 
   void _navigateToCreatePostScreen() async {
