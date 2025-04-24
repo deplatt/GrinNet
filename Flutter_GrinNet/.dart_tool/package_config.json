@@ -117,7 +117,7 @@
     },
     {
       "name": "ffi",
-      "rootUri": "file:///Users/pranavkbhandari/.pub-cache/hosted/pub.dev/ffi-2.1.4",
+      "rootUri": "file:///Users/jeronimocamargo/.pub-cache/hosted/pub.dev/ffi-2.1.4",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
@@ -530,4 +530,5 @@
   "flutterRoot": "file:///usr/local/Caskroom/flutter/3.29.2/flutter",
   "flutterVersion": "3.29.2",
   "pubCache": "file:///Users/pranavkbhandari/.pub-cache"
+
 }

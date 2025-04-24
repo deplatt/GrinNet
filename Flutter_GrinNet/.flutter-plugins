@@ -1,4 +1,5 @@
 # This is a generated file; do not edit or check into version control.
+
 file_picker=/Users/pranavkbhandari/.pub-cache/hosted/pub.dev/file_picker-6.2.1/
 file_selector_linux=/Users/pranavkbhandari/.pub-cache/hosted/pub.dev/file_selector_linux-0.9.3+2/
 file_selector_macos=/Users/pranavkbhandari/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.4+2/
@@ -16,3 +17,4 @@ image_picker_linux=/Users/pranavkbhandari/.pub-cache/hosted/pub.dev/image_picker
 image_picker_macos=/Users/pranavkbhandari/.pub-cache/hosted/pub.dev/image_picker_macos-0.2.1+2/
 image_picker_windows=/Users/pranavkbhandari/.pub-cache/hosted/pub.dev/image_picker_windows-0.2.1+1/
 integration_test=/usr/local/Caskroom/flutter/3.29.2/flutter/packages/integration_test/
+

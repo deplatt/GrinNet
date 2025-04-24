@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
+import 'pages/login_register_page.dart';
 import 'api_service.dart';
+import 'pages/profile_page.dart';
+import 'pages/seetings_page.dart';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -26,8 +29,17 @@ class GrinNetApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GrinNet',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      // Sets the app to use a dark theme with a black background.
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        cardColor: Colors.grey[900],
+        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
+        chipTheme: ChipThemeData(
+          backgroundColor: Colors.grey[800]!,
+          labelStyle: TextStyle(color: Colors.white),
+          selectedColor: Colors.blueGrey,
+          secondarySelectedColor: Colors.blueGrey,
+        ),
       ),
       // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
@@ -103,6 +115,8 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
     super.initState();
     _loadPosts();
   }
+
+  
 
   void _navigateToCreatePostScreen() async {
     final newEvent = await Navigator.push(
@@ -228,53 +242,6 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-// Profile screen displaying a list of events associated with the user.
-class ProfileScreen extends StatelessWidget {
-  final List<Event> events;
-
-  const ProfileScreen({super.key, required this.events});
-
-  void _navigateToSettingsScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SettingsScreen()),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // App bar includes a settings button.
-      appBar: AppBar(
-        title: Text('Profile'),
-        actions: [
-          IconButton(icon: Icon(Icons.settings), onPressed: () => _navigateToSettingsScreen(context)),
-        ],
-      ),
-      // Display list of events with basic details.
-      body: ListView(
-        children: events.map((event) => ListTile(
-          title: Text(event.text),
-          subtitle: Text('Posted by ${event.username}'),
-        )).toList(),
-      ),
-    );
-  }
-}
-
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
-      // Placeholder content for changing settings.
-      body: Center(child: Text('Change Username and Password Settings Here')),
     );
   }
 }

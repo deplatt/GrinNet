@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:firebase_test2/pages/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
 import '../api_service.dart';
 import 'global.dart';
-
+import'../widget_tree.dart';
 
 // This is the page for the user to log in or create their account from. It greets the user upon opening the app
 class LoginPage extends StatefulWidget {
@@ -29,9 +30,14 @@ class _LoginPageState extends State<LoginPage> {
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
+      Global.username = _controllerEmail.text.split('@')[0];
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const WidgetTree()),
+     );
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = e.message;
+        // errorMessage = e.message;
+        errorMessage = "Credentials do not match, or account does not exist";
       });
     }
   }
@@ -40,21 +46,33 @@ class _LoginPageState extends State<LoginPage> {
   // Firebase handles authentication, but we still need postgre to know what user is making a post.
   Future<void> createUserWithEmailAndPassword() async {
     try {
-      // Send firebase the email and password to create an account with
-      await Auth().createUserWithEmailAndPassword(
-        email: _controllerEmail.text, 
-        password: _controllerPassword.text,
-      );
-      String username = _controllerEmail.text.split('@')[0];
-      
-      // Send username to postgre (201 means success)
-      final response = await createUser(username, "", "");
-      if (response.statusCode != 201) {
-        throw Exception('Failed to create user on API');
-      }
 
-      final userData = jsonDecode(response.body);
-      Global.userId = userData['id'];
+      // Ensure that the entered email ends with "@grinnell.edu"
+      final email = _controllerEmail.text;
+
+      if (email.length < 13 || email.substring(email.length - 13) != "@grinnell.edu") {
+        setState(() {
+          errorMessage = "Please enter your grinnell.edu email.";
+        });      
+      }
+      else {
+        // Send firebase the email and password to create an account with
+        await Auth().createUserWithEmailAndPassword(
+          email: _controllerEmail.text, 
+          password: _controllerPassword.text,
+        );
+        String username = _controllerEmail.text.split('@')[0];
+        Global.username = username;
+        
+        // Send username to postgre (201 means success)
+        final response = await createUser(username, "", "");
+        if (response.statusCode != 201) {
+          throw Exception('Failed to create user on API');
+        }
+
+        final userData = jsonDecode(response.body);
+        Global.userId = userData['id'];
+      }      
     } on FirebaseAuthException catch (e) {
       // Check if there were any errors with firebase (invalid input, etc)
       setState(() {
@@ -107,6 +125,16 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Button to switch between logging in and registering
+  Widget _forgotPasswordButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+      },
+      child: Text(isLogin? "Forgot Password?": ""),
+    );
+  }
+
   // UI containing the input fields for users and submiting button
   @override
   Widget build(BuildContext context) {
@@ -124,6 +152,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             _entryField('Email', _controllerEmail),
             _entryField('Password', _controllerPassword),
+            Align(alignment: Alignment.centerRight, child: _forgotPasswordButton()),
             _errorMessage(),
             _submitButton(),
             _loginOrRegisterButton(),
