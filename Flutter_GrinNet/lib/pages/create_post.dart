@@ -5,6 +5,21 @@ import 'package:image_picker/image_picker.dart';
 import '../api_service.dart';
 import 'global.dart';
 
+
+/// This class is a screen that allows the user to create a new event post.
+///
+/// The user is able to input a title and description for the event, select one 
+/// or more tags from a predefined list, and optionally upload an image from their
+/// device. Upon submission, the post data is sent to the backend server for storage
+/// and visible in the home page.
+///
+/// Preconditions:
+/// - The user must be logged in and have a valid `Global.userId`.
+///
+/// Postconditions:
+/// - A new post is submitted if all required fields are filled.
+/// - If submission is successful, the user is navigated back with the new post as result.
+/// - If submission fails, an error message is shown.
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({super.key});
 
@@ -12,23 +27,32 @@ class CreatePostScreen extends StatefulWidget {
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
 
+/// State class for [CreatePostScreen] responsible for managing the user interaction.
 class _CreatePostScreenState extends State<CreatePostScreen> {
-
-  // Text boxes for inputting the title and description of the post
+  /// Controller for the event title input field.
   final TextEditingController _titleController = TextEditingController();
+
+  /// Controller for the event description input field.
   final TextEditingController _descriptionController = TextEditingController();
-  
-  // Available tags
+
+  /// A predefined list of available tags for the user to select.
   final List<String> allTags = [
     'Sports', 'Culture', 'Games', 'SEPCs', 'Dance', 'Music', 'Food', 'Social', 'Misc'
   ];
 
-  // Tracks which tags the user has selected
+  /// Set of tags selected by the user for the current post.
   final Set<String> selectedTags = {};
 
+  /// The image file selected by the user, if any.
   File? _selectedImage;
 
-  // Allows the user to pick an image from their computer
+  /// Opens the gallery for the user to pick an image.
+  ///
+  /// Preconditions:
+  /// - Device permissions must allow gallery access.
+  ///
+  /// Postconditions:
+  /// - If an image is picked, [_selectedImage] is set and UI is updated.
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -37,7 +61,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       });
     }
   }
-
+  /// Submits the post to the backend server.
+  ///
+  /// Preconditions:
+  /// - [_titleController], [_descriptionController] must not be empty.
+  /// - [selectedTags] must contain at least one tag.
+  ///
+  /// Postconditions:
+  /// - If submission succeeds, a new [Event] is created and returned via Navigator.
+  /// - If submission fails, an error message is displayed.
+  ///
+  /// Exceptions:
+  /// - Displays an error SnackBar if an exception occurs during network communication.
   void _submitPost() async {
 
     final title = _titleController.text.trim();
@@ -82,8 +117,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     }
   }
 
-  // Handles the UI of this page. Includes buttons for creating the post and attaching images,
-  // as well as fields for text input
+  /// Handles the user interface for the post creation page.
+  ///
+  /// UI Components:
+  /// - Text fields for event title and description.
+  /// - A set of selectable tags via [FilterChip].
+  /// - An image upload button and status text.
+  /// - A submit button that calls [_submitPost].
+  ///
+  /// Postconditions:
+  /// - Allows the user to input and submit a new event post.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,17 +137,20 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Input field for event title
               TextField(
                 controller: _titleController,
                 decoration: InputDecoration(labelText: 'Event Title'),
               ),
               SizedBox(height: 10),
+              // Input field for event description
               TextField(
                 controller: _descriptionController,
                 decoration: InputDecoration(labelText: 'Event Description'),
                 maxLines: 4,
               ),
               SizedBox(height: 20),
+              // Section for selecting tags
               Text('Select Tags:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               Wrap(
                 spacing: 8.0,
@@ -127,6 +173,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 }).toList(),
               ),
               SizedBox(height: 20),
+               // Row for image upload button and image status
               Row(
                 children: [
                   ElevatedButton(
@@ -142,6 +189,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 ],
               ),
               SizedBox(height: 20),
+              // Submit button centered on the screen
               Center(
                 child: ElevatedButton(
                   onPressed: _submitPost,
@@ -155,3 +203,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     );
   }
 }
+
+
+
+
+
+
+  
+
