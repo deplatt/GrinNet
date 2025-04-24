@@ -5,6 +5,7 @@ import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
 import 'api_service.dart';
+import 'pages/seetings_page.dart';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -231,10 +232,10 @@ class ProfileScreen extends StatelessWidget {
 
   const ProfileScreen({super.key, required this.events});
 
-  void _navigateToSettingsScreen(BuildContext context) {
+  void _navigateToSettingsPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SettingsScreen()),
+      MaterialPageRoute(builder: (context) => const SettingsPage()),
     );
   }
 
@@ -245,7 +246,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Profile'),
         actions: [
-          IconButton(icon: Icon(Icons.settings), onPressed: () => _navigateToSettingsScreen(context)),
+          IconButton(icon: Icon(Icons.settings), onPressed: () => _navigateToSettingsPage(context)),
         ],
       ),
       // Display list of events with basic details.
