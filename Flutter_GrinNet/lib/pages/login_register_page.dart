@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_test2/pages/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       setState(() {
         // errorMessage = e.message;
-        errorMessage = "Email and password do not match, or account does not exist";
+        errorMessage = "Credentials do not match, or account does not exist";
       });
     }
   }
@@ -41,8 +42,9 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> createUserWithEmailAndPassword() async {
     try {
       // Ensure that the entered email ends with "@grinnell.edu"
-      if (_controllerEmail.text.length < 13 ||
-        _controllerEmail.text.substring(_controllerEmail.text.length - 13) != "@grinnell.edu") {
+      final email = _controllerEmail.text;
+
+      if (email.length < 13 || email.substring(email.length - 13) != "@grinnell.edu") {
         setState(() {
           errorMessage = "Please enter your grinnell.edu email.";
         });      
@@ -116,6 +118,16 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Button to switch between logging in and registering
+  Widget _forgotPasswordButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+      },
+      child: Text(isLogin? "Forgot Password?": ""),
+    );
+  }
+
   // UI containing the input fields for users and submiting button
   @override
   Widget build(BuildContext context) {
@@ -133,6 +145,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             _entryField('Email', _controllerEmail),
             _entryField('Password', _controllerPassword),
+            Align(alignment: Alignment.centerRight, child: _forgotPasswordButton()),
             _errorMessage(),
             _submitButton(),
             _loginOrRegisterButton(),

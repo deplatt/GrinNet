@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_test2/pages/login_register_page.dart';
 import 'package:firebase_test2/widget_tree.dart';
 import 'package:flutter/material.dart';
 import '../auth.dart';
@@ -45,10 +46,14 @@ class _VerificationEmailPage extends State<VerificationEmailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Email Verification"),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        )
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   onPressed: () => Navigator.pushReplacement(
+        //     context, 
+        //     MaterialPageRoute(
+        //       builder: (context) => const LoginPage(),
+        //     ))
+        // )
       ),
       body: Center(
         child: Padding(
