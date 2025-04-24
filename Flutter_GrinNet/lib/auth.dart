@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer';
 
 /// Utility class to send information to Firebase
 /// 
@@ -11,6 +12,25 @@ class Auth {
   User? get currentUser => _firebaseAuth.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  Future<void> sendForgotPasswordLink(String emailAddress) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: emailAddress);
+    }
+    catch (e) {
+      log(e.toString());
+    }
+  }
+
+  // Send the user an email with a link to verify their email address
+  Future<void> sendEmailVerificationLink() async {
+    try {
+      currentUser?.sendEmailVerification();
+    }
+    catch (e) {
+      log(e.toString());
+    }
+  }
 
   // Authenticate user info for an existing account
   Future<void> signInWithEmailAndPassword({
