@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         email: _controllerEmail.text, 
         password: _controllerPassword.text,
       );
+      Global.username = _controllerEmail.text.split('@')[0];
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -46,6 +47,8 @@ class _LoginPageState extends State<LoginPage> {
         password: _controllerPassword.text,
       );
       String username = _controllerEmail.text.split('@')[0];
+
+      Global.username = username;
       
       // Send username to postgre (201 means success)
       final response = await createUser(username, "", "");
