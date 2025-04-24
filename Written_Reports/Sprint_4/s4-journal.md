@@ -39,10 +39,37 @@ The interface is visually unappealing as things stand.
 Do you think you would use this app personally?
 With an improved interface, I would possibly use it. 
 
-How the product will be updated based on feedback :
+How the product will be updated based on feedback : based on becca's and also jesica's feedback, we are planning to modify our event / post model to include dedicated sections to display the date and time that the event will take place. 
 
 
 ### Stakeholder 2:
+Jesica Rodriguez Beyer - Regular User, grinnell college student. Conducted on Tuesday, 22nd April, 2025 at 6:00 PM
+
+Action to perform - Use Case 2 : Create Post 
+
+Behavior interacting with the documentation : Jesica found the documentation easy to understand. 
+
+Success / failure in task : Jesica succeeded in her task of creating a post. She made on for Alice, choosing the tags for culture, music, and misc. She even added a random image from the device on which she conducted her test. 
+
+Feedback on documentation : Jesica, like Becca, said the documentation was simple and concise.  
+
+Questions asked to the stakeholder: 
+How intuitive was the interface to use? Which buttons did what you expected/which did not?
+Jesica found the existing interface to be decently intuitive, although she had a number of suggestions for changes to the interface (mentioned below)
+
+Did you like the layout of the create post page/how would you improve it?
+Jesica also mentioned that there should be a dedicated section in the post for date / time of event. 
+
+Do you have any other suggestions for changes to the interface?
+- be able to preview the image when it is uploaded
+- create post interface should match what the actual post will look like
+- the title of the event should be in bold to make it clear
+- wants to be able to refresh the feed by scrolling down instead of a refresh button
+
+Do you think you would use this app personally?
+With an improved interface, I would possibly use it. 
+
+How the product will be updated based on feedback : based on becca's and also jesica's feedback, we are planning to modify our event / post model to include dedicated sections to display the date and time that the event will take place. We will also make the event title bold. 
 
 ### Stakehodler 3:
 
