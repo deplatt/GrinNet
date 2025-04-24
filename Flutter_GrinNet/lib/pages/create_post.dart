@@ -65,6 +65,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           profileImageUrl: '',
           text: postText,
           tags: selectedTags.toList(),
+          postId: 2,
+          userId: currentUserId,
         );
         
         // Go back to the previous screen
