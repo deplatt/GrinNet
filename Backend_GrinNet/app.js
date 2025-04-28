@@ -3,53 +3,32 @@
  *
  * This server handles API routes for user accounts, posts, and reports,
  * interacting with a PostgreSQL database for persistent storage.
- * It includes endpoints for creating, modifying, and deleting users/posts,
- * managing reports, and retrieving post data.
- *
+ * 
  * @routes
- * POST   /users                  Create a new user
- * PUT    /users/:id/ban          Ban a user
- * PUT    /users/:id/warn         Warn a user
- * PUT    /users/:id/bio          Update a user's bio
+ * POST   /users                    Create a new user
+ * PUT    /users/:id/ban            Ban a user
+ * PUT    /users/:id/warn           Warn a user
+ * PUT    /users/:id/bio            Update a user's bio
  * PUT    /users/:id/profile-picture Update a user's profile picture
- * DELETE /users/:id              Delete a user
- *
- * POST   /posts                  Create a new post
- * PUT    /posts/:id/terminate    Mark a post as terminated
- * DELETE /posts/:id              Delete a post
- * GET    /posts                  Fetch all active posts
- * POST   /clear                  Clear the entire database
- *
- * POST   /reports                Submit a report on a post
- * DELETE /reports/:id            Dismiss a report
+ * DELETE /users/:id                Delete a user
+ * GET    /users                    Retrieve a user by username
+ * 
+ * POST   /posts                    Create a new post
+ * PUT    /posts/:id/terminate      Terminate a post
+ * DELETE /posts/:id                Delete a post
+ * GET    /posts                    Retrieve all active posts
+ * POST   /clear                    Clear the entire database
+ * 
+ * POST   /reports                  Submit a report
+ * DELETE /reports/:id              Dismiss a report
  */
 
-// ========== Configurable Logging Setup ==========
 const fs = require('fs');
 const path = require('path');
-const logToFile = false; // Toggle to `true` to enable logging to a file
-const logFilePath = path.join(__dirname, 'express_server.log');
-
-function logger(message) {
-  const logEntry = `[${new Date().toISOString()}] ${message}`;
-  if (logToFile) {
-    fs.appendFileSync(logFilePath, logEntry + '\n');
-  } else {
-    console.log(logEntry);
-  }
-}
-// =================================================
-
 const express = require('express');
 const cors = require('cors');
-const app = express();
 const config = require('./config');
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Database function imports
+const app = express();
 const {
   createUser,
   banUser,
@@ -66,9 +45,33 @@ const {
   dismissReport
 } = require('./functions');
 
+// ========== Logging Setup ==========
+const logToFile = false;
+const logFilePath = path.join(__dirname, 'express_server.log');
+
+function logger(message) {
+  const logEntry = `[${new Date().toISOString()}] ${message}`;
+  if (logToFile) {
+    fs.appendFileSync(logFilePath, logEntry + '\n');
+  } else {
+    console.log(logEntry);
+  }
+}
+// =================================================
+
+app.use(cors());
+app.use(express.json());
+
 /* ======================== User Routes ======================== */
 
-// Create a new user
+/**
+ * Create a new user
+ * 
+ * @route POST /users
+ * @body {string} username - Username of the user
+ * @body {string} bioText - Biography text
+ * @body {string} profilePicture - Profile picture path
+ */
 app.post('/users', async (req, res) => {
   try {
     const { username, bioText, profilePicture } = req.body;
@@ -80,7 +83,11 @@ app.post('/users', async (req, res) => {
   }
 });
 
-// Ban a user by ID
+/**
+ * Ban a user
+ * 
+ * @route PUT /users/:id/ban
+ */
 app.put('/users/:id/ban', async (req, res) => {
   try {
     const user = await banUser(req.params.id);
@@ -91,7 +98,11 @@ app.put('/users/:id/ban', async (req, res) => {
   }
 });
 
-// Warn a user by ID
+/**
+ * Warn a user
+ * 
+ * @route PUT /users/:id/warn
+ */
 app.put('/users/:id/warn', async (req, res) => {
   try {
     const user = await warnUser(req.params.id);
@@ -102,7 +113,12 @@ app.put('/users/:id/warn', async (req, res) => {
   }
 });
 
-// Update a user's bio
+/**
+ * Update a user's biography
+ * 
+ * @route PUT /users/:id/bio
+ * @body {string} newBio - New biography text
+ */
 app.put('/users/:id/bio', async (req, res) => {
   try {
     const { newBio } = req.body;
@@ -114,7 +130,12 @@ app.put('/users/:id/bio', async (req, res) => {
   }
 });
 
-// Update a user's profile picture
+/**
+ * Update a user's profile picture
+ * 
+ * @route PUT /users/:id/profile-picture
+ * @body {string} newProfilePicture - New profile picture path
+ */
 app.put('/users/:id/profile-picture', async (req, res) => {
   try {
     const { newProfilePicture } = req.body;
@@ -126,7 +147,11 @@ app.put('/users/:id/profile-picture', async (req, res) => {
   }
 });
 
-// Delete a user
+/**
+ * Delete a user
+ * 
+ * @route DELETE /users/:id
+ */
 app.delete('/users/:id', async (req, res) => {
   try {
     const user = await deleteUser(req.params.id);
@@ -137,24 +162,64 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
-/* ======================== Post Routes ======================== */
-
-// Create a new post
-app.post('/posts', async (req, res) => {
+/**
+ * Retrieve a user by username
+ * 
+ * @route GET /users
+ * @query {string} username - Username to lookup
+ */
+app.get('/users', async (req, res) => {
   try {
-    const { creator, postText, postImage, postTags, eventDate } = req.body;
-    if (!creator || !postText || !Array.isArray(postTags)) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    const username = req.query.username;
+    if (!username) {
+      return res.status(400).json({ error: 'Username required' });
     }
-    const post = await createPost(creator, postText, postImage, postTags, eventDate);
-    logger(`Post created by user ID ${creator}`);
-    res.status(201).json(post);
+    const result = await query('SELECT * FROM users WHERE username = $1', [username]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(result.rows[0]);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Terminate a post
+/* ======================== Post Routes ======================== */
+
+/**
+ * Create a new post
+ * 
+ * @route POST /posts
+ * @body {number} creator - User ID who created the post
+ * @body {string} postText - Text content of the post
+ * @body {string} postImage - Path to the post image
+ * @body {Array<string>} postTags - List of tags
+ * @body {string} eventDate - Event date in ISO format
+ */
+app.post('/posts', async (req, res) => {
+  try {
+    const { creator, postText, postImage, postTags, eventDate } = req.body;
+    logger(`[POST /posts] Received: creator=${creator}, postText=${postText ? postText.length : 'null'} chars, postImage=${postImage}, postTags=${JSON.stringify(postTags)}, eventDate=${eventDate}`);
+    
+    if (!creator || !postText || !Array.isArray(postTags)) {
+      logger('[POST /posts] Missing required fields!');
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
+    const post = await createPost(creator, postText, postImage, postTags, eventDate);
+    logger(`[POST /posts] Post created by user ID ${creator}`);
+    res.status(201).json(post);
+  } catch (error) {
+    logger(`[POST /posts] Error: ${error.message}`);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * Terminate a post
+ * 
+ * @route PUT /posts/:id/terminate
+ */
 app.put('/posts/:id/terminate', async (req, res) => {
   try {
     const post = await terminatePost(req.params.id);
@@ -165,7 +230,11 @@ app.put('/posts/:id/terminate', async (req, res) => {
   }
 });
 
-// Delete a post
+/**
+ * Delete a post
+ * 
+ * @route DELETE /posts/:id
+ */
 app.delete('/posts/:id', async (req, res) => {
   try {
     const post = await deletePost(req.params.id);
@@ -176,7 +245,11 @@ app.delete('/posts/:id', async (req, res) => {
   }
 });
 
-// Get all posts
+/**
+ * Retrieve all active posts
+ * 
+ * @route GET /posts
+ */
 app.get('/posts', async (req, res) => {
   try {
     const posts = await getAllPosts();
@@ -187,7 +260,11 @@ app.get('/posts', async (req, res) => {
   }
 });
 
-// Clear the entire database
+/**
+ * Clear the entire database
+ * 
+ * @route POST /clear
+ */
 app.post('/clear', async (req, res) => {
   try {
     await clearDatabase();
@@ -200,7 +277,15 @@ app.post('/clear', async (req, res) => {
 
 /* ======================== Report Routes ======================== */
 
-// Submit a report
+/**
+ * Submit a report against a post
+ * 
+ * @route POST /reports
+ * @body {number} reportedUser - User being reported
+ * @body {string} complaintText - Complaint text
+ * @body {number} postId - ID of the reported post
+ * @body {number} reporterUser - User who reports
+ */
 app.post('/reports', async (req, res) => {
   try {
     const { reportedUser, complaintText, postId, reporterUser } = req.body;
@@ -212,7 +297,11 @@ app.post('/reports', async (req, res) => {
   }
 });
 
-// Dismiss a report
+/**
+ * Dismiss a report
+ * 
+ * @route DELETE /reports/:id
+ */
 app.delete('/reports/:id', async (req, res) => {
   try {
     const report = await dismissReport(req.params.id);
@@ -225,6 +314,11 @@ app.delete('/reports/:id', async (req, res) => {
 
 /* ======================== Server Startup ======================== */
 
+/**
+ * Start the GrinNet backend server
+ *
+ * @listen config.PORT
+ */
 if (require.main === module) {
   app.listen(config.PORT, () => {
     logger(`GrinNet backend server running on port ${config.PORT}`);

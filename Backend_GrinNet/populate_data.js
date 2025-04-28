@@ -1,6 +1,11 @@
 /**
- * Script to populate the GrinNet app with users, posts, and reports.
- * It uploads images, creates users, creates posts, and submits one report.
+ * GrinNet Data Population Script
+ *
+ * This script populates the GrinNet app with initial users, posts, and reports for testing purposes.
+ * It uploads images to the local image server, creates users with those images,
+ * creates posts associated with users, and submits a sample report.
+ *
+ * @module populate_data
  */
 
 const axios = require('axios');
@@ -14,12 +19,14 @@ const BASE_API = 'http://localhost:3000';
 const TEST_IMAGE_DIR = path.join(__dirname, 'test_assets');
 const UPLOAD_PATH_PREFIX = 'uploads/';
 
+// Predefined test users
 const USERS = [
   { username: 'alice', bio: 'Music lover', profilePicture: 'profile1.jpg' },
   { username: 'bob', bio: 'Foodie', profilePicture: 'profile2.jpg' },
   { username: 'charlie', bio: 'Event host', profilePicture: 'profile3.jpg' }
 ];
 
+// Predefined test posts
 const POSTS = [
   {
     postText: 'Karaoke night ........',
@@ -35,7 +42,12 @@ const POSTS = [
   }
 ];
 
-// Upload image and return the filename
+/**
+ * Upload an image to the Image Upload Server
+ *
+ * @param {string} filename - The filename to upload from test_assets
+ * @returns {Promise<string>} The stored filename on the server
+ */
 async function uploadImage(filename) {
   const filePath = path.join(TEST_IMAGE_DIR, filename);
   const form = new FormData();
@@ -48,7 +60,11 @@ async function uploadImage(filename) {
   return response.data.filename;
 }
 
-// Main script logic
+/**
+ * Main function to populate the database
+ *
+ * Uploads images, creates users, posts, and submits a sample report.
+ */
 async function main() {
   try {
     console.log('[Clearing old data]');
@@ -56,6 +72,7 @@ async function main() {
 
     const createdUsers = [];
 
+    // Create users
     for (const user of USERS) {
       const profilePicFilename = await uploadImage(user.profilePicture);
 
@@ -71,6 +88,7 @@ async function main() {
 
     const createdPostIds = [];
 
+    // Create posts
     for (let i = 0; i < POSTS.length; i++) {
       const post = POSTS[i];
       const postImageFilename = await uploadImage(post.postImage);
@@ -87,7 +105,7 @@ async function main() {
       createdPostIds.push(response.data.post_id);
     }
 
-    // Submit a report
+    // Submit one report
     await axios.post(`${BASE_API}/reports`, {
       reportedUser: createdUsers[0].id,
       complaintText: 'Spammy post',
@@ -101,4 +119,5 @@ async function main() {
   }
 }
 
+// Execute script
 main();
