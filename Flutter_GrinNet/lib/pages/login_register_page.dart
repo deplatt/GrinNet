@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 import '../auth.dart';
 import '../api_service.dart';
 import 'global.dart';
@@ -28,9 +29,23 @@ class _LoginPageState extends State<LoginPage> {
         email: _controllerEmail.text,
         password: _controllerPassword.text,
       );
+
+      final username = _controllerEmail.text.split('@')[0];
+
+      // TEMPORARY FIX
+      if (username == "testuser") {
+        Global.userId = 1; // set manually for testing
+      } else {
+        Global.userId = 1; // DEFAULT fallback for now
+      }
+
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
       });
     }
   }

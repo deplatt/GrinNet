@@ -78,13 +78,13 @@ Future<http.Response?> createPost(
   String postText,
   String imagePath,
   List<String> tags,
-  String eventDate, // must be an ISO string
+  String eventDate,
 ) async {
   try {
     final response = await http.post(
       Uri.parse('$baseUrl/posts'),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode({
+      body: jsonEncode({
         'creator': userId,
         'postText': postText,
         'postImage': imagePath,
@@ -92,13 +92,25 @@ Future<http.Response?> createPost(
         'eventDate': eventDate,
       }),
     );
+
+    print("CREATE POST STATUS: ${response.statusCode}");
+    print("CREATE POST BODY: ${response.body}");
+
+    print("Sending createPost request:");
+    print(jsonEncode({
+      'creator': userId,
+      'postText': postText,
+      'postImage': imagePath,
+      'postTags': tags,
+      'eventDate': eventDate,
+    }));
+
     return response;
   } catch (e) {
     print('Error in createPost: $e');
     return null;
   }
 }
-
 
 // Terminate a post
 Future<http.Response> terminatePost(int postId) {

@@ -58,6 +58,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   void _submitPost() async {
+    if (Global.userId == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("User ID not set. Please log in again.")),
+      );
+      return;
+    }
+
     final title = _titleController.text.trim();
     final description = _descriptionController.text.trim();
 
@@ -93,7 +100,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         currentUserId,
         postText,
         postImagePath,
-        selectedTags.toList(),
+        selectedTags.map((tag) => tag.toLowerCase()).toList(),  // <-- LOWERCASE TAGS
         _selectedEventDate!.toIso8601String(),
       );
 

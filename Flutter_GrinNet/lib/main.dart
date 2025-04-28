@@ -80,8 +80,8 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
         List<String> tags = post.postTags.split(',');
         return Event(
           username: post.posterUsername,
-          imageUrl: post.postPicture.isNotEmpty ? imageBaseUrl + '/' + post.postPicture : '',
-          profileImageUrl: post.userProfilePicture.isNotEmpty ? imageBaseUrl + '/' + post.userProfilePicture : '',
+          imageUrl: post.postPicture.isNotEmpty ? '$imageBaseUrl/${post.postPicture}' : '',
+          profileImageUrl: post.userProfilePicture.isNotEmpty ? '$imageBaseUrl/${post.userProfilePicture}' : '',
           text: post.postText,
           tags: tags,
         );
