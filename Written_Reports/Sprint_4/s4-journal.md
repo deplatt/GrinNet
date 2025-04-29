@@ -82,10 +82,10 @@ Questions asked:
 1.How intuitive was the interface to use? Which buttons did what you expected/which did not?
 It was very intuitive, the buttons were clear and indicated the functionality pretty well. 
 
-2. Did you like the layout of the create post page/how would you improve it?
+2.Did you like the layout of the create post page/how would you improve it?
 I would like the design to be more user frindly and more asthetically pleasing. It feels like the bare bones of the application. I like the  organization, it is pretty easy to navigate and there is a well thought flow. I feel like the font seems reasonable as well as the posts. However, the image are to big, I would make them smaller and have a fixed sized for them.
 
-3. Do you have any other suggestions for changes to the interface?
+3.Do you have any other suggestions for changes to the interface?
 Smaller pictures, date of event + calendar with events I'm interested in + include notifications based on specific tags you can follow. Make app more inviting and engaging.
 
 4.Do you think you would use this app personally?
