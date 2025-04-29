@@ -78,15 +78,20 @@ Success / failure in task : John succeeded in all of the actions he performed. H
 Feedback on documentation : John found the documentation helpful. He said that the concept of the app was similar to popular apps, which meant that just based on intuition, he could perform most taks. However, he pointed out that the user manual did give him some information that help him complete the tasks, specifically for the login he re was able to see that the email had to be his school email as well as the password had a minimmun length. 
 
 Questions asked: 
-1..How intuitive was the interface to use? Which buttons did what you expected/which did not?
+
+1.How intuitive was the interface to use? Which buttons did what you expected/which did not?
 It was very intuitive, the buttons were clear and indicated the functionality pretty well. 
+
 2. Did you like the layout of the create post page/how would you improve it?
 I would like the design to be more user frindly and more asthetically pleasing. It feels like the bare bones of the application. I like the  organization, it is pretty easy to navigate and there is a well thought flow. I feel like the font seems reasonable as well as the posts. However, the image are to big, I would make them smaller and have a fixed sized for them.
+
 3. Do you have any other suggestions for changes to the interface?
-Smaller pictures, date of event + calendar with events I'm interested in + include notifications based on specific tags you can follow. Make app more inviting and engaging. 
-Do you think you would use this app personally?
+Smaller pictures, date of event + calendar with events I'm interested in + include notifications based on specific tags you can follow. Make app more inviting and engaging.
+
+4.Do you think you would use this app personally?
 I like it, I see pontential on it.
 
+How the product will be updated based on feedback : based on John response we are planning to work on the design of the app, making it more visually appealing. Additionally, we are going to change the image sizes, making them fixed and proportional to our layout. We would like to implement as much of the recomendations John gave, yet those are strech goals. 
 
 
 ## Part 2: Internal Documentation
