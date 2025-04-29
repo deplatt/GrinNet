@@ -147,7 +147,13 @@ After:
 
 
 
-Commit: 
+**Changes made :**
+
+Added comments to the tests and add explanaitions about what each mock class does.
+
+Commit Hash: ca986c0ee7267675c784e0e91b346d5566549395
+
+Commit link: https://github.com/deplatt/GrinNet/commit/ca986c0ee7267675c784e0e91b346d5566549395
 
 ## Part 3: MVP
 
