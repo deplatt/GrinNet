@@ -131,6 +131,23 @@ Commit:
 <!-- In a Sprint Journal entry, remind us what your MVP is (look back to Milestone 1 where you described what features would be included in your MVP)
 Describe what work, if any, remains toward delivering your MVP -->
 
+Our MVP includes the following features:
+- Making posts
+- Viewing a feed of posts
+- Categorization of posts based on topic
+- Searching through exising posts
+- Settings page
+- User profile page to view your own posts
+- Email verification for login
+- System for account/password recovery
+- Seamless sign-in and sign-out
+
+We are nearly there when it comes to our MVP. The main things that remain are 
+1. The full implementation of the "forgot password" feature for account recovery. We currently have a "forgot password" page available from the login screen for the user to enter their email, but it is not fully functional yet.
+2. A scrollable tag bar at the top of the hompage for categorization of posts. Right now a user can search the name of a tag to get every post with that tag, so it could be argued that we have fulfilled the categorization requirement, but we think it will be easier for the user if we have a specific feature for this right on the homepage.
+3. Full image support for making and viewing posts. We currently have a working system for storing images on the backend, but it isn't merged with the rest of our frontend yet.
+
+
 ## Part 4: Generative AI Experiment
 
 <!-- For each use of AI this sprint, write an entry in your Sprint Journal including:
