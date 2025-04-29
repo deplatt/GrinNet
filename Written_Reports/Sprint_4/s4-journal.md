@@ -156,3 +156,21 @@ We are nearly there when it comes to our MVP. The main things that remain are
 - How did this use of AI affect your product development or other sprint deliverables? If you integrated any of its output directly into your code base, include a link to a pull request where the generated output can be clearly distinguished.
 - Refer back to your answer to question 2. To what extent did the use of AI achieve your goals and conform to your expectations? -->
 
+Each member of the group worked with AI individually for the most part, so we will report on our findings individually.
+
+### Deven
+
+My primary AI experiment was to generate boilerplate code. I was creating the "verification screen," which is just the screen that the user sees after they create an account, but before their account has been verified through email. All that I needed for this page was a very simple UI (just a text display and a button) and a function to send out the email.
+
+I asked ChatGPT to generate the skeleton code for this using the following prompt: 
+
+> can you generate code for a flutter page with a text in the middle of the screen that says "Verification email sent to [email]." and a button below it that says "Resend Email"
+
+Since this was such a simple layout, I was expecting ChatGPT to generate this with ease. I specifically avoided asking for any functionality for the button, and I was expecting the code returned to literally include "[email]" in the middle text. ChatGPT did a decent job of generating the UI elements, but the code it returned had some functionality added that I didn't ask for. It included a method for sending the email, which I then deleted to replace with my own. I did not mention Firebase in my prompt, so ChatGPT had no way to know that I was using that for verification. 
+
+This use of AI sped up the development process a bit by allowing me to easily geneate boilerplate code, but it did not impact my learning in any way. Creating code that like is a tedious task, and it was helpful to have it automated. It achieved my goals, but did not exceed expectations. The code was used in the file ```verification_page.dart``` in the pull request https://github.com/deplatt/GrinNet/pull/26.
+
+In addition to this experiment, I also used AI to help my install Cocoapods, a software needed to run GrinNet on an IOS Emulator on my Mac. This was a tricky installation, so every time I got an error message I fed it directly to ChatGPT. It returned a few commands to run, which was very successful. This was extremely helpful because most of the guides and forums I found online related to this installation assumed that the reader was much more savvy that me. My hope was that using ChatGPT would give me very specific, step-by-step instructions, which it did very well. This did not stunt my learning at all, because I learning how to install Cocoapods is not a skill I desire in any way. If I could have magically clicked a button and had it installed I would have done so in a heartbeat, and this use of AI seemed to be the next best thing.
+
+
+
