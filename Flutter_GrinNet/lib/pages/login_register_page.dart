@@ -5,7 +5,7 @@ import '../auth.dart';
 import '../api_service.dart';
 import 'global.dart';
 import'../widget_tree.dart';
-
+ // TODO: ERROR WHEN TRYING TO REGISTER A USER AFTER LOGIN OUT FROM THE APP
 
 // This is the page for the user to log in or create their account from. It greets the user upon opening the app
 class LoginPage extends StatefulWidget {
