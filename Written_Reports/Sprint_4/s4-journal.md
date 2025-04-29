@@ -173,4 +173,18 @@ This use of AI sped up the development process a bit by allowing me to easily ge
 In addition to this experiment, I also used AI to help my install Cocoapods, a software needed to run GrinNet on an IOS Emulator on my Mac. This was a tricky installation, so every time I got an error message I fed it directly to ChatGPT. It returned a few commands to run, which was very successful. This was extremely helpful because most of the guides and forums I found online related to this installation assumed that the reader was much more savvy that me. My hope was that using ChatGPT would give me very specific, step-by-step instructions, which it did very well. This did not stunt my learning at all, because I learning how to install Cocoapods is not a skill I desire in any way. If I could have magically clicked a button and had it installed I would have done so in a heartbeat, and this use of AI seemed to be the next best thing.
 
 
+### Pranav 
+
+Goals / expectations : I used chatgpt o4-mini-high which uses advanced reasoning, and my expectation was that it would give me an in-depth explanation of exactly how our frontend and backend is interacting, specifically in terms of anything relevant to implementing the report button / feature. 
+
+Usage description : The report button was to be placed in the view_post page. However, on my own, I was only able to figure out how to create a report button. I was unable to figure out exactly what information the report button was required to communicate to the backend, and also where that information was in our codebase. So, I gave chatgpt our schema.sql, functions.js, and api_service.dart files and asked it to explain to me in great detail exactly how these files were interacting with our main feed page and consequently the view_post page. It gave me the following key pieces of information (summarized) :
+- a description of exactly what 4 pieces of data need to be included in the report button to satisfy the requirements of the sql reports table that already existed (created by Anthon), which were the reported_user, reporter_user, complaint_text, and post_id.
+- an explanation of the fact that our current event model (an event in our code represents a "post" in the app's feed) did not create or contain information on neither the post_id nor the reported_user, and also how to change the event model and other parts of the main page to accomodate the two new fields.
+- an explanation on how to use firebase to access the id of the current_user (which would be the reporter_user in this context).
+
+Effect on deliverables : chatgpt greatly accelerated the timeline of my part of the sprint deliverable, which was implementing the report button. Had I not been able to use to understand the information being conveyed to and from various parts of our codebase, it would have taken me a lot longer to figure out what exactly I needed to do to actually implement some functionality in the report button. 
+
+Result of goals / expectations : AI fully met my goals an expectations for this use. It explained, in detail and with great clarity, exactly what I was not understanding. It greatly helped me bridge the gap in my knowledge of the backend, and also helped me understand how to restructure our event model to accomodate the requirements of the backend. 
+
+
 
