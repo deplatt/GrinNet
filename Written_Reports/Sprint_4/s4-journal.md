@@ -69,6 +69,25 @@ With an improved interface, I would possibly use it.
 How the product will be updated based on feedback : based on becca's and also jesica's feedback, we are planning to modify our event / post model to include dedicated sections to display the date and time that the event will take place. We will also make the event title bold. 
 
 ### Stakehodler 3:
+John Robinson - Regular User, Grinnell College student. Conducted April 23, 2025. 
+Action To perform - Use Case 1 & 2 & 3: Search, create post, create account
+Behavior interacting with the documentation : John found the documentation  to be straightfoward, and easy to comprehend. 
+
+Success / failure in task : John succeeded in all of the actions he performed. He used the user manuel we provided him to create an account using his school email. During this process he was able to access the verification email send to his email and login in to our app. Afterward he explored the different pages in the app, and proceed to complete the remaining tasks. For the search, I asked John to perform different searches. He realized quickly with the help of our user manuel that he could search based on user, tag, and post. Finally, I prompt John with the final task, create a post. I asked him to create a post that announced a Movie Night. He was able write the description, include tags and include an image. 
+
+Feedback on documentation : John found the documentation helpful. He said that the concept of the app was similar to popular apps, which meant that just based on intuition, he could perform most taks. However, he pointed out that the user manual did give him some information that help him complete the tasks, specifically for the login he re was able to see that the email had to be his school email as well as the password had a minimmun length. 
+
+Questions asked: 
+1..How intuitive was the interface to use? Which buttons did what you expected/which did not?
+It was very intuitive, the buttons were clear and indicated the functionality pretty well. 
+2. Did you like the layout of the create post page/how would you improve it?
+I would like the design to be more user frindly and more asthetically pleasing. It feels like the bare bones of the application. I like the  organization, it is pretty easy to navigate and there is a well thought flow. I feel like the font seems reasonable as well as the posts. However, the image are to big, I would make them smaller and have a fixed sized for them.
+3. Do you have any other suggestions for changes to the interface?
+Smaller pictures, date of event + calendar with events I'm interested in + include notifications based on specific tags you can follow. Make app more inviting and engaging. 
+Do you think you would use this app personally?
+I like it, I see pontential on it.
+
+
 
 ## Part 2: Internal Documentation
 
