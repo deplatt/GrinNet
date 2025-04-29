@@ -157,6 +157,3 @@ We are nearly there when it comes to our MVP. The main things that remain are
 - How did this use of AI affect your product development or other sprint deliverables? If you integrated any of its output directly into your code base, include a link to a pull request where the generated output can be clearly distinguished.
 - Refer back to your answer to question 2. To what extent did the use of AI achieve your goals and conform to your expectations? -->
 
-## Part 5: 
-
-
