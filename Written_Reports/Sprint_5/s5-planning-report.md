@@ -39,6 +39,7 @@ Anthony:
 - To set up remote connection to the
 - Set up date to our express server and image server.
 - Complete image backend merging.
+- Testing if current expiring posts implementation works. 
 
 Pranav:
 - Adoption plan
