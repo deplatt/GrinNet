@@ -312,4 +312,960 @@ For the JSDoc documentation, I had to do nothing else; ChatGPT did exactly as I 
 
 For the troubleshooting, it did quite terribly. I believe that AI would have performed better if I wrote logging for my servers + logging for the create_post.dart file before asking how to fix my code, though, so a portion of why AI performed poorly on this part is probably partially my fault. 
 
+### Shibam
+Goals/Expectations: My goals in this experiment was to test the effectiveness Deepseek especially 'DeepThink R1' for code generation and thinking. Initially, I wanted to find a bug and test how Deepseek would be able to solve it. I had coded most of my skeleton code of profile_page.dart and realized that I had used the placeholder "current_user" to showcase events by the current user. Since this was hardcoded for the specific 'current_user' string, it only showed events in the beginning when create post also created posts with the username of 'current_user' instead of the real username. However, I was unsure of how find the username of the current_user since it was not being currently stored. My first thought was creating a new variable which stores the username. So I wanted to see how deepseek would think about it and whether it would be in line with my own reasoning. 
+
+AI Prompt: 
+> Make sure profile_page.dart works for every user so that it is not only for the current placeholder username "current_user" please
+Code attached:
+profile_page.dart
+```
+import 'package:flutter/material.dart';
+import '../main.dart';
+
+// Profile screen displaying a list of events associated with the user.
+class ProfileScreen extends StatelessWidget {
+  final List<Event> events;
+
+  const ProfileScreen({super.key, required this.events});
+
+  // Navigation to the settings screen.
+  void _navigateToSettingsScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SettingsScreen()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Filter events to only include those created by the current user.
+    List<Event> userEvents = events.where((event) => event.username == 'current_user').toList();
+
+    return Scaffold(
+      // App bar includes a settings button.
+      appBar: AppBar(
+        title: const Text('Profile'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => _navigateToSettingsScreen(context),
+          ),
+        ],
+      ),
+      // Display user posts in the same card format as the homepage.
+      body: ListView.builder(
+        itemCount: userEvents.length,
+        itemBuilder: (context, index) {
+          final event = userEvents[index];
+          return Card(
+            margin: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: event.profileImageUrl.isNotEmpty
+                        ? NetworkImage(event.profileImageUrl)
+                        : const AssetImage('assets/placeholder.png') as ImageProvider,
+                  ),
+                  title: Text(event.username),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(event.text, style: const TextStyle(fontSize: 16)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    spacing: 8.0,
+                    children: event.tags.map((tag) => Chip(label: Text(tag))).toList(),
+                  ),
+                ),
+                if (event.imageUrl.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.network(event.imageUrl),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Placeholder content for settings management.
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Settings')),
+      body: const Center(child: Text('Change Username and Password Settings Here')),
+    );
+  }
+}
+```
+global.dart (document where username should be stored)
+```
+// Class that holds a single variable, the user's ID. Exists once per user.
+class Global {
+  static int userId = 0;
+}
+```
+login_register_page.dart (document where username can be intialized)
+```
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../auth.dart';
+import '../api_service.dart';
+import 'global.dart';
+
+
+// This is the page for the user to log in or create their account from. It greets the user upon opening the app
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();  
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String? errorMessage = '';
+  bool isLogin = true;
+
+  // Text fields for email and password
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  // Function for sending sign-in info to firebase
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: _controllerEmail.text, 
+        password: _controllerPassword.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  // Function for sending new account info to Firebase and Postgresql.
+  // Firebase handles authentication, but we still need postgre to know what user is making a post.
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      // Send firebase the email and password to create an account with
+      await Auth().createUserWithEmailAndPassword(
+        email: _controllerEmail.text, 
+        password: _controllerPassword.text,
+      );
+      String username = _controllerEmail.text.split('@')[0];
+      
+      // Send username to postgre (201 means success)
+      final response = await createUser(username, "", "");
+      if (response.statusCode != 201) {
+        throw Exception('Failed to create user on API');
+      }
+
+      final userData = jsonDecode(response.body);
+      Global.userId = userData['id'];
+    } on FirebaseAuthException catch (e) {
+      // Check if there were any errors with firebase (invalid input, etc)
+      setState(() {
+        errorMessage = e.message;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
+      });
+    }
+  }
+
+  Widget _title() {
+    return const Text('GrinNet');
+  }
+
+  Widget _entryField(
+    String title,
+    TextEditingController controller,
+  ) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: title,
+      )
+    );
+  }
+
+  Widget _errorMessage() {
+    return Text(errorMessage == '' ? '' : '$errorMessage');
+  }
+
+  // Button the user clicks to submit their info
+  Widget _submitButton() {
+    return ElevatedButton(
+      onPressed: isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
+      child: Text(isLogin ? 'Login' : 'Register'),
+    );
+  }
+
+  // Button to switch between logging in and registering
+  Widget _loginOrRegisterButton() {
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          isLogin = !isLogin;
+        });
+      },
+      child: Text(isLogin ? 'I want to create an account' : 'I already have an account'),
+    );
+  }
+
+  // UI containing the input fields for users and submiting button
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: _title(),
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _entryField('Email', _controllerEmail),
+            _entryField('Password', _controllerPassword),
+            _errorMessage(),
+            _submitButton(),
+            _loginOrRegisterButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+api_service.dart (communicates with our backend)
+```
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+const String baseUrl = 'http://localhost:3000';
+// const String baseUrl = 'http://10.0.2.2:3000'; // Use this if running on Android emulator
+
+// const String baseUrl = 'http://your-local-ip:3000'; // Otherwise, use this. 
+// to get your IP, run "ipconfig (Windows)" or "ifconfig (Mac/Linux)"
+
+/* ========================
+   User-related Requests
+   ======================== */
+
+// Create a user
+Future<http.Response> createUser(String username, String bioText, String profilePicture) {
+  return http.post(
+    Uri.parse('$baseUrl/users'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({
+      'username': username,
+      'bioText': "",
+      'profilePicture': profilePicture,
+    }),
+  );
+}
+
+// Ban a user
+Future<http.Response> banUser(int userId) {
+  return http.put(Uri.parse('$baseUrl/users/$userId/ban'));
+}
+
+// Warn a user
+Future<http.Response> warnUser(int userId) {
+  return http.put(Uri.parse('$baseUrl/users/$userId/warn'));
+}
+
+// Change bio
+Future<http.Response> changeBio(int userId, String newBio) {
+  return http.put(
+    Uri.parse('$baseUrl/users/$userId/bio'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'newBio': newBio}),
+  );
+}
+
+// Change profile picture
+Future<http.Response> changeProfilePicture(int userId, String newProfilePicture) {
+  return http.put(
+    Uri.parse('$baseUrl/users/$userId/profile-picture'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'newProfilePicture': newProfilePicture}),
+  );
+}
+
+// Delete user
+Future<http.Response> deleteUser(int userId) {
+  return http.delete(Uri.parse('$baseUrl/users/$userId'));
+}
+
+
+/* ========================
+   Post-related Requests
+   ======================== */
+
+// Create a post
+Future<http.Response> createPost(int creator, String postText, String postImage, List<String> postTags) {
+  return http.post(
+    Uri.parse('$baseUrl/posts'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({
+      'creator': creator,
+      'postText': postText,
+      'postImage': postImage,
+      'postTags': postTags,
+    }),
+  );
+}
+
+// Terminate a post
+Future<http.Response> terminatePost(int postId) {
+  return http.put(Uri.parse('$baseUrl/posts/$postId/terminate'));
+}
+
+// Delete a post
+Future<http.Response> deletePost(int postId) {
+  return http.delete(Uri.parse('$baseUrl/posts/$postId'));
+}
+
+// API model for posts
+class Post {
+  final String creationDate;
+  final String creationTime;
+  final String postText;
+  final String userProfilePicture;
+  final String postTags;
+  final String postPicture;
+  final String posterUsername;
+
+  Post({
+    required this.creationDate,
+    required this.creationTime,
+    required this.postText,
+    required this.userProfilePicture,
+    required this.postTags,
+    required this.postPicture,
+    required this.posterUsername,
+  });
+
+  // Parse from JSON map
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      creationDate: json['creation_date'],
+      creationTime: json['creation_time'],
+      postText: json['post_text'],
+      userProfilePicture: json['profile_picture'],
+      postTags: json['post_tags'].toString(),
+      postPicture: json['post_image'],
+      posterUsername: json['username'], 
+    );
+  }
+}
+
+// Returns all current posts with associated user data as a List.
+Future<List<Post>> getAllPosts() async {
+  final response = await http.get(Uri.parse('$baseUrl/posts'));
+
+  if (response.statusCode == 200) {
+    // Parse the JSON list and return a list of Post objects
+    List<dynamic> postsJson = jsonDecode(response.body);
+    List<Post> posts = postsJson.map((json) => Post.fromJson(json)).toList();
+    return posts;
+  } else {
+    throw Exception('Failed to load posts');
+  }
+}
+
+/* ========================
+   Report-related Requests
+   ======================== */
+
+// Report a post
+Future<http.Response> reportPost({
+  required int reportedUser,
+  required String complaintText,
+  required int postId,
+  required int reporterUser,
+}) {
+  return http.post(
+    Uri.parse('$baseUrl/reports'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({
+      'reportedUser': reportedUser,
+      'complaintText': complaintText,
+      'postId': postId,
+      'reporterUser': reporterUser,
+    }),
+  );
+}
+
+// Dismiss a report
+Future<http.Response> dismissReport(int reportId) {
+  return http.delete(Uri.parse('$baseUrl/reports/$reportId'));
+}
+
+// Here's an example usage of these http requests from what I understand:
+
+// final response = await createUser("john_doe", "Hi I’m John", "http://example.com/pfp.jpg");
+
+// if (response.statusCode == 201) {
+//   ScaffoldMessenger.of(context).showSnackBar(
+//     SnackBar(content: Text("User created successfully!")),
+//   );
+// } else {
+//   ScaffoldMessenger.of(context).showSnackBar(
+//     SnackBar(content: Text("Failed: ${jsonDecode(response.body)['error']}")),
+//   );
+// }
+```
+Deepseek Thoughts Output:
+
+```
+Okay, so the user wants to make sure that the profile_page.dart works for every user, not just the placeholder "current_user". Let me look at the code provided.
+
+In the ProfileScreen widget, there's a line where they filter events by checking if event.username equals 'current_user'. That's the issue. Instead of hardcoding 'current_user', we need to get the actual logged-in user's username or ID.
+
+Looking at the other files, in login_register_page.dart, when a user registers, they create a username from the email (split at '@'), and store the user's ID in Global.userId. However, the username isn't stored globally; only the user ID is. So we might need to retrieve the username from the backend using the user ID stored in Global.
+
+Wait, but the Event class (probably defined elsewhere) has a username field. When events are fetched, each event should have the poster's username. The problem is that the profile page is filtering events based on the current user's username, which is currently hardcoded.
+
+So the plan is: instead of comparing event.username to 'current_user', we need to compare it to the current user's actual username. But where is the current user's username stored?
+
+Looking at the login process: When a user registers, they generate a username from the email (split at '@'), and send it to the backend via createUser. The backend might store this username. Then, when the user logs in, we probably need to fetch their username from the backend using their user ID, which is stored in Global.userId.
+
+Wait, in the createUser function in login_register_page.dart, after creating the user in Firebase, they send a request to the backend to create a user with the username derived from the email. The response's body includes the user data, which includes the 'id', which is stored in Global.userId. But the username is not stored in Global. So the Global class only has userId, not the username.
+
+Therefore, in the profile page, we can't directly get the current user's username from Global. We need to fetch the username using the userId from the backend.
+
+But how? Because the events are fetched from the backend, each event has a posterUsername (as seen in the Post class in api_service.dart). The Event class (probably similar to Post) has a username field. So when events are loaded, each event already has the username of the user who posted it.
+
+So the current user's username isn't stored in the app's state. Therefore, when the user logs in or registers, after getting the userId, we need to make an API call to get the user's details, including the username, and store that in a global variable.
+
+Looking at the login process: In createUserWithEmailAndPassword, after creating the user, they get the userData from the response, which includes 'id' (stored in Global.userId). However, the createUser API call sends the username to the backend, but the response might not include the username. Wait, the createUser function in api_service.dart sends a POST to /users with username, bioText, and profilePicture. The backend probably returns the created user data, including the username. So in the login_register_page.dart, after creating the user, the response body (userData) might have the username. But in the code, they only extract userData['id'].
+
+So maybe the response from createUser includes the username, but it's not stored in Global. So we need to adjust that.
+
+In the login_register_page.dart's createUserWithEmailAndPassword function:
+
+After creating the user, the response is parsed into userData. Currently, they only set Global.userId = userData['id']. If the userData includes the username, then we should also store that in a global variable, perhaps adding a static variable in the Global class.
+
+So first, modify the Global class to include username. Let's check the existing Global class in global.dart:
+
+class Global {
+
+static int userId = 0;
+
+}
+
+We need to add a static String username. So:
+
+class Global {
+
+static int userId = 0;
+
+static String username = '';
+
+}
+
+Then, in the login_register_page.dart, when creating the user, after getting userData, set both userId and username:
+
+Global.userId = userData['id'];
+
+Global.username = userData['username'];
+
+But wait, does the createUser API response include the username? Looking at the createUser function in api_service.dart, the POST request sends the username, and the backend probably returns the created user object, which includes the username. So assuming the backend returns the user data including the username, we can set Global.username there.
+
+Similarly, when a user logs in (signInWithEmailAndPassword), we need to fetch their username. However, in the current code, when a user logs in, the signInWithEmailAndPassword function only authenticates via Firebase, but doesn't fetch the user's data from the backend. So after Firebase authentication, we need to get the user's ID (from Global.userId?) and then fetch their username from the backend.
+
+Wait, this is a problem. The Firebase user's UID is different from the backend's user ID. Wait, in the createUserWithEmailAndPassword function, after creating the Firebase user, they send a request to create the user in the backend, which returns a userData with 'id'. So the backend's user ID is stored in Global.userId. But how is the Firebase UID linked to the backend's user ID? It seems that when a user registers, they create a Firebase account and a backend user, and the backend's user ID is stored in Global.userId. However, when a user logs in via Firebase, how do we get the corresponding backend user ID?
+
+Hmm, this is a potential issue. Because when a user logs in via Firebase, their Firebase UID is different from the backend's user ID. The current code assumes that the backend's user ID is known, but after login, there's no mechanism to retrieve the backend user's ID based on Firebase's UID. Therefore, this approach may not work for login.
+
+Wait, in the createUserWithEmailAndPassword function, after creating the Firebase user, the code sends a request to the backend to create a user with the username derived from the email. The backend then returns an ID, which is stored in Global.userId. But when a user logs in via Firebase (signInWithEmailAndPassword), how is the backend's user ID retrieved? Because the Firebase UID isn't linked to the backend's user ID. So this is a flaw in the current setup.
+
+Therefore, the current code works when a user registers, because they create both Firebase and backend users, but when logging in, there's no way to get the backend user ID. This is a problem because after login, the Global.userId would still be 0 (the default), which is incorrect.
+
+So this is a critical issue. The code as written won't work for login because the backend user ID is not retrieved upon login. Therefore, when a user logs in, after Firebase authentication, the app needs to fetch the corresponding backend user's ID (and username) based on the Firebase UID or email.
+
+But in the current code, during registration, the backend user is created with the email's username (split at '@'), and presumably, the email is stored in the backend user. So perhaps during login, after Firebase authentication, we can get the user's email from Firebase, then query the backend to find the user with that email (or username derived from email), and then retrieve their ID and username.
+
+Alternatively, the backend might have a way to get the user by email. However, looking at the api_service.dart, there's no function to get a user by email or username. So perhaps the backend API needs to have an endpoint to get a user by email, which is not present in the current code. Therefore, the current setup is incomplete for handling logins.
+
+This is a bigger issue, but given the problem statement is about the profile page, perhaps we can work around this by assuming that during registration, the backend user's ID is stored in Global.userId, and during login, the user's ID is somehow retrieved. However, given the current code's setup, when a user logs in, the Global.userId remains 0, which is incorrect.
+
+But given the scope of the current problem, perhaps we can proceed under the assumption that the Global.userId is correctly set upon login. However, this is not the case in the current code. Therefore, the first step is to ensure that upon login, the user's backend ID is retrieved and stored in Global.userId.
+
+But this requires changes beyond the profile_page.dart. Let me see:
+
+When a user logs in via signInWithEmailAndPassword, the FirebaseAuth sign-in is done, but there's no code to fetch the backend user's ID. So after signing in, the code needs to query the backend to get the user's ID based on the email (since during registration, the username is derived from the email, and the email is known in Firebase).
+
+Assuming that the backend has an endpoint to get a user by email or username, which isn't present in the current api_service.dart. So perhaps the backend's API has an endpoint like /users/by-email/{email}, but it's not implemented here.
+
+Given that the user might not be able to modify the backend API, perhaps we need an alternative approach. Alternatively, during registration, the Firebase user's UID is sent to the backend as part of the user creation, allowing linking the two. But this would require modifying the createUser function in api_service.dart to include the Firebase UID.
+
+But given the current code, perhaps the login_register_page.dart's signInWithEmailAndPassword function needs to, after successful Firebase login, get the user's email, then call an API endpoint to get the backend user by email, and set Global.userId and Global.username accordingly.
+
+But since the current api_service.dart doesn't have such a function, this is a problem.
+
+Given the time constraints and the problem's scope (focus on profile_page.dart), perhaps the user is using the username stored in the Event class (which comes from the backend) and the profile page is supposed to show events for the current user, whose username is stored somewhere.
+
+Alternatively, maybe the current code has a way to track the current user's username, but it's not implemented.
+
+Given that in the login_register_page.dart, during registration, the username is generated as the email's prefix and sent to the backend. The backend's response includes the user's ID but not the username. So the code currently doesn't store the username in Global.
+
+Therefore, to get the current user's username, the app would need to fetch it from the backend using the user ID stored in Global.userId.
+
+But again, the api_service.dart doesn't have a function to get a user by ID. However, looking at the API functions, there's a changeBio and changeProfilePicture which use the user ID. So perhaps there's an endpoint to get a user by ID.
+
+Assuming that there's a GET /users/{userId} endpoint that returns the user's data, including username, then we can add a function in api_service.dart to fetch the user.
+
+But since the user hasn't provided that, maybe we need to assume that such an endpoint exists or modify the code to include it.
+
+Alternatively, during registration, the username is known (from splitting the email), so perhaps we can store that in Global.username at registration time.
+
+Looking back at the createUserWithEmailAndPassword function in login_register_page.dart:
+
+After creating the user in the backend, the username is generated as the email's prefix (split at '@'). So during registration, the username is known, and can be stored in Global.username. So in the code:
+
+String username = _controllerEmail.text.split('@')[0];
+
+...
+
+Global.userId = userData['id'];
+
+// Add this line:
+
+Global.username = username;
+
+That way, during registration, the Global.username is set. Then, in the profile page, we can use Global.username instead of 'current_user'.
+
+However, during login, the username isn't set. Because when a user logs in, the signInWithEmailAndPassword function doesn't retrieve the username from the backend. So in this case, after a user logs in, the app needs to fetch the username from the backend using the user ID (which is stored in Global.userId), but how is Global.userId set during login?
+
+Ah, this is the crux of the problem. During registration, Global.userId is set because the backend returns the user ID. But during login, after Firebase authentication, the app doesn't set Global.userId. Therefore, after login, Global.userId remains 0, which is incorrect.
+
+So to fix this, during login, after Firebase authentication, the app needs to get the user's email from Firebase, query the backend to find the user with that email (or the derived username), then set Global.userId and Global.username accordingly.
+
+But given the current backend setup, there's no API endpoint to get a user by email or username. So perhaps the code is designed such that the email's username (split at '@') is the same as the username in the backend, and during login, the app can generate the username again from the email and use that.
+
+Alternatively, during login, after getting the email from FirebaseAuth, split it to get the username, then use that to fetch the user's ID from the backend.
+
+But again, without an API endpoint to get a user by username, this isn't possible.
+
+This suggests that the current code has a flaw in handling user login, which affects the profile page's functionality.
+
+But given the problem's scope is to modify the profile page to work for any user, not just 'current_user', perhaps the immediate fix is to use the Global.username variable, which should be set during registration. However, during login, this variable is not set, leading to issues.
+
+Alternatively, perhaps the Event class's username is the same as the email's prefix, so during login, the app can generate the username from the user's email (obtained from FirebaseAuth) and use that to filter events.
+
+But this approach would require accessing the current user's email from FirebaseAuth, which is possible.
+
+So, to proceed:
+
+1. In the profile_page.dart, instead of filtering by 'current_user', we need to get the current user's username.
+
+But how?
+
+If during registration, the username is stored in Global.username, then during login, we need to set it as well.
+
+But during login, after Firebase sign-in, we can get the user's email, split it to get the username, and set Global.username = that value.
+
+However, this assumes that the username in the backend is exactly the email's prefix, which is how it's generated during registration. So during login, the username can be derived the same way.
+
+Therefore, in the signInWithEmailAndPassword function in login_register_page.dart, after successful authentication, we can get the user's email, split it to get the username, and set Global.username.
+
+But wait, the Firebase user's email can be accessed via FirebaseAuth.instance.currentUser?.email. So after signing in, perhaps we can do that.
+
+But the current signInWithEmailAndPassword function doesn't do that. Let's see:
+
+In the signInWithEmailAndPassword function:
+
+try {
+
+await Auth().signInWithEmailAndPassword(
+
+email: _controllerEmail.text,
+
+password: _controllerPassword.text,
+
+);
+
+} on FirebaseAuthException catch (e) {
+
+...
+
+}
+
+After successful sign-in, the FirebaseAuth.instance.currentUser should be set. So in the signInWithEmailAndPassword function, after successful sign-in, we can get the email from _controllerEmail.text (since the user entered it), split it to get the username, and set Global.username = that username. Then, perhaps send a request to the backend to get the user's ID based on the username.
+
+But again, without an API endpoint to get user by username, this isn't possible. Alternatively, during login, after getting the username, the app can set Global.username, and assume that the user ID is correctly retrieved elsewhere.
+
+Alternatively, maybe during login, the app needs to call an API endpoint to get the user's ID based on the username (derived from email), and set Global.userId and Global.username accordingly.
+
+But given the current code's setup, during registration, the backend user is created with the username derived from email, and the user ID is stored in Global. During login, the app doesn't do this, leading to incorrect Global.userId.
+
+Therefore, the solution requires modifying the login process to fetch the user's ID from the backend, and set Global.userId and Global.username.
+
+Assuming that the backend has an endpoint to get a user by username, which is /users/username/{username}, which returns the user's data including ID.
+
+So adding a function in api_service.dart:
+
+Future<http.Response> getUserByUsername(String username) {
+
+return http.get(Uri.parse('$baseUrl/users/username/$username'));
+
+}
+
+Then, in the signInWithEmailAndPassword function, after successful Firebase login:
+
+1. Get the email from _controllerEmail.text.
+
+2. Split to get username.
+
+3. Call getUserByUsername(username).
+
+4. If successful, parse the response to get user ID and set Global.userId and Global.username.
+
+But this requires modifying the login_register_page.dart's signInWithEmailAndPassword function.
+
+However, since the user's question is focused on the profile_page.dart, perhaps we can find a workaround.
+
+Alternatively, during login, the username can be derived from the email (as during registration), and stored in Global.username. Then, in the profile page, instead of using 'current_user', we use Global.username.
+
+But how is Global.username set during login?
+
+In the current code, during registration, after creating the user, the username is known (split from email) and stored in Global.username (if we modify the code as suggested earlier).
+
+During login, the username can be derived from the email entered in the login form (_controllerEmail.text), split to get the username, and set Global.username = that value.
+
+So in the signInWithEmailAndPassword function, after successful authentication:
+
+String username = _controllerEmail.text.split('@')[0];
+
+Global.username = username;
+
+But this is only valid if the backend uses the same logic to generate usernames. If a user changes their username via some other method, this would break. But based on the current code, during registration, the username is derived from email, and there's no way to change it (the SettingsScreen is a placeholder), so this might be acceptable.
+
+Therefore, in the signInWithEmailAndPassword function, after successful sign-in, we can set Global.username to the email's prefix.
+
+So modifying the signInWithEmailAndPassword function:
+
+Future<void> signInWithEmailAndPassword() async {
+
+try {
+
+await Auth().signInWithEmailAndPassword(
+
+email: _controllerEmail.text,
+
+password: _controllerPassword.text,
+
+);
+
+// After successful login, set the username from email
+
+String username = _controllerEmail.text.split('@')[0];
+
+Global.username = username;
+
+// Also, need to fetch the user's ID from the backend based on username
+
+// But without an API endpoint, this is not possible.
+
+// So this approach is flawed.
+
+} on FirebaseAuthException catch (e) {
+
+setState(() {
+
+errorMessage = e.message;
+
+});
+
+}
+
+}
+
+But without the user's ID, which is required for other parts of the app (like creating posts), this approach won't work. Hence, during login, the app needs to fetch the user's ID from the backend.
+
+But without an API endpoint to get a user by username or email, this can't be done. This indicates a larger architectural issue.
+
+Given the time constraints and the problem's scope, perhaps the immediate fix is to use the username derived from the email during login and registration and set it in Global.username, then use that in the profile page.
+
+So steps:
+
+1. In the Global class, add a static variable for username.
+
+global.dart:
+
+
+
+class Global {
+
+static int userId = 0;
+
+static String username = '';
+
+}
+
+
+
+2. In login_register_page.dart's createUserWithEmailAndPassword function, after getting userData, set Global.username:
+
+...
+
+Global.userId = userData['id'];
+
+Global.username = username; // username was derived from email earlier
+
+...
+
+3. In the signInWithEmailAndPassword function, after successful login, set Global.username based on the email entered:
+
+...
+
+} on FirebaseAuthException catch (e) {
+
+...
+
+}
+
+// After successful login
+
+String username = _controllerEmail.text.split('@')[0];
+
+Global.username = username;
+
+But this assumes that the username in the backend matches the email's prefix. However, during login, we don't fetch the user's ID from the backend, so Global.userId remains 0. This is a problem because other parts of the app (like creating posts) rely on Global.userId.
+
+But according to the api_service.dart's createPost function, it requires the creator's ID. So during post creation, the app uses Global.userId. Therefore, during login, we need to set Global.userId correctly.
+
+Therefore, during login, after deriving the username from the email, we need to call an API endpoint to get the user's ID by username and set Global.userId.
+
+Assuming there's an endpoint like /users/username/{username}, which returns the user's data including ID.
+
+So adding a function in api_service.dart:
+
+Future<http.Response> getUserByUsername(String username) async {
+
+return await http.get(Uri.parse('$baseUrl/users/username/$username'));
+
+}
+
+Then, in the signInWithEmailAndPassword function:
+
+After setting username from email:
+
+final response = await getUserByUsername(username);
+
+if (response.statusCode == 200) {
+
+final userData = jsonDecode(response.body);
+
+Global.userId = userData['id'];
+
+Global.username = userData['username'];
+
+} else {
+
+// handle error
+
+}
+
+But this requires the backend to have such an endpoint. Since the user's code doesn't include this, it's an assumption.
+
+Assuming that such an endpoint exists, the code can proceed.
+
+But since the user hasn't provided that, this might not be feasible.
+
+Given all these complexities and the original problem being about the profile_page.dart, perhaps the immediate solution is to use the Global.username variable, which is set during registration and login (via email split), and in the profile page, filter events where event.username == Global.username.
+
+So modifying the profile_page.dart's line where it filters events:
+
+Change:
+
+List<Event> userEvents = events.where((event) => event.username == 'current_user').toList();
+
+To:
+
+List<Event> userEvents = events.where((event) => event.username == Global.username).toList();
+
+But for this to work, Global.username must be set correctly.
+
+Therefore, the steps are:
+
+1. Add a static username variable to the Global class.
+
+2. During registration, set Global.username to the derived username.
+
+3. During login, set Global.username to the derived username from the email.
+
+4. In the profile page, use Global.username to filter events.
+
+Thus, the main changes are in login_register_page.dart and profile_page.dart.
+
+Now, in the profile_page.dart, replace 'current_user' with Global.username.
+
+Also, make sure to import global.dart in profile_page.dart.
+
+So adding import statement in profile_page.dart:
+
+import 'global.dart';
+
+Then, in the build method:
+
+List<Event> userEvents = events.where((event) => event.username == Global.username).toList();
+
+But also need to handle the case where Global.username is empty or not set. However, assuming that the user is logged in, Global.username should be set.
+
+Therefore, the final code for ProfileScreen in profile_page.dart would be:
+
+...
+
+import '../global.dart';
+
+class ProfileScreen extends StatelessWidget {
+
+...
+
+@override
+
+Widget build(BuildContext context) {
+
+List<Event> userEvents = events.where((event) => event.username == Global.username).toList();
+
+...
+
+}
+
+}
+```
+Actual Deepseek Output:
+```
+To modify the profile_page.dart to work for every user by using their actual username instead of the placeholder "current_user", follow these steps:
+
+Step 1: Update the Global Class
+Add a static username variable to store the current user's username globally.
+
+global.dart
+
+dart
+class Global {
+  static int userId = 0;
+  static String username = '';
+}
+Step 2: Set Username During Registration
+When a user registers, store their username in Global.username.
+
+login_register_page.dart
+
+dart
+// Inside createUserWithEmailAndPassword function
+String username = _controllerEmail.text.split('@')[0];
+// After creating the user in the backend
+Global.userId = userData['id'];
+Global.username = username; // Add this line
+Step 3: Set Username During Login
+When a user logs in, derive the username from their email and store it in Global.username.
+
+login_register_page.dart
+
+dart
+// Modify the signInWithEmailAndPassword function
+Future<void> signInWithEmailAndPassword() async {
+  try {
+    await Auth().signInWithEmailAndPassword(
+      email: _controllerEmail.text, 
+      password: _controllerPassword.text,
+    );
+    // Set username from email after successful login
+    String username = _controllerEmail.text.split('@')[0];
+    Global.username = username;
+  } on FirebaseAuthException catch (e) {
+    setState(() {
+      errorMessage = e.message;
+    });
+  }
+}
+Step 4: Update Profile Page to Use Global Username
+Replace the hardcoded "current_user" with Global.username to filter events for the logged-in user.
+
+profile_page.dart
+
+dart
+import 'package:flutter/material.dart';
+import '../main.dart';
+import '../global.dart'; // Add this import
+
+class ProfileScreen extends StatelessWidget {
+  final List<Event> events;
+
+  const ProfileScreen({super.key, required this.events});
+
+  // ... existing code ...
+
+  @override
+  Widget build(BuildContext context) {
+    // Use Global.username to filter events
+    List<Event> userEvents = events.where((event) => event.username == Global.username).toList();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => _navigateToSettingsScreen(context),
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: userEvents.length,
+        itemBuilder: (context, index) {
+          // ... rest of the build method remains the same ...
+        },
+      ),
+    );
+  }
+}
+Notes:
+Ensure Backend Compatibility: The backend should correctly associate events with the username stored in Global.username.
+
+Handle User ID: For full functionality, ensure Global.userId is set correctly during login by fetching it from the backend using the username or email. This might require additional API endpoints.
+
+Error Handling: Consider cases where Global.username might be empty and handle them appropriately (e.g., redirect to login).
+
+By following these steps, the profile page will display events specific to the logged-in user based on their username stored globally.
+```
+
+
+This did completely fix the problem in the way I intended it to be. It was really interesting to see how DeepThink R1 showcased its thoughts about the code that I submitted it to it and made assumptions regarding certain code. Although I had prompted the AI with the files that I knew needed to be changed, it made the changes that I thought it would ask me to. It just made it more efficient for me to complete profile_page development. I also tested it out with just my profile_page.dart file and the same prompt and it had given me a more simple change but incomplete. 
+```
+  const ProfileScreen({
+    super.key,
+    required this.events,
+    required this.username,  // Make it required
+  });
+  @override
+  Widget build(BuildContext context) {
+    // Use dynamic username for filtering
+    List<Event> userEvents = events.where((event) => event.username == username).toList();
+```
+
+The use of AI to achieve my goals conformed to my expectations since it did as I thought it would. I was sure that we would need to add a username variable in our global file which would make it easier for every file to use that if needed. AI was very helpful as it fixed the bug that I had asked it to. It also was able to properly analyse and reach a solution that was considerate of the information that I had given to it. It was interesting since I also tested this later in a different chat with the same prompt and only the first file and it had just created a parameter for username and nothing else. Although this was a solution that could be implemented, it is not the one I had hoped Deepseek would answer with, since it would mean I would still have to code the username variable in global and create changes in login_register page for me to access it here. Giving Deepseek more information initially had made it understand how the code worked and able to add the variable where I wanted it to, along with other changes required for the code to work. From this experiment I learnt that AI conforms to my expectations only when I either explain it enough or give it enough background code to understand the problem completely.  
 
