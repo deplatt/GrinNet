@@ -26,21 +26,23 @@ We aim to each put in at least 10 hours of work each for this sprint. We hope to
 Everyone:
 - Work on Presentation.
 - Log Bugs!
+- Merge different branches into main
 
 Deven: 
-
+- Adoption plan
 
 Anthony:
 
-
 Pranav:
+- Choose a license.
 
 
-Shibam:
+Shibam: 
+- Add a bar under search bar to select tags which filters posts according to tags. 
 
 
 Jero:
-
+- Make Bio of settings page visible in profile page
 
 
 
