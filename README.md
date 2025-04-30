@@ -55,7 +55,7 @@ https://trello.com/b/oLoye0oC/grinnet
    - On Windows, the SQL shell executable should be somewhere in C://Program files/PostgreSQL/xx (whatever your version of postgreSQL is). In ~/scripts/, there is a .bat file called runpsql.bat that you can run. This can vary by version, though.
    - On Mac, it could be that your SQL shell is your terminal. This is the case if you installed using the command 'brew install postgresql@17'. If not, type '/Library/PostgreSQL/17/bin/psql -U postgres' in the terminal instead. If you still cannot run psql, follow what the most liked post says on this stack exchange post: 'https://dba.stackexchange.com/questions/3005/how-to-run-psql-on-mac-os-x'.
 5. **Run the command 'CREATE USER grinnetadmin WITH SUPERUSER CREATEDB PASSWORD 'csc324AdminDropTheClass!';'**
-   - You can make the username and password different, but make sure to change the 'config.js' file in the ./PostgreSQL/ directory of this project accordingly.
+   - You can make the username and password different, but make sure to change the 'config.js' file in the ./Backend_GrinNet/ directory of this project accordingly.
 6. **Open pgAdmin, navigate to the dashboard, and press 'Add New Server'.**
    - If you don't see the option, create a new server group first. Do this by right clicking the left-hand menu and selecting 'Create->Server Group'
 7. **Name the server GrinNetApp, then navigate to the 'Connection' tab.**
@@ -72,11 +72,12 @@ https://trello.com/b/oLoye0oC/grinnet
    - If you have some kind of error, it is recommended to repeat the PSQL steps in your terminal and not the pgAdmin shell. 
 
 ### Node.js
-14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./PostgreSQL/ directory.**
+14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./Backend_GrinNet/ directory.**
 15. **Install dependancies found in package.json with 'npm install'**
-16. **Run 'node app.js' to start up the express (node.js) server. Feel free to change the port of this express server in ~/config.js.**
+16. **Run 'npm run servers_start' to start up the node.js servers (express server to handle user data and image server to handle images). Feel free to change the port of these servers in ~/config.js.**
+17. **If you want to have some sample user + image data to play around with, run 'node populate_data.js'. If you want to test the backend code, run 'npm test'.**
 
-17. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
+18. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
 
 ## Frontend
 
