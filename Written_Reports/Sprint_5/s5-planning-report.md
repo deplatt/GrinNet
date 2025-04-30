@@ -9,15 +9,17 @@ We aim to each put in at least 10 hours of work each for this sprint. We hope to
     - Make Bio of settings page visible in profile page
     - Complete image setup in application
     - Add a bar under search bar to select tags which filters posts according to tags. 
-    - Deven work?
+    - Work on forgot password feature
     - Add more tests for backend
-    - Add more tests for frontend
+    - Add more tests for frontend (report feature, profile page, settings page)
     - Fix bugs!
+    - Merge final-demo branch into main (resolve failing tests for this)
 - Bug Logging
 - Choosing a License
 - Beautify codebase for future 324 students!
 - Create Final Presentation and Demo!
 - Create a Blog Post for softarchitech.cs.grinnell.edu!
+  
 
 ## MVP Task Breakdown
 
