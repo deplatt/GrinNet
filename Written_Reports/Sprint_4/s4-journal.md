@@ -283,5 +283,33 @@ As said before, the main takeaway from this experiment was the explanations it g
 To what extent did the use of AI achieve your goals and conform to your expectations? 
 It helped me understand a lot better the different components of unit testing which was my main goal. 
 
+### Anthony
+
+**Goals / expectations :** I used chatgpt 4o, and I expected it to give 
+ - A blueprint and steps on how to implement images into our project
+ - Write JSDoc documentation for all of our backend 
+ - (later on in the project) help me troubleshoot as to why the frontend -> express server connection was seemingly cut. 
+
+**Usage description :** For the blueprint, I pasted my functions.js, app.js, api_service.dart, schema.sql, and create_post.dart files' code into ChatGPT and asked it
+
+"Give suggestions on how to properly send, store, retrieve, and delete posts for our app without changing our current architecture significanly. Write a brief explanation of your suggestions and write some sample blueprint code that will help our implementation of these suggestions. Do not write the entirety of the code. Make sure to tell what libraries/plugins/etc. to use and why we must use these specific tools. "
+
+ChatGPT outputted a blueprint for a new node.js server and told me what to change in create_post.dart to make it work. It also explained to me what each package listed at the top of image_upload_app.js did and why we needed it. It also told me that doing a web app for testing wouldn't work anymore which was definitely useful information (I would have spent hours just wasting my time trying to figure out why the web app stopped working).
+
+For the JSDoc documentation, I pasted in my functions.js, app.js, image_upload_app.js, corresponding test files, and every other js file not listed here, and asked it to "Write detailed JSDoc documentation for the following files. Do not remove any code I have written. For the servers, you must write each of the routes at the top and what they do. " It did exactly what I told it to do, without any deviation. 
+
+For the troubleshooting, I pasted all relevant files (functions.js, app.js, api_service.dart, image_upload_app.js, firebase files, etc.) and the errors Android Studio gave as I tried to create a post with the UI, and told ChatGPT that the image upload was actually working already. Then, I told it "Please explain to me in detail what the issue likely is with my code, and fix any code snippets that would be causing my problems. Do not change any code outside of what you change. ". 
+
+For this prompt, it was absolutely confident that the error was in the create_post endpoint in app.js, and took me on an at least 2 hour wild goose chase, giving me detailed, yet nonsensical, explanations as to why app.js was the problem. The solution, as I figured out on my own, had nothing to do with app.js. Instead, it had to do with create_post.dart not properly retrieving and using the user ID from the PostgreSQL database, which lead to the express server throwing an error because there was no user with their corresponding ID in the PostgreSQL databse (it was initialized as 0 locally; we needed to update this to what the user ID actually is in the PostgreSQL database).
+
+**Effect on deliverables :** I think ChatGPT was useful in teaching me how to implement images in the frontend and was helpful in writing JSDoc documentation, both of which which would be a huge time commitment if we didn't use ChatGPT. I think that the false leads ChatGPT gave me were a bit troublesome and wasted my time this sprint, though. 
+
+**Result of goals / expectations :** AI met my expectations for the image server and documentation part of this project, but disappointed me heavily with the lack of toubleshooting capabilities. 
+
+For the suggestions/blueprint, I feel like it did well. It performed as expected. 
+
+For the JSDoc documentation, I had to do nothing else; ChatGPT did exactly as I asked and its documentation was very detailed and correct from what I saw. 
+
+For the troubleshooting, it did quite terribly. I believe that AI would have performed better if I wrote logging for my servers + logging for the create_post.dart file before asking how to fix my code, though, so a portion of why AI performed poorly on this part is probably partially my fault. 
 
 
