@@ -216,5 +216,72 @@ Effect on deliverables : chatgpt greatly accelerated the timeline of my part of 
 
 Result of goals / expectations : AI fully met my goals an expectations for this use. It explained, in detail and with great clarity, exactly what I was not understanding. It greatly helped me bridge the gap in my knowledge of the backend, and also helped me understand how to restructure our event model to accomodate the requirements of the backend. 
 
+### Jeronimo 
+
+Going into this use of AI, what were your goals and expectations?
+I had used AI in the past for different purposes. I like using AI to proofread my english writing, as it is my second langauge and sometime I have some grammatical mistakes that I oversee. I had also used AI for concept explanations, as it breaks it down pretty well and gives useful examples that help ilustrate said concept. Given my past experiences I had high expectations about the possibilities it could bring to improving the process of building GrinNet. I knew that Ai is a great tool, but like any other tool you need to use it correctly to maximize the benefits from it. This meant double checking the information it gave, prompting well structered questions and asking follow up questions. My primary goal for this experiment was to gain better understanding of test creation in flutter. I had been able to built some tests in the previous sprint by following different only guides, yet I didn't comprehend 100% what was going on. So for it I wanted to focus on understanding the test libraries I used in the past, and to see what kind of tests would the AI recommend for a specific file. In this case all the testing was related to the Create_Post.dart. 
+
+Describe the use specifically in detail. How did you prompt the AI, and what was its output?
+For the experiment I used ChatGPT 4.0 as it is the one I use more often. 
+
+Here was the first question I prompt: What's the purpose of the mocktail class in flutter? 
+ChatGPT responded by clarifying  there was no mocktail class but rather a mocktail package used for Unit testing. I then said "Purpose of         mocktail in Flutter: The mocktail package is used to create mock objects for testing, especially when writing unit or widget tests. It allows     you to simulate the behavior of classes (like services, APIs, or repositories) without relying on their real implementations"  
+Why use mocktail? Test isolation: It helps isolate the part of the app you're testing by replacing dependencies with mocks. Avoid side            effects: You can test without making real API calls or database writes. Customize responses: You can control return values and exceptions to      test different scenarios" (ChatGpt). Afterwards it gave me an example of a really simple authorization service that promt for a username and      a password. the it gave me a unit test for that class using the mocktail package. It concluded by saying "So, to sum up: mocktail helps you       mock dependencies in tests to ensure your app's logic is correct without relying on real implementations. Let me know if you want a real-          world test example or want to see how it compares with mockito" (ChatGPT).
+After this first intial question, I went deeper and copied the following code that I had written for the testing suite, which was an extract       of the CreatePost_test.dar, and ask him to explain what it meant, as it was used in the guides I read but not fully explained. 
+
+ tell me what this classes are: class MockImagePicker extends Mock implements ImagePicker {}
+    class MockXFile extends Mock implements XFile {
+      @override
+      final String path;
+         MockXFile(this.path);
+    }
+     class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+    //class MockFilePicker extends Mock implements FilePickerPlatform {}
+    class FakeRoute extends Fake implements Route<dynamic> {}
+
+It replied by answering: 
+Great question! These classes are test doubles created using the mocktail package in Dart/Flutter for unit or widget testing. Let’s break them down one by one:
+
+1. class MockImagePicker extends Mock implements ImagePicker {}
+This mocks the ImagePicker class (from image_picker package), which is normally used to pick images from the camera or gallery.
+
+✅ Purpose:
+Allows you to simulate user selecting an image without opening the camera/gallery in tests.
+
+Mocks the XFile class (also from image_picker or cross_file), which represents a file (like an image).
+
+✅ Purpose:
+Simulates an image/file object with a specific path, useful for checking how your code reacts to different image inputs.
+
+3. class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+Mocks Flutter’s NavigatorObserver, which watches for navigation events like push/pop.
+
+✅ Purpose:
+Useful in widget tests to verify that navigation happened, like:
+verify(() => mockObserver.didPush(any(), any())).called(1);
+
+4. //class MockFilePicker extends Mock implements FilePickerPlatform {}
+This one is commented out, but it would mock the FilePickerPlatform class from the file_picker package.
+
+✅ Purpose (if enabled):
+Simulates file selection without actually opening the file picker dialog.
+
+5. class FakeRoute extends Fake implements Route<dynamic> {}
+This is a fake, not a mock.
+
+✅ Purpose:
+Fakes are lightweight stand-ins used when a full mock isn’t needed. This one simulates a Route object, often used when mocking navigation behavior in tests.
+
+📌 Important: You usually need to register fakes like this using registerFallbackValue(FakeRoute()) in your test setUp(). (ChatGPT)
+ It concluded by giving a summary.
+
+ The final part of my experiment consistent in copying the code in CreatePost.dart and asking ChatGpt to build a test suite. I wanted to compare it to my initial test suite, which was pretty basic as it tested mainly the UI elements were there and doing what they were supposed to do, trying a simulation by just selecting everything, and one where it tested no post was created whenall required fields were empty. This part was the most surprising. The approach it use wasnt completly different other than the one I had used before, yet it made a couple of complex tests in which it checked the backend as well. It made assumptions of how we were storing the information in our databases, for that reason I did not include the tests. It also just gave me the tests, it didnt explain in detail parts of the code as it did when I prompt it for explanations. 
+
+    
+How did this use of AI affect your product development or other sprint deliverables? If you integrated any of its  output directly into your code base, include a link to a pull request where the generated output can be clearly distinguished.
+As said before, the main takeaway from this experiment was the explanations it gave me. The tests it wrote gave me great ideas for future tests but I did not use them for this sprint, as they were broken, mostly because of a lack of context given to it.
+To what extent did the use of AI achieve your goals and conform to your expectations? 
+It helped me understand a lot better the different components of unit testing which was my main goal. 
+
 
 
