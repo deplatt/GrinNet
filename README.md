@@ -81,5 +81,11 @@ https://trello.com/b/oLoye0oC/grinnet
 
 ## Frontend
 
+1. **Install Flutter by following the instructions at this [link](https://docs.flutter.dev/get-started/install?_gl=1*mgpbu1*_gcl_aw*R0NMLjE3NDQyNTY5ODAuQ2p3S0NBand0ZGlfQmhBQ0Vpd0E5N3k4QkloNWhZYjBYTzI1TlJlN2tFNXQtUy1hREhyZVhhcUtIbkFyeEtsTTd6R0VabGJRTHhDVVpCb0NPaVVRQXZEX0J3RQ..*_gcl_dc*R0NMLjE3NDQyNTY5ODAuQ2p3S0NBand0ZGlfQmhBQ0Vpd0E5N3k4QkloNWhZYjBYTzI1TlJlN2tFNXQtUy1hREhyZVhhcUtIbkFyeEtsTTd6R0VabGJRTHhDVVpCb0NPaVVRQXZEX0J3RQ..*_ga*NTU3NDcwNzIwLjE3Mzk1MDQxOTg.*_ga_04YGWK0175*MTc0NDI1Njk4MC4xNS4wLjE3NDQyNTY5ODAuMC4wLjA.). Choose your operating system, and the reccomended first type of app.**
+2. **Clone the GrinNet, then navigate to GrinNet/Flutter_GrinNet**
+3. **Run the command ```flutter pub get```**
+4. **Next, install an emulator of your choice. It is suggested to get Android studio if you are on Linux or Windows, and Xcode if on Mac. Make sure the Virtual Machine is running when trying to run the flutter frontend.**
+5. **You should now be set up! To boot the project, run ```flutter run -d``` and observe what your emulator's ID is listed as. Run ```flutter run -d <DEVICE_ID>``` to start running the app on your VM. If you have Xcode on Mac, it could potentially be sufficient to run ```flutter run```. !!!NOTE THAT THIS APP WILL NOT WORK IN THE BROWSER OPTION!!!**
+
 ---
 
