@@ -7,15 +7,16 @@
 Date : Thursday, 1st May, 2025
    
 **Is your product ready for adoption?**
+
 "Describe the current state of your product's development at the time of writing this journal entry."
 Our GrinNet bulletin-board app is not yet production-ready. We have many functional features — users can register with a @grinnell.edu address (Firebase Auth), create posts with text and tags, view an event feed, open posts in detail, and even report a user. The Express / PostgreSQL backend supports users, posts, and reports, and frontend-to-backend traffic works for the primary use cases that exist. We also have automated tests cover basic login, in addition to the create-post and view-post UIs. 
 
 However, the codebase is still quite a nascent state overall :
-•	images are not persisted yet (we only have local file path placeholders).
-•	profile, settings, and password-reset use cases are not fully implemented.
-•	error handling and input validation are minimal.
-•	the CI suite and failing tests on the final-demo branch must be resolved before merging back into the main branch. 
-•	deployment scripts for the remote Express server and image server are not fully implemented yet. 
+- images are not persisted yet (we only have local file path placeholders).
+- profile, settings, and password-reset use cases are not fully implemented.
+- error handling and input validation are minimal.
+- the CI suite and failing tests on the final-demo branch must be resolved before merging back into the main branch.
+- deployment scripts for the remote Express server and image server are not fully implemented yet. 
 
 In short, our foundations are solid, but we need polish our code and make it more robust. The full set of features that should be expected of a high-quality product are still missing.
 
