@@ -22,17 +22,17 @@ In short, our foundations are solid, but we need polish our code and make it mor
 
 
 "Give a comprehensive risk/benefit analysis of your product by stating at least 5 risks or benefits of using your product."  
-Benefits -
-Increased interactions on campus : a dedicated bulletin board just for Grinnell students helps discover more on-campus events and increases community engagement.
-Authentication limited to @grinnell.edu : the app ensures that only Grinnell College members can access the app, both reducing spam on the app and also ensuring a safer community.
-Built-in reporting and moderation : reports are stored in the reports table and gives moderators the required information to ensure safe discourse on the app.
+Benefits -  
+Increased interactions on campus : a dedicated bulletin board just for Grinnell students helps discover more on-campus events and increases community engagement.  
+Authentication limited to @grinnell.edu : the app ensures that only Grinnell College members can access the app, both reducing spam on the app and also ensuring a safer community.  
+Built-in reporting and moderation : reports are stored in the reports table and gives moderators the required information to ensure safe discourse on the app.  
 
-Risks -
-Incomplete image pipeline : posts referencing local file paths could potentially break or expose filesystem structure once deployed.
+Risks -  
+Incomplete image pipeline : posts referencing local file paths could potentially break or expose filesystem structure once deployed.  
 Privacy & data-leak potential : currently, we handle user IDs and profile pictures without encryption so any leaks would expose student data.
 
 
-"Is it right to encourage people to adopt your product in its current state? Or will you continue developing instead? Explain your decision."  
+"Is it right to encourage people to adopt your product in its current state? Or will you continue developing instead? Explain your decision."    
 It is not yet advisable to push campus-wide adoption. While the core posting and viewing experience works and the Auth wall keeps the audience limited to Grinnell addresses, the missing image storage, unfinished profile flows, and security gaps would lead to a poor first-impression and potential data-safety issues. We should therefore continue development, focusing on stability and the completeness of our features, before inviting real users.
 
 
@@ -41,7 +41,7 @@ It is not yet advisable to push campus-wide adoption. While the core posting and
 Yes. The remaining gaps in our codebase are relatively well-defined and the architecture (Flutter --> Express --> PostgreSQL) is in place. Completing the remaining items will give us an MVP suitable for real-world use even if certain stretch features remain unimplemented.
 
 "If you answered yes to the previous question, what future work is needed before adoption?"  
-Core tasks to finish this semester :
+Core tasks to finish this semester :  
 1.	Image pipeline – integrate a local image server; update /posts to store URLs instead of path stubs.
 2.	Profile page to Settings page sync – make bio text from settings page appear on the profile page.
 3.	Tag bar filter – quick-filter chips below the search bar to allow sorting posts by tags.
