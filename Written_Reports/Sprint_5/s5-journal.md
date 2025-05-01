@@ -1,4 +1,6 @@
-### Adoption Plan
+# Sprint 5 Journal
+
+## Part 1 : Adoption Plan
 
 1a) Create Adoption Plan
 
