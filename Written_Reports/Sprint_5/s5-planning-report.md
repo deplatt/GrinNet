@@ -36,8 +36,8 @@ Deven:
 - Complete image backend merging.
 
 Anthony:
-- To set up remote connection to the
-- Set up date to our express server and image server.
+- To set up remote connection to the image + express server
+- Set up hour and minute date to our express server and image server.
 - Complete image backend merging.
 - Testing if current expiring posts implementation works. 
 
