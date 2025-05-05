@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String? errorMessage = '';
   bool isLogin = true;
+  bool hidePass = true;
 
   // Text fields for email and password
   final TextEditingController _controllerEmail = TextEditingController();
@@ -89,14 +90,32 @@ class _LoginPageState extends State<LoginPage> {
     return const Text('GrinNet');
   }
 
-  Widget _entryField(
-    String title,
-    TextEditingController controller,
-  ) {
+  // A generic field for the user to enter text
+  Widget _entryField(String title, TextEditingController controller) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
         labelText: title,
+      )
+    );
+  }
+
+  // A more specialized field for the user to specifically enter their password
+  Widget _passField(String title, TextEditingController controller,) {
+    return TextFormField(
+      obscureText: hidePass,
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: title,
+        suffixIcon: IconButton(
+          padding: const EdgeInsetsDirectional.only(end: 12.0),
+          icon: hidePass ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+          onPressed: () {
+            setState(() {
+              hidePass = !hidePass;
+            });
+          }
+        )
       )
     );
   }
@@ -151,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _entryField('Email', _controllerEmail),
-            _entryField('Password', _controllerPassword),
+            _passField('Password', _controllerPassword),
             Align(alignment: Alignment.centerRight, child: _forgotPasswordButton()),
             _errorMessage(),
             _submitButton(),
