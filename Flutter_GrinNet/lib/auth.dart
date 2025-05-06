@@ -13,6 +13,7 @@ class Auth {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  // Send a email to the given address that allows the user to reset their password with Firebase
   Future<void> sendForgotPasswordLink(String emailAddress) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: emailAddress);

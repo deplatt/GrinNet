@@ -39,12 +39,11 @@ class ForgotPasswordPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   final email = emailController.text;
-                  if (email.length < 13 || email.substring(email.length - 13) != "@grinnell.edu") {
-                    // TODO: Add snackbar to say invalid email
-
+                  if (email.length < 13 || email.substring(email.length - 13).toLowerCase() != "@grinnell.edu") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Email not recognized. Check the spelling and try again.")));
                   }
                   else {
-                    // TODO: Handle send email logic
+                    Auth().sendForgotPasswordLink(email);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("A recovery email has been sent to $email")));
                     Navigator.pop(context);
                   }
