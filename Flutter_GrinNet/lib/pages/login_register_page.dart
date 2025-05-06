@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
       // Ensure that the entered email ends with "@grinnell.edu"
       final email = _controllerEmail.text;
 
-      if (email.length < 13 || email.substring(email.length - 13) != "@grinnell.edu") {
+      if (email.length < 13 || email.substring(email.length - 13).toLowerCase() != "@grinnell.edu") {
         setState(() {
           errorMessage = "Please enter your grinnell.edu email.";
         });      
