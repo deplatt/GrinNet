@@ -43,17 +43,31 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   // Pick event date from calendar
-  Future<void> _pickEventDate() async {
-    final DateTime? picked = await showDatePicker(
+  Future<void> _pickEventDateTime() async {
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now().add(Duration(days: 1)),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(Duration(days: 365)),
     );
-    if (picked != null) {
-      setState(() {
-        _selectedEventDate = picked;
-      });
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        setState(() {
+          _selectedEventDate = DateTime(
+            pickedDate.year,
+            pickedDate.month,
+            pickedDate.day,
+            pickedTime.hour,
+            pickedTime.minute,
+          );
+        });
+      }
     }
   }
 
@@ -187,7 +201,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _pickEventDate,
+                onPressed: _pickEventDateTime,
                 child: Text(eventDateLabel),
               ),
               SizedBox(height: 20),
