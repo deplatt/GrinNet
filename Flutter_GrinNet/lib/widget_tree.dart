@@ -113,15 +113,11 @@ class _WidgetTreeState extends State<WidgetTree> {
     return StreamBuilder(
       stream: Auth().authStateChanges,
       builder: (context, snapshot) {
-        final user = snapshot.data;
-
-        // Show loading indicator while data is being fetched.
-        if (_loading) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
-        }
-
-        // If user is not signed in, show login page.
-        if (user == null) {
+        if (snapshot.hasData) {
+          // If the user logged in sucessfully, go to the homepage
+          return EventFeedScreen();
+        } else {
+          // If the user didn't log in successfully, keep them at the sign-in page
           return const LoginPage();
         }
 

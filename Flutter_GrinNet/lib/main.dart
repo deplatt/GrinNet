@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
+import 'pages/login_register_page.dart';
 import 'api_service.dart';
 import 'pages/profile_page.dart';
 
@@ -38,6 +39,17 @@ class GrinNetApp extends StatelessWidget {
           selectedColor: Colors.blueGrey,
           secondarySelectedColor: Colors.blueGrey,
         ),
+      // Sets the app to use a dark theme with a black background.
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        cardColor: Colors.grey[900],
+        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
+        chipTheme: ChipThemeData(
+          backgroundColor: Colors.grey[800]!,
+          labelStyle: TextStyle(color: Colors.white),
+          selectedColor: Colors.blueGrey,
+          secondarySelectedColor: Colors.blueGrey,
+        ),
       ),
       // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
@@ -55,6 +67,9 @@ class Event {
   final int postId;         // postId for report feature
   final int userId;         // userId for report feature
 
+  final int postId;         // postId for report feature
+  final int userId;         // userId for report feature
+
 
   Event({
     required this.username,
@@ -62,6 +77,8 @@ class Event {
     required this.profileImageUrl,
     required this.text,
     required this.tags,
+    required this.postId,
+    required this.userId,
     required this.postId,
     required this.userId,
   });
@@ -93,6 +110,8 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           tags: tags,
           postId: post.post_id,
           userId: post.creator,
+          postId: post.post_id,
+          userId: post.creator,
         );
       }).toList();
 
@@ -109,6 +128,8 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
     super.initState();
     _loadPosts();
   }
+
+  
 
   void _navigateToCreatePostScreen() async {
     final didCreatePost = await Navigator.push(
