@@ -5,6 +5,7 @@ import 'package:firebase_test2/auth.dart';
 import 'package:firebase_test2/pages/global.dart';
 import 'package:firebase_test2/pages/login_register_page.dart';
 import 'package:firebase_test2/pages/verification_page.dart';
+import 'package:firebase_test2/pages/verification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'main.dart';
@@ -113,11 +114,15 @@ class _WidgetTreeState extends State<WidgetTree> {
     return StreamBuilder(
       stream: Auth().authStateChanges,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          // If the user logged in sucessfully, go to the homepage
-          return EventFeedScreen();
-        } else {
-          // If the user didn't log in successfully, keep them at the sign-in page
+        final user = snapshot.data;
+
+        // Show loading indicator while data is being fetched.
+        if (_loading) {
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+
+        // If user is not signed in, show login page.
+        if (user == null) {
           return const LoginPage();
         }
 
