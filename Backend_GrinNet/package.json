@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "functions.js",
   "scripts": {
-    "test": "mocha test.js app.test.js image_app.test.js",
+    "test": "mocha *.test.js test.js",
     "docs": "jsdoc -c jsdoc.json",
     "start_server1": "node app.js",
     "start_server2": "node image_upload_app.js",

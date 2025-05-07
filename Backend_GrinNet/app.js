@@ -28,6 +28,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const config = require('./config');
+const cron = require('node-cron');
 const app = express();
 const {
   createUser,
@@ -41,6 +42,7 @@ const {
   deletePost,
   getAllPosts,
   clearDatabase,
+  cleanupExpiredPosts,
   reportPost,
   dismissReport
 } = require('./functions');
@@ -312,7 +314,18 @@ app.delete('/reports/:id', async (req, res) => {
   }
 });
 
-/* ======================== Server Startup ======================== */
+/* ======================== Server Startup/Maintenance ======================== */
+
+// Run every day at midnight. Cleans up expired posts.
+cron.schedule('0 0 * * *', async () => {
+  logger('[CRON] Running cleanupExpiredPosts...');
+  try {
+    await cleanupExpiredPosts();
+    logger('[CRON] Cleanup completed.');
+  } catch (err) {
+    logger('[CRON] Cleanup failed: ' + err.message);
+  }
+});
 
 /**
  * Start the GrinNet backend server

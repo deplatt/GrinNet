@@ -187,7 +187,7 @@ async function deletePost(postId) {
 }
 
 /**
- * Fetches all active posts (not terminated or not expired).
+ * Fetches all active and non-expired posts.
  *
  * @returns {Promise<Array>} Array of post objects
  */
@@ -203,7 +203,8 @@ async function getAllPosts() {
       u.username
     FROM posts p 
     JOIN users u ON p.creator = u.id
-    WHERE p.date_of_termination IS NULL OR p.date_of_termination > CURRENT_TIMESTAMP
+    WHERE (p.date_of_termination IS NULL OR p.date_of_termination > CURRENT_TIMESTAMP)
+      AND (p.event_date IS NULL OR p.event_date + interval '1 day' > CURRENT_TIMESTAMP)
     ORDER BY p.date_created DESC;
   `;
   const result = await query(selectQuery);
@@ -227,6 +228,32 @@ async function clearDatabase() {
       console.error("Error deleting:", file, err.message);
     }
   });
+}
+
+/**
+ * Deletes all posts whose event_date + 1 day has passed,
+ * only if they are terminated and have no reports.
+ */
+async function cleanupExpiredPosts() {
+  const expiredQuery = `
+    SELECT p.post_id
+    FROM posts p
+    LEFT JOIN reports r ON p.post_id = r.post_id
+    WHERE p.event_date IS NOT NULL
+      AND p.event_date + interval '1 day' < CURRENT_TIMESTAMP
+      AND p.date_of_termination IS NOT NULL
+    GROUP BY p.post_id, p.date_of_termination
+    HAVING COUNT(r.report_id) = 0;
+  `;
+  const result = await query(expiredQuery);
+
+  for (const row of result.rows) {
+    try {
+      await deletePost(row.post_id);
+    } catch (err) {
+      console.error(`Failed to delete post ${row.post_id}:`, err.message);
+    }
+  }
 }
 
 /* ======================== Report Functions ======================== */
@@ -285,6 +312,8 @@ module.exports = {
   deletePost,
   getAllPosts,
   clearDatabase,
+  cleanupExpiredPosts,
   reportPost,
-  dismissReport
+  dismissReport,
+  query
 };

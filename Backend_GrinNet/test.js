@@ -16,6 +16,10 @@ db.clearDatabase();
 
 /* ======================== User Function Tests ======================== */
 describe('User Functions', function () {
+  beforeEach(async () => {
+    await db.clearDatabase(); // Ensure no leftover data
+  });
+
   let user;
 
   // Clean up any created users after each test
@@ -149,6 +153,10 @@ describe('Post Functions', function () {
 
   /* Nested: Get All Posts Tests */
   describe('getAllPosts Function', function () {
+    beforeEach(async () => {
+      await db.clearDatabase(); // Ensure no leftover data
+    });
+    
     let user, post1, post2, terminatedPost;
 
     beforeEach(async function () {
@@ -195,8 +203,65 @@ describe('Post Functions', function () {
   });
 });
 
+describe('Post Cleanup Tests', () => {
+  beforeEach(async () => {
+    await db.clearDatabase(); // Ensure no leftover data
+  });
+
+  it('should delete expired posts after event date + 1 day', async () => {
+    const user = await db.createUser('janedoe', 'Bio', '');
+    
+    const now = new Date();
+    const pastEvent = new Date(now.getTime() - 2 * 86400000); // 2 days ago
+
+    // This post is expired
+    await db.createPost(user.id, 'Old event', '', ['misc'], pastEvent.toISOString());
+
+    const resultBefore = await require('./functions').query(`SELECT COUNT(*) FROM posts`);
+    expect(parseInt(resultBefore.rows[0].count)).to.equal(1);
+
+    await db.cleanupExpiredPosts();
+
+    const resultAfter = await require('./functions').query(`SELECT COUNT(*) FROM posts`);
+    expect(parseInt(resultAfter.rows[0].count)).to.equal(0);
+  });
+
+  it('should NOT delete reported expired post', async () => {
+    const user = await db.createUser('expiredUser');
+    const reporter = await db.createUser('repUser');
+    const pastEvent = new Date(Date.now() - 2 * 86400000); // 2 days ago
+  
+    const post = await db.createPost(user.id, 'Reported expired', '', ['misc'], pastEvent.toISOString());
+    await db.terminatePost(post.post_id);
+    await db.reportPost(user.id, 'Abuse', post.post_id, reporter.id);
+  
+    await db.cleanupExpiredPosts();
+    const result = await db.query('SELECT COUNT(*) FROM posts');
+    expect(parseInt(result.rows[0].count)).to.equal(1);
+  
+    await db.clearDatabase();
+  });
+
+  it('should keep future events', async () => {
+    const user = await db.createUser('futureGuy');
+    const futureEvent = new Date(Date.now() + 86400000); // Tomorrow
+  
+    await db.createPost(user.id, 'Future event', '', ['misc'], futureEvent.toISOString());
+  
+    await db.cleanupExpiredPosts();
+    const result = await db.query('SELECT COUNT(*) FROM posts');
+    expect(parseInt(result.rows[0].count)).to.equal(1);
+  
+    await db.clearDatabase();
+  });
+});
+
 /* ======================== Report Function Tests ======================== */
 describe('Report Functions', function () {
+  beforeEach(async () => {
+    await db.clearDatabase(); // Ensure no leftover data
+  });
+  
   let user, reporter, post, report;
 
   beforeEach(async function () {
@@ -236,6 +301,7 @@ describe('Post Tag Validation', function () {
   let user, post;
 
   beforeEach(async function () {
+    await db.clearDatabase(); // Ensure no leftover data
     user = await db.createUser('tagTester');
   });
 
