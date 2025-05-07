@@ -200,7 +200,9 @@ async function getAllPosts() {
       p.post_image,
       p.post_tags,
       u.profile_picture,
-      u.username
+      u.username,
+      p.creator,
+      p.post_id
     FROM posts p 
     JOIN users u ON p.creator = u.id
     WHERE (p.date_of_termination IS NULL OR p.date_of_termination > CURRENT_TIMESTAMP)

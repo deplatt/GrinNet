@@ -30,6 +30,7 @@ const cors = require('cors');
 const config = require('./config');
 const cron = require('node-cron');
 const app = express();
+
 const {
   createUser,
   banUser,
@@ -44,7 +45,8 @@ const {
   clearDatabase,
   cleanupExpiredPosts,
   reportPost,
-  dismissReport
+  dismissReport,
+  query
 } = require('./functions');
 
 // ========== Logging Setup ==========
