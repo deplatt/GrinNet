@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
+// importing the report post function already defined in api_service.dart
+import '../api_service.dart' ;
 
 // This is the screen that shows a post in greater detail
 // when the user clicks on a post in the homepage
@@ -42,6 +44,37 @@ class ViewPostScreen extends StatelessWidget {
             Text(
               event.text,
               style: TextStyle(fontSize: 18.0),
+            ),
+
+            SizedBox(height: 24.0),  // space before report button
+
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent, // signal a destructive action
+                ),
+                child: Text('Report User'),
+                onPressed: () async {
+                  // Call the existing reportPost() helper
+                  final response = await reportPost(
+                    reportedUser:    event.userId, /* TODO: put the reported user's ID here */
+                    complaintText:   'Inappropriate content',   // or prompt user
+                    postId:          event.postId, /* TODO: put this post's ID here */
+                    reporterUser:    1, /* TODO: put current user's ID here */
+                  );
+
+                  // Give user feedback
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        response.statusCode == 201
+                          ? 'Report submitted successfully.'
+                          : 'Failed to submit report.',
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),

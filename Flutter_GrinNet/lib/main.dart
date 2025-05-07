@@ -5,14 +5,7 @@ import 'firebase_options.dart';
 import 'pages/create_post.dart';
 import 'pages/view_post.dart';
 import 'api_service.dart';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-
-final String imageBaseUrl = kIsWeb
-    ? 'http://localhost:4000'
-    : Platform.isAndroid
-        ? 'http://10.0.2.2:4000'
-        : 'http://localhost:4000';
+import 'pages/profile_page.dart';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -34,8 +27,17 @@ class GrinNetApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GrinNet',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      // Sets the app to use a dark theme with a black background.
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        cardColor: Colors.grey[900],
+        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
+        chipTheme: ChipThemeData(
+          backgroundColor: Colors.grey[800]!,
+          labelStyle: TextStyle(color: Colors.white),
+          selectedColor: Colors.blueGrey,
+          secondarySelectedColor: Colors.blueGrey,
+        ),
       ),
       // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
@@ -50,6 +52,9 @@ class Event {
   final String profileImageUrl;  // User's profile picture
   final String text;        // Event description text.
   final List<String> tags;       // List of tags associated with the event.
+  final int postId;         // postId for report feature
+  final int userId;         // userId for report feature
+
 
   Event({
     required this.username,
@@ -57,6 +62,8 @@ class Event {
     required this.profileImageUrl,
     required this.text,
     required this.tags,
+    required this.postId,
+    required this.userId,
   });
 }
 
@@ -84,6 +91,8 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           profileImageUrl: post.userProfilePicture.isNotEmpty ? '$imageBaseUrl/${post.userProfilePicture}' : '',
           text: post.postText,
           tags: tags,
+          postId: post.post_id,
+          userId: post.creator,
         );
       }).toList();
 
@@ -102,16 +111,31 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   }
 
   void _navigateToCreatePostScreen() async {
-    final newEvent = await Navigator.push(
+    final didCreatePost = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CreatePostScreen()),
     );
 
-    // If a new event is returned, add it to the beginning of the events list.
-    if (newEvent != null) {
-      setState(() {
-        events.insert(0, newEvent);
-      });
+    if (didCreatePost == true) {
+      // Show loading indicator while waiting
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+
+      // Short delay to give backend time to save image + data
+      await Future.delayed(Duration(seconds: 1));
+
+      // Refresh posts from backend
+      await _loadPosts();
+
+      // Dismiss loading indicator
+      Navigator.pop(context);
     }
   }
 
@@ -225,53 +249,6 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-// Profile screen displaying a list of events associated with the user.
-class ProfileScreen extends StatelessWidget {
-  final List<Event> events;
-
-  const ProfileScreen({super.key, required this.events});
-
-  void _navigateToSettingsScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SettingsScreen()),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // App bar includes a settings button.
-      appBar: AppBar(
-        title: Text('Profile'),
-        actions: [
-          IconButton(icon: Icon(Icons.settings), onPressed: () => _navigateToSettingsScreen(context)),
-        ],
-      ),
-      // Display list of events with basic details.
-      body: ListView(
-        children: events.map((event) => ListTile(
-          title: Text(event.text),
-          subtitle: Text('Posted by ${event.username}'),
-        )).toList(),
-      ),
-    );
-  }
-}
-
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
-      // Placeholder content for changing settings.
-      body: Center(child: Text('Change Username and Password Settings Here')),
     );
   }
 }

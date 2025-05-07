@@ -34,6 +34,11 @@ Future<http.Response> createUser(String username, String bioText, String profile
   );
 }
 
+// Get a user
+Future<http.Response> getUser(int userId) {
+  return http.get(Uri.parse('$baseUrl/users/$userId'));
+}
+
 // Ban a user
 Future<http.Response> banUser(int userId) {
   return http.put(Uri.parse('$baseUrl/users/$userId/ban'));
@@ -65,6 +70,12 @@ Future<http.Response> changeProfilePicture(int userId, String newProfilePicture)
 // Delete user
 Future<http.Response> deleteUser(int userId) {
   return http.delete(Uri.parse('$baseUrl/users/$userId'));
+}
+
+// Get a user ID by username
+Future<http.Response> getUserByUsername(String username) {
+  final uri = Uri.parse('$baseUrl/users?username=$username');
+  return http.get(uri);
 }
 
 
@@ -131,6 +142,8 @@ class Post {
   final String postTags;
   final String postPicture;
   final String posterUsername;
+  final int post_id;
+  final int creator;
 
   Post({
     required this.creationDate,
@@ -140,6 +153,8 @@ class Post {
     required this.postTags,
     required this.postPicture,
     required this.posterUsername,
+    required this.post_id,
+    required this.creator,
   });
 
   // Parse from JSON map
@@ -152,6 +167,8 @@ class Post {
       postTags: json['post_tags'].toString(),
       postPicture: json['post_image'],
       posterUsername: json['username'], 
+      post_id: json['post_id'],
+      creator: json['creator'],
     );
   }
 }
@@ -160,7 +177,7 @@ class Post {
 Future<List<Post>> getAllPosts() async {
   final response = await http.get(Uri.parse('$baseUrl/posts'));
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200) {  
     // Parse the JSON list and return a list of Post objects
     List<dynamic> postsJson = jsonDecode(response.body);
     List<Post> posts = postsJson.map((json) => Post.fromJson(json)).toList();

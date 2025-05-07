@@ -2,16 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../api_service.dart';
-import '../main.dart';
 import 'global.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/foundation.dart';
-
-final String imageBaseUrl = kIsWeb
-    ? 'http://localhost:4000'
-    : Platform.isAndroid
-        ? 'http://10.0.2.2:4000'
-        : 'http://localhost:4000';
 
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({super.key});
@@ -110,6 +102,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     }
 
     try {
+      print("Trying to submit post. Global.userId = $currentUserId");
+
       final response = await createPost(
         currentUserId,
         postText,
@@ -119,14 +113,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       );
 
       if (response != null && response.statusCode == 201) {
-        final newEvent = Event(
-          username: 'current_user',
-          imageUrl: postImagePath.isNotEmpty ? 'imageBaseUrl/$postImagePath' : '',
-          profileImageUrl: '',
-          text: postText,
-          tags: selectedTags.toList(),
-        );
-        Navigator.pop(context, newEvent);
+        Navigator.pop(context, true); // signal that a post was created
       } else {
         final status = response?.statusCode ?? 'unknown';
         ScaffoldMessenger.of(context).showSnackBar(
@@ -139,7 +126,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
