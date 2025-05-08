@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login_register_page.dart';
 import 'package:provider/provider.dart';
 import '../Theme_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 
 
@@ -15,9 +16,9 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _isDarkMode = true;
-  bool _notificationsEnabled = true;
+  bool _notificationsEnabled = false;
   String? username;
+  File? _profileImage;
 
   @override
   void initState() {
@@ -33,6 +34,169 @@ class _SettingsPageState extends State<SettingsPage> {
       SnackBar(content: Text("Navigate to $route")),
     );
   }
+
+  void _showChangePasswordDialog() {
+  final TextEditingController currentPassword = TextEditingController();
+  final TextEditingController newPassword = TextEditingController();
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Change Password"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: currentPassword,
+              obscureText: true,
+              decoration: const InputDecoration(labelText: "Current Password"),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: newPassword,
+              obscureText: true,
+              decoration: const InputDecoration(labelText: "New Password"),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              "Remember: Password must be at least 6 characters.",
+              style: TextStyle(fontSize: 12, color: Colors.black),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            child: const Text("Cancel"),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TextButton(
+            child: const Text("Update"),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await _changePassword(
+                currentPassword.text,
+                newPassword.text,
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+// Pop up dialog for deleting account
+// This dialog will ask for the password to confirm the deletion
+// and will delete the account if the password is correct
+// It will also log out the user and navigate to the login page
+void _showDeleteAccountDialog() {
+  final TextEditingController _passwordController = TextEditingController();
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Delete Account"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text("Please confirm your password to delete your account. This action is irreversible."),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: "Password",
+              ),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Cancel"),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TextButton(
+            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+            onPressed: () async {
+              Navigator.of(context).pop(); // Close the dialog first
+              await DeleteAccount(_passwordController.text);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> _pickProfileImage() async {
+  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  
+  if (pickedFile != null) {
+    setState(() {
+      _profileImage = File(pickedFile.path);
+    });
+  }
+}
+
+
+
+Future<void> _changePassword(String currentPassword, String newPassword) async {
+  final user = FirebaseAuth.instance.currentUser;
+
+  if (user == null || user.email == null) return;
+
+  try {
+    // Reauthenticate first
+    final cred = EmailAuthProvider.credential(
+      email: user.email!,
+      password: currentPassword,
+    );
+
+    await user.reauthenticateWithCredential(cred);
+
+    // Then update password
+    await user.updatePassword(newPassword);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Password updated successfully!")),
+    );
+  } on FirebaseAuthException catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Error: ${e.message}")),
+    );
+  }
+}
+
+
+Future<void> DeleteAccount(String password) async {
+  try {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && user.email != null) {
+      final cred = EmailAuthProvider.credential(
+        email: user.email!,
+        password: password,
+      );
+
+      await user.reauthenticateWithCredential(cred);
+
+      // ADD CODE TO DELETE USER DATA FROM DATABASE HERE
+      await user.delete();
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+        (route) => false,
+      );
+    }
+  } on FirebaseAuthException catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Error: ${e.message}")),
+    );
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +221,9 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 CircleAvatar(
                   radius: 70,
-                  backgroundImage: AssetImage('assets/placeholder.png'), // Replace with user image
+                   backgroundImage: _profileImage != null
+                    ? FileImage(_profileImage!) // Use the selected image
+                     : const AssetImage('images/BlankProfile.png') as ImageProvider, // Default image
                 ),
                 Positioned(
                   bottom: 0,
@@ -68,11 +234,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       icon: const Icon(Icons.camera_alt, size: 18, color: Colors.blue),
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Change profile picture")),
-                        );
-                      },
+                      onPressed: _pickProfileImage,
                     ),
                   ),
                 ),
@@ -133,21 +295,18 @@ class _SettingsPageState extends State<SettingsPage> {
     ListTile(
       title: const Text("Change Password"),
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Navigate to Change Password")),
-        );
-      },
-    ),
-    ListTile(
-      title: const Text("Delete Account"),
-      trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () => _navigateTo("/language-settings"),
+      onTap: _showChangePasswordDialog,
     ),
     ListTile(
       title: const Text("Privacy Policy"),
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () => _navigateTo("/privacy-policy"),
+  
+    ),
+    ListTile(
+      title: const Text("Delete Account"),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      leading: const Icon(Icons.delete_forever, color: Colors.red),
+       onTap: () => _showDeleteAccountDialog(),
     ),
     ListTile(
       title: const Text("Log Out"),
