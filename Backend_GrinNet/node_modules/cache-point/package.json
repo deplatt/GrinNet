@@ -1,0 +1,54 @@
+{
+  "name": "cache-point",
+  "author": "Lloyd Brookes <opensource@75lb.com>",
+  "version": "3.0.1",
+  "description": "Simple, filesystem-backed memoisation cache.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/75lb/cache-point.git"
+  },
+  "type": "module",
+  "exports": {
+    "import": "./index.js",
+    "require": "./dist/index.cjs"
+  },
+  "keywords": [
+    "memoisation",
+    "memoization",
+    "cache",
+    "file",
+    "store"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.17"
+  },
+  "scripts": {
+    "test": "npm run dist && npm run test:ci",
+    "test:ci": "75lb-nature test-runner test/async.js test/sync.js",
+    "dist": "75lb-nature cjs-build index.js",
+    "docs": "75lb-nature jsdoc2md -t README.hbs index.js > README.md"
+  },
+  "dependencies": {
+    "array-back": "^6.2.2"
+  },
+  "peerDependencies": {
+    "@75lb/nature": "latest"
+  },
+  "peerDependenciesMeta": {
+    "@75lb/nature": {
+      "optional": true
+    }
+  },
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "standard": {
+    "ignore": [
+      "tmp",
+      "dist"
+    ],
+    "envs": []
+  }
+}

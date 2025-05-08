@@ -56,7 +56,10 @@ class Event {
   final int postId;         // postId for report feature
   final int userId;         // userId for report feature
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> af6fe98d04dbd09f4c479ff0af4ce6742a5caf70
   Event({
     required this.username,
     required this.imageUrl,
@@ -99,7 +102,11 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           text: post.postText,
           tags: tags,
           postId: post.post_id,
+<<<<<<< HEAD
           userId: post.creator,
+=======
+          userId: post.creator
+>>>>>>> af6fe98d04dbd09f4c479ff0af4ce6742a5caf70
         );
       }).toList();
 
