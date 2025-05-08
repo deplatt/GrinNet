@@ -39,17 +39,6 @@ class GrinNetApp extends StatelessWidget {
           selectedColor: Colors.blueGrey,
           secondarySelectedColor: Colors.blueGrey,
         ),
-      // Sets the app to use a dark theme with a black background.
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        cardColor: Colors.grey[900],
-        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
-        chipTheme: ChipThemeData(
-          backgroundColor: Colors.grey[800]!,
-          labelStyle: TextStyle(color: Colors.white),
-          selectedColor: Colors.blueGrey,
-          secondarySelectedColor: Colors.blueGrey,
-        ),
       ),
       // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
@@ -67,18 +56,12 @@ class Event {
   final int postId;         // postId for report feature
   final int userId;         // userId for report feature
 
-  final int postId;         // postId for report feature
-  final int userId;         // userId for report feature
-
-
   Event({
     required this.username,
     required this.imageUrl,
     required this.profileImageUrl,
     required this.text,
     required this.tags,
-    required this.postId,
-    required this.userId,
     required this.postId,
     required this.userId,
   });
@@ -109,9 +92,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           text: post.postText,
           tags: tags,
           postId: post.post_id,
-          userId: post.creator,
-          postId: post.post_id,
-          userId: post.creator,
+          userId: post.creator
         );
       }).toList();
 
