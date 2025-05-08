@@ -1,162 +1,132 @@
-import 'dart:convert';
-import 'package:firebase_test2/pages/forgot_pass_page.dart';
+import 'package:firebase_test2/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
-import '../api_service.dart';
-import 'global.dart';
-import'../widget_tree.dart';
+import '../widget_tree.dart';
 
 // This is the page for the user to log in or create their account from. It greets the user upon opening the app
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final Auth? auth;
+  const LoginPage({super.key, this.auth});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();  
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String? errorMessage = '';
   bool isLogin = true;
+  bool isLoading = false;
+  String errorMessage = '';
 
   // Text fields for email and password
-  final TextEditingController _controllerEmail = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
+  final _controllerEmail = TextEditingController();
+  final _controllerPassword = TextEditingController();
 
-  // Function for sending sign-in info to firebase
-  Future<void> signInWithEmailAndPassword() async {
+  void toggleLoginMode() {
+    setState(() {
+      isLogin = !isLogin;
+      errorMessage = '';
+    });
+  }
+
+  void setError(String message) {
+    setState(() {
+      errorMessage = message;
+      isLoading = false;
+    });
+  }
+
+  // Function for sending sign-in info to firebase. Changed to make it to where it uses the widget tree.
+  Future<void> handleLogin() async {
+    setState(() => isLoading = true);
     try {
-      await Auth().signInWithEmailAndPassword(
-        email: _controllerEmail.text, 
-        password: _controllerPassword.text,
+      await (widget.auth ?? Auth()).signInWithEmailAndPassword(
+        email: _controllerEmail.text.trim(),
+        password: _controllerPassword.text.trim(),
       );
-      Global.username = _controllerEmail.text.split('@')[0];
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const WidgetTree()),
-     );
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const WidgetTree()));
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        // errorMessage = e.message;
-        errorMessage = "Credentials do not match, or account does not exist";
-      });
-    }
-  }
-
-  // Function for sending new account info to Firebase and Postgresql.
-  // Firebase handles authentication, but we still need postgre to know what user is making a post.
-  Future<void> createUserWithEmailAndPassword() async {
-    try {
-
-      // Ensure that the entered email ends with "@grinnell.edu"
-      final email = _controllerEmail.text;
-
-      if (email.length < 13 || email.substring(email.length - 13) != "@grinnell.edu") {
-        setState(() {
-          errorMessage = "Please enter your grinnell.edu email.";
-        });      
-      }
-      else {
-        // Send firebase the email and password to create an account with
-        await Auth().createUserWithEmailAndPassword(
-          email: _controllerEmail.text, 
-          password: _controllerPassword.text,
-        );
-        String username = _controllerEmail.text.split('@')[0];
-        Global.username = username;
-        
-        // Send username to postgre (201 means success)
-        final response = await createUser(username, "", "");
-        if (response.statusCode != 201) {
-          throw Exception('Failed to create user on API');
-        }
-
-        final userData = jsonDecode(response.body);
-        Global.userId = userData['id'];
-      }      
-    } on FirebaseAuthException catch (e) {
-      // Check if there were any errors with firebase (invalid input, etc)
-      setState(() {
-        errorMessage = e.message;
-      });
+      setError('Login failed: ${e.message}');
     } catch (e) {
-      setState(() {
-        errorMessage = e.toString();
-      });
+      setError('Unexpected error: $e');
     }
   }
 
-  Widget _title() {
-    return const Text('GrinNet');
-  }
+  // Function to handle registering as a user.
+  Future<void> handleRegister() async {
+    setState(() => isLoading = true);
+    final email = _controllerEmail.text.trim();
+    final password = _controllerPassword.text.trim();
 
-  Widget _entryField(
-    String title,
-    TextEditingController controller,
-  ) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: title,
-      )
-    );
-  }
+    if (!email.endsWith('@grinnell.edu')) {
+      setError('Please use your @grinnell.edu email.');
+      return;
+    }
 
-  Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : '$errorMessage');
-  }
+    try {
+      // Step 1: Create Firebase user
+      await (widget.auth ?? Auth()).createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-  // Button the user clicks to submit their info
-  Widget _submitButton() {
-    return ElevatedButton(
-      onPressed: isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      child: Text(isLogin ? 'Login' : 'Register'),
-    );
-  }
+      // Step 2: Call Express backend to store the user in Postgres
+      final username = email.split('@')[0];
+      final response = await createUser(username, "", ""); // default bio/pfp
+      if (response.statusCode != 201) {
+        throw Exception('Backend user creation failed: ${response.body}');
+      }
 
-  // Button to switch between logging in and registering
-  Widget _loginOrRegisterButton() {
-    return TextButton(
-      onPressed: () {
-        setState(() {
-          isLogin = !isLogin;
-        });
-      },
-      child: Text(isLogin ? 'I want to create an account' : 'I already have an account'),
-    );
-  }
-
-  // Button to switch between logging in and registering
-  Widget _forgotPasswordButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
-      },
-      child: Text(isLogin? "Forgot Password?": ""),
-    );
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const WidgetTree()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        setError('This email is already registered. Please log in.');
+      } else {
+        setError('Registration failed: ${e.message}');
+      }
+    } catch (e) {
+      setError('Unexpected error: $e');
+    }
   }
 
   // UI containing the input fields for users and submiting button
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _title(),
-      ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _entryField('Email', _controllerEmail),
-            _entryField('Password', _controllerPassword),
-            Align(alignment: Alignment.centerRight, child: _forgotPasswordButton()),
-            _errorMessage(),
-            _submitButton(),
-            _loginOrRegisterButton(),
-          ],
+      appBar: AppBar(title: const Text('GrinNet')),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              TextField(
+                controller: _controllerEmail,
+                decoration: const InputDecoration(labelText: 'Email'),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _controllerPassword,
+                obscureText: true,
+                decoration: const InputDecoration(labelText: 'Password'),
+              ),
+              const SizedBox(height: 10),
+              if (errorMessage.isNotEmpty)
+                Text(errorMessage, style: const TextStyle(color: Colors.red)),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: isLoading ? null : (isLogin ? handleLogin : handleRegister),
+                child: isLoading
+                    ? const CircularProgressIndicator()
+                    : Text(isLogin ? 'Login' : 'Create Account'),
+              ),
+              TextButton(
+                onPressed: toggleLoginMode,
+                child: Text(isLogin ? 'I want to create an account' : 'I already have an account'),
+              ),
+            ],
+          ),
         ),
       ),
     );

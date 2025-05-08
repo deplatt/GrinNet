@@ -18,7 +18,8 @@ CREATE TABLE posts (
     post_text TEXT,
     post_tags TEXT[] NOT NULL,  -- Must have at least one tag.
     creator INTEGER NOT NULL,
-    FOREIGN KEY (creator) REFERENCES users(id)
+    FOREIGN KEY (creator) REFERENCES users(id),
+    event_date TIMESTAMP
 );
 
 -- Create a trigger function to normalize and validate post_tags.

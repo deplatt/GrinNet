@@ -55,7 +55,7 @@ https://trello.com/b/oLoye0oC/grinnet
    - On Windows, the SQL shell executable should be somewhere in C://Program files/PostgreSQL/xx (whatever your version of postgreSQL is). In ~/scripts/, there is a .bat file called runpsql.bat that you can run. This can vary by version, though.
    - On Mac, it could be that your SQL shell is your terminal. This is the case if you installed using the command 'brew install postgresql@17'. If not, type '/Library/PostgreSQL/17/bin/psql -U postgres' in the terminal instead. If you still cannot run psql, follow what the most liked post says on this stack exchange post: 'https://dba.stackexchange.com/questions/3005/how-to-run-psql-on-mac-os-x'.
 5. **Run the command 'CREATE USER grinnetadmin WITH SUPERUSER CREATEDB PASSWORD 'csc324AdminDropTheClass!';'**
-   - You can make the username and password different, but make sure to change the 'config.js' file in the ./PostgreSQL/ directory of this project accordingly.
+   - You can make the username and password different, but make sure to change the 'config.js' file in the ./Backend_GrinNet/ directory of this project accordingly.
 6. **Open pgAdmin, navigate to the dashboard, and press 'Add New Server'.**
    - If you don't see the option, create a new server group first. Do this by right clicking the left-hand menu and selecting 'Create->Server Group'
 7. **Name the server GrinNetApp, then navigate to the 'Connection' tab.**
@@ -72,13 +72,20 @@ https://trello.com/b/oLoye0oC/grinnet
    - If you have some kind of error, it is recommended to repeat the PSQL steps in your terminal and not the pgAdmin shell. 
 
 ### Node.js
-14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./PostgreSQL/ directory.**
+14. **Open up your favorite IDE that has terminal usage capabilities. Navigate back to the directory where you put the cloned GrinNet repository. Navigate to the ./Backend_GrinNet/ directory.**
 15. **Install dependancies found in package.json with 'npm install'**
-16. **Run 'node app.js' to start up the express (node.js) server. Feel free to change the port of this express server in ~/config.js.**
+16. **Run 'npm run servers_start' to start up the node.js servers (express server to handle user data and image server to handle images). Feel free to change the port of these servers in ~/config.js.**
+17. **If you want to have some sample user + image data to play around with, run 'node populate_data.js'. If you want to test the backend code, run 'npm test'.**
 
-17. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
+18. **Congrats! You have successfully set up the backend part of GrinNet locally! Time to move onto the frontend setup...**
 
 ## Frontend
+
+1. **Install Flutter by following the instructions at this [link](https://docs.flutter.dev/get-started/install?_gl=1*mgpbu1*_gcl_aw*R0NMLjE3NDQyNTY5ODAuQ2p3S0NBand0ZGlfQmhBQ0Vpd0E5N3k4QkloNWhZYjBYTzI1TlJlN2tFNXQtUy1hREhyZVhhcUtIbkFyeEtsTTd6R0VabGJRTHhDVVpCb0NPaVVRQXZEX0J3RQ..*_gcl_dc*R0NMLjE3NDQyNTY5ODAuQ2p3S0NBand0ZGlfQmhBQ0Vpd0E5N3k4QkloNWhZYjBYTzI1TlJlN2tFNXQtUy1hREhyZVhhcUtIbkFyeEtsTTd6R0VabGJRTHhDVVpCb0NPaVVRQXZEX0J3RQ..*_ga*NTU3NDcwNzIwLjE3Mzk1MDQxOTg.*_ga_04YGWK0175*MTc0NDI1Njk4MC4xNS4wLjE3NDQyNTY5ODAuMC4wLjA.). Choose your operating system, and the reccomended first type of app.**
+2. **Clone the GrinNet, then navigate to GrinNet/Flutter_GrinNet**
+3. **Run the command ```flutter pub get```**
+4. **Next, install an emulator of your choice. It is suggested to get Android studio if you are on Linux or Windows, and Xcode if on Mac. Make sure the Virtual Machine is running when trying to run the flutter frontend.**
+5. **You should now be set up! To boot the project, run ```flutter run -d``` and observe what your emulator's ID is listed as. Run ```flutter run -d <DEVICE_ID>``` to start running the app on your VM. If you have Xcode on Mac, it could potentially be sufficient to run ```flutter run```. !!!NOTE THAT THIS APP WILL NOT WORK IN THE BROWSER OPTION!!!**
 
 ---
 

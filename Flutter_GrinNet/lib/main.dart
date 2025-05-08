@@ -7,7 +7,6 @@ import 'pages/view_post.dart';
 import 'pages/login_register_page.dart';
 import 'api_service.dart';
 import 'pages/profile_page.dart';
-import 'pages/seetings_page.dart';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -40,6 +39,17 @@ class GrinNetApp extends StatelessWidget {
           selectedColor: Colors.blueGrey,
           secondarySelectedColor: Colors.blueGrey,
         ),
+      // Sets the app to use a dark theme with a black background.
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        cardColor: Colors.grey[900],
+        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
+        chipTheme: ChipThemeData(
+          backgroundColor: Colors.grey[800]!,
+          labelStyle: TextStyle(color: Colors.white),
+          selectedColor: Colors.blueGrey,
+          secondarySelectedColor: Colors.blueGrey,
+        ),
       ),
       // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
@@ -57,6 +67,9 @@ class Event {
   final int postId;         // postId for report feature
   final int userId;         // userId for report feature
 
+  final int postId;         // postId for report feature
+  final int userId;         // userId for report feature
+
 
   Event({
     required this.username,
@@ -64,6 +77,8 @@ class Event {
     required this.profileImageUrl,
     required this.text,
     required this.tags,
+    required this.postId,
+    required this.userId,
     required this.postId,
     required this.userId,
   });
@@ -82,26 +97,24 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   // holds the current search query text
   String searchQuery = '';
 
-
   Future<void> _loadPosts() async {
     try {
-      // Retrieve posts from API.
       List<Post> posts = await getAllPosts();
-      // Map each Post to an Event object.
       List<Event> loadedEvents = posts.map((post) {
-        // Split the comma-separated tags string into a list
         List<String> tags = post.postTags.split(',');
         return Event(
           username: post.posterUsername,
-          imageUrl: post.postPicture,
-          profileImageUrl: post.userProfilePicture,
+          imageUrl: post.postPicture.isNotEmpty ? '$imageBaseUrl/${post.postPicture}' : '',
+          profileImageUrl: post.userProfilePicture.isNotEmpty ? '$imageBaseUrl/${post.userProfilePicture}' : '',
           text: post.postText,
           tags: tags,
           postId: post.post_id,
           userId: post.creator,
+          postId: post.post_id,
+          userId: post.creator,
         );
       }).toList();
-      // Update state with loaded events.
+
       setState(() {
         events = loadedEvents;
       });
@@ -119,16 +132,31 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   
 
   void _navigateToCreatePostScreen() async {
-    final newEvent = await Navigator.push(
+    final didCreatePost = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CreatePostScreen()),
     );
 
-    // If a new event is returned, add it to the beginning of the events list.
-    if (newEvent != null) {
-      setState(() {
-        events.insert(0, newEvent);
-      });
+    if (didCreatePost == true) {
+      // Show loading indicator while waiting
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+
+      // Short delay to give backend time to save image + data
+      await Future.delayed(Duration(seconds: 1));
+
+      // Refresh posts from backend
+      await _loadPosts();
+
+      // Dismiss loading indicator
+      Navigator.pop(context);
     }
   }
 

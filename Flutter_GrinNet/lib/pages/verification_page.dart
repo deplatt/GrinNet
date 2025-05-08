@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_test2/pages/login_register_page.dart';
 import 'package:firebase_test2/widget_tree.dart';
 import 'package:flutter/material.dart';
 import '../auth.dart';

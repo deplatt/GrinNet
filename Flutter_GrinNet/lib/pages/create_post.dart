@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import '../main.dart';
 import 'package:image_picker/image_picker.dart';
 import '../api_service.dart';
 import 'global.dart';
-
+import 'package:intl/intl.dart';
 
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({super.key});
@@ -14,22 +13,18 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
-
-  // Text boxes for inputting the title and description of the post
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  
-  // Available tags
+
   final List<String> allTags = [
     'Sports', 'Culture', 'Games', 'SEPCs', 'Dance', 'Music', 'Food', 'Social', 'Misc'
   ];
-
-  // Tracks which tags the user has selected
   final Set<String> selectedTags = {};
 
   File? _selectedImage;
+  DateTime? _selectedEventDate;
 
-  // Allows the user to pick an image from their computer
+  // Pick an image from gallery
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -39,56 +34,105 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     }
   }
 
+  // Pick event date from calendar
+  Future<void> _pickEventDateTime() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(days: 1)),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        setState(() {
+          _selectedEventDate = DateTime(
+            pickedDate.year,
+            pickedDate.month,
+            pickedDate.day,
+            pickedTime.hour,
+            pickedTime.minute,
+          );
+        });
+      }
+    }
+  }
+
   void _submitPost() async {
+    if (Global.userId == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("User ID not set. Please log in again.")),
+      );
+      return;
+    }
 
     final title = _titleController.text.trim();
     final description = _descriptionController.text.trim();
 
-    // Make sure there is a title, description, and at least one tag
-    if (title.isEmpty || description.isEmpty || selectedTags.isEmpty) return;
+    if (title.isEmpty || description.isEmpty || selectedTags.isEmpty || _selectedEventDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please fill in all fields, select tags, and set a date.")),
+      );
+      return;
+    }
 
     final postText = '$title\n\n$description';
     final int currentUserId = Global.userId;
+    String postImagePath = '';
+
+    // Upload image if one is selected
+    if (_selectedImage != null) {
+      try {
+        final filename = await uploadImage(_selectedImage!);
+        if (filename == null) {
+          throw Exception('Image upload failed');
+        }
+        postImagePath = 'uploads/$filename';
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to upload image: $e")),
+        );
+        return;
+      }
+    }
+
     try {
-      // Send the data to the backend
+      print("Trying to submit post. Global.userId = $currentUserId");
+
       final response = await createPost(
         currentUserId,
         postText,
-        _selectedImage != null ? _selectedImage!.path : '',
-        selectedTags.toList(),
+        postImagePath,
+        selectedTags.map((tag) => tag.toLowerCase()).toList(),  // <-- LOWERCASE TAGS
+        _selectedEventDate!.toIso8601String(),
       );
 
-      // 201 refers to the success code
-      if (response.statusCode == 201) {
-        final newEvent = Event(
-          username: 'current_user', // Placeholder
-          imageUrl: _selectedImage != null ? _selectedImage!.path : '',
-          profileImageUrl: '',
-          text: postText,
-          tags: selectedTags.toList(),
-          postId: 2,
-          userId: currentUserId,
-        );
-        
-        // Go back to the previous screen
-        Navigator.pop(context, newEvent);
+      if (response != null && response.statusCode == 201) {
+        Navigator.pop(context, true); // signal that a post was created
       } else {
-        // If the post creation failed
+        final status = response?.statusCode ?? 'unknown';
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to create post")),
+          SnackBar(content: Text("Failed to create post (status $status)")),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: $e")),
+        SnackBar(content: Text("Error creating post: $e")),
       );
     }
   }
 
-  // Handles the UI of this page. Includes buttons for creating the post and attaching images,
-  // as well as fields for text input
   @override
   Widget build(BuildContext context) {
+    final String eventDateLabel = _selectedEventDate == null
+        ? 'Select Event Date'
+        : 'Event Date: ${DateFormat.yMMMd().format(_selectedEventDate!)}';
+
     return Scaffold(
       appBar: AppBar(title: Text('Create Event Post')),
       body: Padding(
@@ -138,11 +182,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ),
                   SizedBox(width: 10),
                   if (_selectedImage != null)
-                    Text(
-                      'Image selected',
-                      style: TextStyle(color: Colors.green),
-                    )
+                    Text('Image selected', style: TextStyle(color: Colors.green)),
                 ],
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _pickEventDateTime,
+                child: Text(eventDateLabel),
               ),
               SizedBox(height: 20),
               Center(
