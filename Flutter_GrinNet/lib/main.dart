@@ -39,17 +39,6 @@ class GrinNetApp extends StatelessWidget {
           selectedColor: Colors.blueGrey,
           secondarySelectedColor: Colors.blueGrey,
         ),
-      // Sets the app to use a dark theme with a black background.
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        cardColor: Colors.grey[900],
-        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
-        chipTheme: ChipThemeData(
-          backgroundColor: Colors.grey[800]!,
-          labelStyle: TextStyle(color: Colors.white),
-          selectedColor: Colors.blueGrey,
-          secondarySelectedColor: Colors.blueGrey,
-        ),
       ),
       // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
@@ -67,9 +56,6 @@ class Event {
   final int postId;         // postId for report feature
   final int userId;         // userId for report feature
 
-  final int postId;         // postId for report feature
-  final int userId;         // userId for report feature
-
 
   Event({
     required this.username,
@@ -77,8 +63,6 @@ class Event {
     required this.profileImageUrl,
     required this.text,
     required this.tags,
-    required this.postId,
-    required this.userId,
     required this.postId,
     required this.userId,
   });
@@ -96,6 +80,12 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   List<Event> events = [];
   // holds the current search query text
   String searchQuery = '';
+  Set<String> selectedTags = {}; // Tracks selected tags for filtering
+
+  // Our predefined list of tags 
+  final List<String> allTags = [
+    'Sports', 'Culture', 'Games', 'SEPCs', 'Dance', 'Music', 'Food', 'Social', 'Misc'
+  ];
 
   Future<void> _loadPosts() async {
     try {
@@ -108,8 +98,6 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
           profileImageUrl: post.userProfilePicture.isNotEmpty ? '$imageBaseUrl/${post.userProfilePicture}' : '',
           text: post.postText,
           tags: tags,
-          postId: post.post_id,
-          userId: post.creator,
           postId: post.post_id,
           userId: post.creator,
         );
@@ -169,11 +157,18 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Filter events based on user’s search query. Filter applies to text content, tags, and username.
+     // Filter events based on search query and selected tags
     List<Event> filteredEvents = events.where((event) {
-      return event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
-          event.tags.any((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase())) || 
+      // Check if event matches search query
+      bool matchesSearch = event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
+          event.tags.any((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase())) ||
           event.username.toLowerCase().contains(searchQuery.toLowerCase());
+      
+      // Check if event has any selected tags (if tags are selected)
+      bool matchesTags = selectedTags.isEmpty || 
+          event.tags.any((tag) => selectedTags.contains(tag));
+      
+      return matchesSearch && matchesTags;
     }).toList();
 
     return Scaffold(
@@ -183,6 +178,7 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
       // Main screen body containing search, list of event cards, etc.
       body: Column(
         children: [
+          // Search Bar
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -197,6 +193,32 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                   searchQuery = value;
                 });
               },
+            ),
+          ),
+          // Tag Filter Chips
+          SizedBox(
+            height: 50,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: allTags.map((tag) {
+                  bool isSelected = selectedTags.contains(tag);
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: FilterChip(
+                      label: Text(tag),
+                      selected: isSelected,
+                      onSelected: (selected) => setState(() {
+                        if (selected) {
+                          selectedTags.add(tag);
+                        } else {
+                          selectedTags.remove(tag);
+                        }
+                      }),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ),
           Expanded(
