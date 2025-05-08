@@ -7,6 +7,8 @@ import 'pages/view_post.dart';
 import 'pages/login_register_page.dart';
 import 'api_service.dart';
 import 'pages/profile_page.dart';
+import 'package:provider/provider.dart';
+import 'Theme_provider.dart';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -16,7 +18,12 @@ Future<void> main() async {
   // Initializing Firebase with the current platform's options.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // Runs the main app widget.
-  runApp(GrinNetApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const GrinNetApp(),
+    ),
+  );
 }
 
 // Main app widget which sets up the overall MaterialApp.
@@ -25,21 +32,13 @@ class GrinNetApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GrinNet',
-      // Sets the app to use a dark theme with a black background.
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        cardColor: Colors.grey[900],
-        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
-        chipTheme: ChipThemeData(
-          backgroundColor: Colors.grey[800]!,
-          labelStyle: TextStyle(color: Colors.white),
-          selectedColor: Colors.blueGrey,
-          secondarySelectedColor: Colors.blueGrey,
-        ),
-      ),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: themeProvider.themeMode, // 👈 This switches themes
       // Sets the starting point of the app to WidgetTree.
       home: const WidgetTree(),
     );
@@ -79,6 +78,12 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   List<Event> events = [];
   // holds the current search query text
   String searchQuery = '';
+  Set<String> selectedTags = {}; // Tracks selected tags for filtering
+
+  // Our predefined list of tags 
+  final List<String> allTags = [
+    'Sports', 'Culture', 'Games', 'SEPCs', 'Dance', 'Music', 'Food', 'Social', 'Misc'
+  ];
 
   Future<void> _loadPosts() async {
     try {
@@ -152,9 +157,16 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
   Widget build(BuildContext context) {
     // Filter events based on user’s search query. Filter applies to text content, tags, and username.
     List<Event> filteredEvents = events.where((event) {
-      return event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
-          event.tags.any((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase())) || 
+      // Check if event matches search query
+      bool matchesSearch = event.text.toLowerCase().contains(searchQuery.toLowerCase()) ||
+          event.tags.any((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase())) ||
           event.username.toLowerCase().contains(searchQuery.toLowerCase());
+      
+      // Check if event has any selected tags (if tags are selected)
+      bool matchesTags = selectedTags.isEmpty || 
+          event.tags.any((tag) => selectedTags.contains(tag.toLowerCase()));
+      
+      return matchesSearch && matchesTags;
     }).toList();
 
     return Scaffold(
@@ -178,6 +190,32 @@ class _EventFeedScreenState extends State<EventFeedScreen> {
                   searchQuery = value;
                 });
               },
+            ),
+          ),
+          // Tag Filter Chips
+          SizedBox(
+            height: 50,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: allTags.map((tag) {
+                  bool isSelected = selectedTags.contains(tag);
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: FilterChip(
+                      label: Text(tag),
+                      selected: isSelected,
+                      onSelected: (selected) => setState(() {
+                        if (selected) {
+                          selectedTags.add(tag);
+                        } else {
+                          selectedTags.remove(tag);
+                        }
+                      }),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ),
           Expanded(
