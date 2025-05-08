@@ -50,6 +50,7 @@ Core tasks to finish this semester :
 6.	Additional automated tests for frontend: report feature, profile page, settings page.
 7.	Bug-fix pass – resolve failing tests on final-demo and merge to main.
 8.	Setting up a remote connection to our express and image servers.
+9.	Add Date & Time fields to posts
 
 Higher-aspiration items (post-semester)  
 - Like feature for posts
