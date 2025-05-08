@@ -1,6 +1,7 @@
 import 'package:firebase_test2/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'forgot_pass_page.dart';
 import '../auth.dart';
 import '../widget_tree.dart';
 
@@ -17,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isLogin = true;
   bool isLoading = false;
   String errorMessage = '';
+  bool hidePass = true;
 
   // Text fields for email and password
   final _controllerEmail = TextEditingController();
@@ -91,6 +93,46 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+    // A generic field for the user to enter text
+  Widget _entryField(String title, TextEditingController controller) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: title,
+      )
+    );
+  }
+
+  // A more specialized field for the user to specifically enter their password
+  Widget _passField(String title, TextEditingController controller,) {
+    return TextFormField(
+      obscureText: hidePass,
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: title,
+        suffixIcon: IconButton(
+          padding: const EdgeInsetsDirectional.only(end: 12.0),
+          icon: hidePass ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+          onPressed: () {
+            setState(() {
+              hidePass = !hidePass;
+            });
+          }
+        )
+      )
+    );
+  }
+
+  // Button to switch between logging in and registering
+  Widget _forgotPasswordButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+      },
+      child: Text(isLogin? "Forgot Password?": ""),
+    );
+  }
+
   // UI containing the input fields for users and submiting button
   @override
   Widget build(BuildContext context) {
@@ -101,16 +143,10 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              TextField(
-                controller: _controllerEmail,
-                decoration: const InputDecoration(labelText: 'Email'),
-              ),
+              _entryField("Email", _controllerEmail),
               const SizedBox(height: 10),
-              TextField(
-                controller: _controllerPassword,
-                obscureText: true,
-                decoration: const InputDecoration(labelText: 'Password'),
-              ),
+              _passField('Password', _controllerPassword),
+              Align(alignment: Alignment.centerRight, child: _forgotPasswordButton()),
               const SizedBox(height: 10),
               if (errorMessage.isNotEmpty)
                 Text(errorMessage, style: const TextStyle(color: Colors.red)),
