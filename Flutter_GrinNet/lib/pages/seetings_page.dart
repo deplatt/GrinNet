@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login_register_page.dart';
+import 'package:provider/provider.dart';
+import '../Theme_provider.dart';
 
 
 
@@ -13,7 +15,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _isDarkMode = false;
+  bool _isDarkMode = true;
   bool _notificationsEnabled = true;
   String? username;
 
@@ -114,11 +116,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
     SwitchListTile(
       title: const Text("Dark Mode"),
-      value: _isDarkMode,
+      value: Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark,
       onChanged: (value) {
-        setState(() {
-          _isDarkMode = value;
-        });
+      Provider.of<ThemeProvider>(context, listen: false).toggleTheme(value);
       },
     ),
     SwitchListTile(

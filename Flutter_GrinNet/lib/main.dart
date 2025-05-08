@@ -8,6 +8,8 @@ import 'pages/login_register_page.dart';
 import 'api_service.dart';
 import 'pages/profile_page.dart';
 import 'pages/seetings_page.dart';
+import 'package:provider/provider.dart';
+import 'Theme_provider.dart';
 
 // The main entry point for the application
 // Before running the app, we first check that we are connected to Firebase
@@ -17,7 +19,12 @@ Future<void> main() async {
   // Initializing Firebase with the current platform's options.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // Runs the main app widget.
-  runApp(GrinNetApp());
+   runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const GrinNetApp(),
+    ),
+  );
 }
 
 // Main app widget which sets up the overall MaterialApp.
@@ -26,22 +33,13 @@ class GrinNetApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final themeProvider = Provider.of<ThemeProvider>(context);
+   return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GrinNet',
-      // Sets the app to use a dark theme with a black background.
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        cardColor: Colors.grey[900],
-        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
-        chipTheme: ChipThemeData(
-          backgroundColor: Colors.grey[800]!,
-          labelStyle: TextStyle(color: Colors.white),
-          selectedColor: Colors.blueGrey,
-          secondarySelectedColor: Colors.blueGrey,
-        ),
-      ),
-      // Sets the starting point of the app to WidgetTree.
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: themeProvider.themeMode, // 👈 This switches themes
       home: const WidgetTree(),
     );
   }
