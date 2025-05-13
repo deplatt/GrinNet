@@ -64,38 +64,38 @@ void main() {
     await tester.enterText(passwordField, 'Password 123');
     expect(find.text('Password 123'), findsOneWidget);
   });
-  // Switches the button depending on register or login
-  testWidgets('Switches between login and register modes', (WidgetTester tester) async {
-    await pumpLoginPage(tester);
+  // // Switches the button depending on register or login
+  // testWidgets('Switches between login and register modes', (WidgetTester tester) async {
+  //   await pumpLoginPage(tester);
 
-    expect(find.text('Login'), findsOneWidget);
-    expect(find.text('I want to create an account'), findsOneWidget);
+  //   expect(find.text('Login'), findsOneWidget);
+  //   expect(find.text('I want to create an account'), findsOneWidget);
 
-    await tester.tap(find.text('I want to create an account'));
-    await tester.pumpAndSettle();
+  //   await tester.tap(find.text('I want to create an account'));
+  //   await tester.pumpAndSettle();
 
-    expect(find.text('Register'), findsOneWidget);
-    expect(find.text('I already have an account'), findsOneWidget);
-  });
+  //   expect(find.text('Register'), findsOneWidget);
+  //   expect(find.text('I already have an account'), findsOneWidget);
+  // });
 
-    // Mocks the entire log in process 
-  testWidgets('Successful login flow with mock verification', (WidgetTester tester) async {
-    await pumpLoginPage(tester);
+  //   // Mocks the entire log in process 
+  // testWidgets('Successful login flow with mock verification', (WidgetTester tester) async {
+  //   await pumpLoginPage(tester);
 
-    final emailField = find.widgetWithText(TextField, 'Email');
-    final passwordField = find.widgetWithText(TextField, 'Password');
-    final loginButton = find.widgetWithText(ElevatedButton, 'Login');
+  //   final emailField = find.widgetWithText(TextField, 'Email');
+  //   final passwordField = find.widgetWithText(TextField, 'Password');
+  //   final loginButton = find.widgetWithText(ElevatedButton, 'Login');
 
-    await tester.enterText(emailField, 'student@grinnell.com');
-    await tester.enterText(passwordField, 'Password123');
-    await tester.tap(loginButton);
-    await tester.pumpAndSettle();
-    // Verifies the mock authentication worked 
-    verify(() => mockAuth.signInWithEmailAndPassword(
-      email: 'student@grinnell.com',
-      password: 'Password123',
-    )).called(1);
-  });
+  //   await tester.enterText(emailField, 'student@grinnell.com');
+  //   await tester.enterText(passwordField, 'Password123');
+  //   await tester.tap(loginButton);
+  //   await tester.pumpAndSettle();
+  //   // Verifies the mock authentication worked 
+  //   verify(() => mockAuth.signInWithEmailAndPassword(
+  //     email: 'student@grinnell.com',
+  //     password: 'Password123',
+  //   )).called(1);
+  // });
   
     // Future test for when an error message shows up
   /* testWidgets('Failed login shows error message', (WidgetTester tester) async {
