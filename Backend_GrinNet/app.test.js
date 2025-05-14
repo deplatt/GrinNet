@@ -12,9 +12,6 @@ const { expect } = require('chai');
 const app = require('./app');
 const db = require('./functions.js');
 
-// Clear the database before running tests
-db.clearDatabase();
-
 describe('API Endpoints', function () {
   let userId, postId, reportId, reporterId;
 

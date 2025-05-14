@@ -15,9 +15,6 @@ const { expect } = require('chai');
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 const db = require('./functions');
 
-// Clear database before tests
-db.clearDatabase();
-
 describe('Image Upload App', function () {
   const supportedImages = ['test.jpg', 'test.png', 'test.gif', 'test.webp'];
   let uploadedFiles = [];
@@ -67,6 +64,3 @@ describe('Image Upload App', function () {
     }
   });
 });
-
-// Clear database after tests
-db.clearDatabase();
