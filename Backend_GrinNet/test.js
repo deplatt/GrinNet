@@ -11,9 +11,6 @@
 const { expect } = require('chai');
 const db = require('./functions.js');
 
-// Clear database before running all tests
-db.clearDatabase();
-
 /* ======================== User Function Tests ======================== */
 describe('User Functions', function () {
   beforeEach(async () => {

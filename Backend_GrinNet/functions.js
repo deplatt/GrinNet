@@ -317,5 +317,6 @@ module.exports = {
   cleanupExpiredPosts,
   reportPost,
   dismissReport,
-  query
+  query,
+  pool,
 };
