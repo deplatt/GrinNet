@@ -8,27 +8,68 @@ GrinNet will segment posts into broad categories such as gaming, sports, educati
 ## Repository Structure:
 ```
 GrinNet/
-├── README.md # Top-Level ReadMe file
-├── DeveloperGuidelines.md # Contains information for developers, including style guides
-├── Flutter_Tutorial # Folder containing code for a tutorial flutter app
-├── Written_Reports/ # Folder containing our Written Reports
-├── milestone-2-report.md # Report for Milestone 2
-├── Sprint_1/ # Folder containing write-ups for sprint 1
-├── Sprint_1_Images/ # Folder containing images for sprint 1
-├── s1-planning-report.md # Planning report for sprint 1
-├── s1-journal.md # Journal documenting progress for sprint 1
-├── s1-review-report.md # Sprint report for sprint 1
-├── Sprint_2/ # Folder containing write-ups for sprint 2
-├── Sprint_2_Images/ # Folder containing images for sprint 2
-├── s2-planning-report.md # Planning report for sprint 2
-├── s2-review-report.md # Sprint report for sprint 2
-├── s2-review-report.md # Sprint report for sprint 2
-├── Sprint_3/ # Folder containing write-ups for sprint 2
-├── s3-planning-report.md # Planning report for sprint 3
-├── s3-review-report.md # Sprint report for sprint 3
-├── s3-review-report.md # Sprint report for sprint 3
-
-
+├── README.md                                         # Top-Level ReadMe file
+├── DeveloperGuidelines.md                            # Contains information for developers, including style guides
+├── Written_Reports/                                  # Folder containing our Written Reports
+  ├── milestone-2-report.md                             # Report for Milestone 2
+  ├── Sprint_1/                                         # Folder containing write-ups for sprint 1
+    ├── Sprint_1_Images/                                  # Folder containing images for sprint 1
+    ├── s1-planning-report.md                             # Planning report for sprint 1
+    ├── s1-journal.md                                     # Journal documenting progress for sprint 1
+    ├── s1-review-report.md                               # Sprint report for sprint 1
+  ├── Sprint_2/                                         # Folder containing write-ups for sprint 2
+    ├── Sprint_2_Images/                                  # Folder containing images for sprint 2
+    ├── s2-planning-report.md                             # Planning report for sprint 2
+    ├── s2-journal.md                                     # Sprint Journal for sprint 2
+    ├── s2-review-report.md                               # Sprint report for sprint 2
+  ├── Sprint_3/                                         # Folder containing write-ups for sprint 3
+    ├── s3-planning-report.md                             # Planning report for sprint 3
+    ├── s3-journal.md                                     # Sprint journal for sprint 3
+    ├── s3-review-report.md                               # Sprint report for sprint 3
+  ├── Sprint_4/                                         # Folder containing write-ups for sprint 4
+    ├── Sprint_4_Images/                                  # Folder containing images for sprint 4
+    ├── s4-planning-report.md                             # Planning report for sprint 4
+    ├── s4-journal.md                                     # Sprint journal for sprint 4
+    ├── s4-review-report.md                               # Sprint report for sprint 4
+  ├── Sprint_5/                                         # Folder containing write-ups for sprint 5
+    ├── GrinNet_Blog_Post.pdf                             # Blog Post for Our Project (Link Coming soon!)
+    ├── s5-planning-report.md                             # Planning report for sprint 5
+    ├── s5-journal.md                                     # Sprint journal for sprint 5
+    ├── s5-review-report.md                               # Sprint report for sprint 5
+  ├── .github/workflows/                                # Folder containing Github Workflows for Automated testing.
+    ├── flutter-ci.yml                                    # YML files for Flutter Continuous Integration workflow
+    ├── node.js.yml                                       # YML files for Node Continuous Integration workflow
+├── Backend_GrinNet/                                  # Folder containing all code files related to the Backend
+  ├── test_assets/                                      # Contains files used for running commands through populate_data.js
+  ├── app.js                                            # Handles running GrinNet Server along with containing functions
+  ├── app.test.js                                       # Backend Tests for GrinNet server
+  ├── config.js                                         # Configuration file for Backend server
+  ├── functions.js                                      # Contains more Backend functions for server management
+  ├── image_app.test.js                                 # Test file for image uploading to Backend
+  ├── image_upload_app.js                               # File in charge of handling, resizing and uploading images
+  ├── jsdoc.json                                        # File to generate documentation from JSDoc comments in backend source code
+  ├── package-lock.json                                 # Auto-generated lock file that records the exact versions of installed dependencies
+  ├── package.json                                      # Defines project metadata, scripts, dependencies, and settings for Node.js/npm
+  ├── populate_data.js                                  # File used to populate the GrinNet app with initial users, posts, and reports for testing purposes
+  ├── schema.sql                                        # Defines structure of database
+  ├── setup.js                                          # Set up file for testing
+  ├── test.js                                           # Test file for functions in Database
+├── Flutter_GrinNet                                   # Folder containing all the Frontend and Flutter Files for GrinNet
+  ├── .dart_tool/                                       # Folder regarding Dart tool state and cache (auto-generated)
+  ├── android/                                          # Native Android code and config
+  ├── images/                                           # Folder containing Blank Profile Image
+  ├── ios/                                              # Native iOS code and config
+  ├── lib/                                              # Main Folder containing Dart source code (Main FOLDER for frontend CODE!!!)
+  ├── linux/                                            # Desktop platform support
+  ├── macos/                                            # Desktop platform support
+  ├── test/                                             # Frontend Unit Testing Folder  (Contains main frontend testing code!!!)
+  ├── web/                                              # Web-specific build and config files
+  ├── windows/                                          # Desktop platform support
+  ├── .metadata                                         # Flutter version info
+  ├── analysis_options.yaml                             # Linting and analyzer settings for Dart
+  ├── firebase.json                                     # Firebase hosting config file
+  ├── pubspec.lock                                      # Locked versions of all dependencies
+  ├── pubspec.yaml                                      # Flutter project configuration and dependencies
 ```
 
 ## Living Document Link
